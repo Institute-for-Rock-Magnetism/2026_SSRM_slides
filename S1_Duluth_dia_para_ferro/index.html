@@ -33,9 +33,9 @@
 
 <section>
   <h2>Who am I?</h2>
-  <div class="cols">
+  <div class="cols" style="align-items:flex-start">
     <div class="wide">
-      <p style="margin-bottom:0.3em"><strong>Nick Swanson-Hysell</strong></p>
+      <p style="margin:0 0 0.3em"><strong>Nick Swanson-Hysell</strong></p>
       <ul style="font-size:0.82em">
         <li>Associate Professor, Earth &amp; Environmental Sciences, University of Minnesota</li>
         <li><strong>Associate Director, Institute for Rock Magnetism</strong> — one of your instructors this week</li>
@@ -43,17 +43,17 @@
         <li>A long-running research focus on the <strong>Midcontinent Rift</strong>: including geochronology and paleomagnetism of the Duluth Complex</li>
         <li>Open science: our group's data, code, and course materials live on GitHub and in the MagIC database — approaches we will take for your project</li>
       </ul>
+      <p class="small" style="margin-top:0.6em">
+        <strong>Our group:</strong>
+        <a href="https://swanson-hysell.esci.umn.edu">swanson-hysell.esci.umn.edu</a> ·
+        <a href="https://github.com/Swanson-Hysell-Group">github.com/Swanson-Hysell-Group</a>
+      </p>
     </div>
     <div class="narrow">
       <figure>
         <img src="images/nsh_field_oman.png" alt="Nick Swanson-Hysell pointing out stratigraphy in the field in Oman" style="max-height:54vh; border-radius:8px">
         <figcaption>In the field in Oman — stratigraphic records of the Cryogenian Earth</figcaption>
       </figure>
-      <p class="small" style="margin-top:0.6em">
-        <strong>Our group:</strong><br>
-        swanson-hysell.esci.umn.edu<br>
-        github.com/Swanson-Hysell-Group
-      </p>
     </div>
   </div>
   <aside class="notes">
@@ -257,15 +257,12 @@
 
 <section>
   <h2>Where do magnetic fields come from?</h2>
-  <div class="eqbox" style="font-size:1.1em">Magnetic fields are produced by <strong>electric currents</strong>
-  and by the <strong>magnetic moments of electrons</strong>.</div>
+  <div class="eqbox" style="font-size:1.1em">moving electric charge—electric currents—and by the intrinsic spin and orbital motion of electrons.</div>
   <ul style="margin-top:0.7em">
     <li>Electron <strong>orbital motion and intrinsic spin</strong> in atoms → atomic magnetic moments — the source of every rock's magnetism</li>
     <li>Electrons <strong>flowing in wires</strong> → electromagnets — the coils that apply fields in every instrument you will use this week</li>
     <li>At the planetary scale: convecting currents in Earth's liquid iron outer core → the <strong>geomagnetic field</strong></li>
   </ul>
-  <p class="small">Isolated magnetic charges (monopoles) have never been observed —
-  the elementary magnetic entity is the <strong>dipole</strong>.</p>
   <aside class="notes">
     This single idea unifies the session: the same physics connects the coil in the VSM,
     the electrons in an olivine crystal, and the core dynamo. Everything that follows —
@@ -722,10 +719,10 @@
   <p class="tiny" style="margin-top:0.4em">Permanent moments jitter thermally and lean into the field —
   positive slope, ~100× steeper than the diamagnetic response. Raise T and watch the moments get wilder
   and κ fall (Curie's law). Still a line through the origin: <strong>no remanence, no coercivity, no memory.</strong></p>
-  <p class="tiny" style="margin-top:0.3em"><em>Caveats: the alignment is exaggerated ~10⁴× for visibility
-  (at these fields and temperatures μB/k<sub>B</sub>T ~ 10⁻⁴); the jitter is a schematic wobble, not
-  Boltzmann statistics; and the plotted M follows the exact Curie law — the arrows illustrate the mechanism,
-  they aren't summed.</em></p>
+  <p class="tiny" style="margin-top:0.3em"><em>Caveats: the alignment is greatly exaggerated for visibility
+  (even at the slider extremes of 1 T and 100 K, μB/k<sub>B</sub>T ≈ 0.03, so a faithful drawing would look
+  nearly random); the jitter is a schematic wobble, not Boltzmann statistics, such that the plotted M follows
+  the Curie law with the arrows illustrating the mechanism but not being summed for the result.</em></p>
   <aside class="notes">
     Start at zero field: the moments exist (unlike the diamagnet) but point randomly — zero
     net M. Drag B up: they lean in. Then drag temperature from 300 K to 900 K at fixed B and
@@ -956,7 +953,7 @@
 </section>
 
 <section>
-  <h2>Ferromagnetism dies at the Curie temperature</h2>
+  <h2>Ferromagnetism is gone at the Curie temperature</h2>
   <div class="cols">
     <div class="narrow">
       <ul>
@@ -999,8 +996,20 @@
 <section id="core">
 
 <section>
-  <h2>The sessions ahead: what each station measures</h2>
-  <table>
+  <h2>Group assignments</h2>
+  <table class="goldstripe-rows">
+    <tr><th>Group</th><th>Project</th><th>Participants</th></tr>
+    <tr><td>1</td><td>Main Augite Troctolite</td><td>Alexis, Gabriel, Gianna, Oscar</td></tr>
+    <tr><td>2</td><td>Ultramafic (U1 and U3)</td><td>Allison, Margaret, Ricardo, Roshini</td></tr>
+    <tr><td>3</td><td>BAN (Basal Augite Troctolite and Norite)</td><td>Ana, Lily, Paige, Taizo</td></tr>
+    <tr><td>4</td><td>Heterogeneous (basal heterogeneous zone)</td><td>Ellen, Nay, Rachel, Yogaraj</td></tr>
+    <tr><td>5</td><td>Felsic (Giants Range Batholith + granophyre)</td><td>Julia, Nicole, Peter, Tolulope</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>The afternoons ahead:</h2>
+  <table style="margin-bottom:1.4em">
     <tr><th>Station</th><th>Measurement</th><th>Connects to</th></tr>
     <tr><td>Lake Shore VSM</td><td>Hysteresis loops, M<sub>s</sub>, M<sub>r</sub>, B<sub>c</sub>, high-field slope</td><td>today's loops — for real</td></tr>
     <tr><td>MPMS</td><td>Low-temperature remanence, Verwey &amp; Besnus transitions, FC/ZFC</td><td>fingerprinting magnetite &amp; pyrrhotite</td></tr>
@@ -1008,23 +1017,46 @@
     <tr><td>RAPID SRM</td><td>NRM + AF/thermal demagnetization</td><td>remanence, Koenigsberger ratios</td></tr>
     <tr><td>QDM</td><td>Magnetic microscopy</td><td>which grains carry the signal</td></tr>
   </table>
-  <p class="small" style="margin-top:0.8em">Everything on the schedule is a measurement of
-  \(\mathbf{M}\) — induced (κ) or remanent — as a function of field, temperature, or position.</p>
+  <table class="goldstripe">
+    <tr><th>Day</th><th>Group 1</th><th>Group 2</th><th>Group 3</th><th>Group 4</th><th>Group 5</th></tr>
+    <tr><td>Mon 7/20</td><td>Lake Shore VSM</td><td>MPMS</td><td>RAPID SRM</td><td>Kappabridges</td><td>QDM</td></tr>
+    <tr><td>Tue 7/21</td><td>MPMS</td><td>RAPID SRM</td><td>Kappabridges</td><td>QDM</td><td>Lake Shore VSM</td></tr>
+    <tr><td>Wed 7/22</td><td>RAPID SRM</td><td>Kappabridges</td><td>QDM</td><td>Lake Shore VSM</td><td>MPMS</td></tr>
+    <tr><td>Thu 7/23</td><td>Kappabridges</td><td>QDM</td><td>Lake Shore VSM</td><td>MPMS</td><td>RAPID SRM</td></tr>
+    <tr><td>Fri 7/24</td><td>QDM</td><td>Lake Shore VSM</td><td>MPMS</td><td>RAPID SRM</td><td>Kappabridges</td></tr>
+  </table>
+  <p class="tiny" style="margin-top:0.5em">For analyses on Monday, July 27 and Tuesday, July 28 we will
+  prioritize the experiments that will be the most advantageous for each group.</p>
+</section>
+
+<section>
+  <h2>Tools for data analysis</h2>
+  <ul>
+    <li>Measurement data are input into the <strong>IRM database</strong> at each instrument station</li>
+    <li>Data are exported from the IRM database to <a href="https://www2.earthref.org/MagIC"><strong>MagIC format</strong></a> —
+    the community standard for paleomagnetic and rock magnetic data</li>
+    <li>Analysis uses the <a href="https://github.com/PmagPy/RockmagPy-notebooks"><strong>RockmagPy</strong> module of PmagPy</a>
+    within Jupyter notebooks</li>
+  </ul>
+  <p class="small" style="margin-top:0.8em; text-align:center">instrument → IRM database → MagIC → RockmagPy notebooks</p>
+  <div class="eqbox" style="margin-top:1em"><strong>Meet with Yiming or Nick this afternoon</strong> to test out your
+  local Python environment.</div>
 </section>
 
 <section>
   <h2>Sources &amp; further reading</h2>
   <ul class="small">
     <li>Tauxe, L. &amp; Swanson-Hysell, N. L. (2026). <a href="https://pmagpy.github.io/Essentials-JupyterBook/"><em>Essentials of Paleomagnetism</em>, interactive JupyterBook edition</a> (CC BY 4.0): figures on Larmor precession and M<sub>s</sub>(T)</li>
-    <li>Hunt, C. P., Moskowitz, B. M., &amp; Banerjee, S. K. (1995). Magnetic properties of rocks and minerals.
+    <li>Hunt, C. P., Moskowitz, B. M., &amp; Banerjee, S. K. (1995). <a href="https://doi.org/10.1029/RF003p0189">Magnetic properties of rocks and minerals</a>.
     In <em>Rock Physics &amp; Phase Relations: A Handbook of Physical Constants</em> (AGU Reference Shelf 3), 189–204 —
     source of the mineral susceptibility and M<sub>s</sub> values</li>
-    <li>Takács, J. (2001). A phenomenological mathematical model of hysteresis. <em>COMPEL</em>, 20(4), 1002–1014 — the tanh loop model behind the interactive loops</li>
-    <li>Swanson-Hysell, N. L. et al. (2021). Rapid emplacement of massive Duluth Complex intrusions
-    within the North American Midcontinent rift. <em>Geology</em>, 49(2), 185–189 — U-Pb geochronology and the geologic map</li>
-    <li>Severson, M. (1992). D-6A drill log, NRRI; Severson &amp; Hauck (2016) on South Kawishiwi stratigraphy</li>
-    <li>Beck, M. E. (1970). Paleomagnetism of Keweenawan intrusive rocks, Minnesota. <em>JGR</em>, 75</li>
-    <li>Course notebooks: <code>W2_dia_para_ferro/</code> in the 2026 ESCI pmag course repository</li>
+    <li>Takács, J. (2001). <a href="https://doi.org/10.1108/EUM0000000005771">A phenomenological mathematical model of hysteresis</a>. <em>COMPEL</em>, 20(4), 1002–1015 — the tanh loop model behind the interactive loops</li>
+    <li>Swanson-Hysell, N. L. et al. (2021). <a href="https://doi.org/10.1130/G47873.1">Rapid emplacement of massive Duluth Complex intrusions
+    within the North American Midcontinent rift</a>. <em>Geology</em>, 49(2), 185–189 — U-Pb geochronology and the geologic map</li>
+    <li>Severson, M. (1992). D-6A drill log, NRRI; Severson, M. J. (1994). <a href="https://hdl.handle.net/11299/188520">Igneous
+    stratigraphy of the South Kawishiwi intrusion, Duluth Complex, northeastern Minnesota</a>. NRRI Technical Report</li>
+    <li>Beck, M. E. (1970). <a href="https://doi.org/10.1029/JB075i026p04985">Paleomagnetism of Keweenawan intrusive rocks, Minnesota</a>. <em>JGR</em>, 75, 4985–4996</li>
+    <li>Course notebooks: <a href="https://github.com/Institute-for-Rock-Magnetism/2026_ESCI_pmag_course/blob/main/W2_dia_para_ferro/Week2_dia_para_ferro_intro.ipynb"><code>W2_dia_para_ferro/</code> in the 2026 ESCI pmag course repository</a></li>
   </ul>
   <p class="small" style="margin-top:1em">Slides + interactive widgets:
   <code>S1_Duluth_dia_para_ferro/</code> — reveal.js, self-contained, works offline.</p>

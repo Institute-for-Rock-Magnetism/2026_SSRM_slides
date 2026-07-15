@@ -96,6 +96,9 @@ figcaption { font-size: 0.55em; color: var(--muted); margin-top: 0.4em; line-hei
   text-align: left;
 }
 .reveal table td { border-bottom: 1px solid #ddd; padding: 0.3em 0.7em; }
+.reveal table.goldstripe th:nth-child(even),
+.reveal table.goldstripe td:nth-child(even) { background: rgba(255, 204, 51, 0.45); }
+.reveal table.goldstripe-rows tr:nth-child(even) td { background: rgba(255, 204, 51, 0.45); }
 
 /* equation callout */
 .eqbox {
