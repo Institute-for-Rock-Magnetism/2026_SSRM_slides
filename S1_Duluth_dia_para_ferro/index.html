@@ -981,11 +981,31 @@
   comparably and the loop goes
   <strong>wasp-waisted</strong> — a pinched loop is a classic sign of mixed soft + hard coercivity.
   Coercivity spectra and unmixing will be covered later on in the summer school.</p>
+  <p class="tiny" style="margin-top:0.2em">How it's built: each phase is a phenomenological tanh loop (Takács, 2001)
+  prescribed by (M<sub>s</sub>, B<sub>c</sub>, M<sub>rs</sub>/M<sub>s</sub>) — magnetite (92 Am²/kg, 20 mT, 0.1),
+  hematite (0.4 Am²/kg, 300 mT, 0.6) — summed by mass fraction, with no grain-scale physics and no
+  interactions between phases.</p>
   <aside class="notes">
     Start at 0.5% — the classic wasp-waist. Slide down to 0.01%: hematite-dominated, broad
     loop. Slide up to a few %: pure-looking magnetite loop, hematite invisible. Lesson:
     hysteresis is exquisitely sensitive to trace strong phases — same reason bulk
     susceptibility is a magnetite-concentration proxy in D-6A.
+
+    How the widget is constructed: each phase is a phenomenological tanh loop
+    (Takács, 2001) prescribed by three numbers — magnetite: Ms = 92 Am²/kg,
+    Bc = 20 mT, Mrs/Ms = 0.1; hematite: Ms = 0.4 Am²/kg, Bc = 300 mT,
+    Mrs/Ms = 0.6 — and the two loops are summed by mass fraction. There are no
+    explicit grain sizes or shapes and no interactions between phases (unlike the
+    Stoner–Wohlfarth widget two slides back). If asked what grains the parameters
+    imply: the magnetite values are PSD/vortex-like (~μm-scale, roughly equant —
+    an idealized "soft, strong" endmember rather than a specific Day-plot
+    population); the hematite values are typical SD-like coarse crystalline
+    (specularite-like) hematite, where basal-plane-confined moments give the high
+    Mrs/Ms, and hematite stays effectively SD up to ~100 μm. That population is
+    internally consistent with the loop closing by the ±1.8 T sweep, as the model
+    assumes. The caveat is for fine-grained pigmentary hematite: its coercivity
+    spectrum extends to many tesla, so it would remain unsaturated well beyond
+    these fields — this widget is not a model of red-bed pigment.
   </aside>
 </section>
 
@@ -1031,16 +1051,26 @@
 
 <section>
   <h2>Tools for data analysis</h2>
-  <ul>
-    <li>Measurement data are input into the <strong>IRM database</strong> at each instrument station</li>
-    <li>Data are exported from the IRM database to <a href="https://www2.earthref.org/MagIC"><strong>MagIC format</strong></a> —
-    the community standard for paleomagnetic and rock magnetic data</li>
-    <li>Analysis uses the <a href="https://github.com/PmagPy/RockmagPy-notebooks"><strong>RockmagPy</strong> module of PmagPy</a>
-    within Jupyter notebooks</li>
-  </ul>
-  <p class="small" style="margin-top:0.8em; text-align:center">instrument → IRM database → MagIC → RockmagPy notebooks</p>
-  <div class="eqbox" style="margin-top:1em"><strong>Meet with Yiming or Nick this afternoon</strong> to test out your
-  local Python environment.</div>
+  <div class="cols">
+    <div class="wide">
+      <ul>
+        <li>Measurement data are input into the <strong>IRM database</strong> at each instrument station</li>
+        <li>Data are exported from the IRM database to <a href="https://www2.earthref.org/MagIC"><strong>MagIC format</strong></a> —
+        the community standard for paleomagnetic and rock magnetic data</li>
+        <li>Analysis uses the <a href="https://github.com/PmagPy/RockmagPy-notebooks"><strong>RockmagPy</strong> module of PmagPy</a>
+        within Jupyter notebooks</li>
+      </ul>
+      <p class="small" style="margin-top:0.8em; text-align:center">instrument → IRM database → MagIC → RockmagPy notebooks</p>
+      <div class="eqbox" style="margin-top:1em"><strong>Meet with Yiming or Nick this afternoon</strong> to test out your
+      local Python environment.</div>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/rockmagpy_logo.png" alt="RockmagPy logo: a magpie perched on a rock" style="max-height:44vh">
+        <figcaption><a href="https://pmagpy.github.io/RockmagPy-notebooks/">RockmagPy</a> — a magpie on a rock</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
 <section>
