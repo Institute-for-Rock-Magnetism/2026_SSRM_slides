@@ -1,0 +1,191 @@
+/* Custom styling for the IRM Summer School S1 deck.
+ * Layered on top of the reveal.js "white" theme. */
+
+:root {
+  --accent: #7a0019;        /* UMN maroon */
+  --accent2: #ffcc33;       /* UMN gold */
+  --ink: #222;
+  --muted: #555;
+  --dia: #0a7d44;
+  --para: #c25400;
+  --ferro: #c22b2b;
+}
+
+.reveal {
+  font-size: 30px;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  text-transform: none;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.reveal h2 { font-size: 1.35em; margin-bottom: 0.6em; }
+.reveal h3 { font-size: 1.05em; }
+
+.reveal .slides section { text-align: left; }
+.reveal .slides section.center-slide { text-align: center; }
+
+.reveal ul { display: block; }
+.reveal li { margin: 0.35em 0; line-height: 1.35; }
+.reveal ul ul { font-size: 0.85em; color: var(--muted); }
+
+.reveal p { line-height: 1.4; }
+
+.reveal .small { font-size: 0.72em; color: var(--muted); }
+.reveal .tiny  { font-size: 0.55em; color: var(--muted); }
+
+.reveal strong { color: var(--accent); }
+
+/* section divider slides */
+.reveal section.divider {
+  text-align: center;
+}
+.reveal section.divider h2 {
+  font-size: 1.9em;
+  color: var(--accent);
+}
+.reveal section.divider .kicker {
+  color: var(--muted);
+  font-size: 0.8em;
+}
+
+/* topic tagline under a slide title (replaces section divider slides) */
+.reveal .tagline {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.8em;
+  margin: -0.9em 0 0.8em 0;
+}
+
+/* two-column layout */
+.cols { display: flex; gap: 1.2em; align-items: center; }
+.cols > div { flex: 1; min-width: 0; }
+.cols .narrow { flex: 0.72; }
+.cols .wide { flex: 1.35; }
+
+figure { margin: 0; text-align: center; }
+figure img { max-width: 100%; max-height: 62vh; }
+figcaption { font-size: 0.55em; color: var(--muted); margin-top: 0.4em; line-height: 1.35; }
+
+/* spin-ordering diagram: row of panels, each labeled beneath */
+.spin-row { display: flex; justify-content: center; align-items: flex-start; gap: 2.2em; }
+.spin-panel { text-align: center; flex: 0 0 auto; }
+.spin-panel svg { height: 14vh; width: auto; display: block; margin: 0 auto; }
+.spin-label { font-size: 0.55em; color: var(--ink); line-height: 1.25; margin-top: 0.35em; max-width: 11em; }
+
+/* full-height figure slides */
+.figslide figure img { max-height: 74vh; }
+
+/* embedded interactive plot (plotly in an iframe) */
+.plotframe {
+  width: 100%; height: 580px; border: 1px solid #e2ddd6;
+  border-radius: 8px; background: #fff; display: block;
+}
+/* taller variant: fills the slide height (caption dropped, title in side column) */
+.plotframe.tall { height: 665px; }
+
+/* tables */
+.reveal table { font-size: 0.66em; margin: 0 auto; border-collapse: collapse; }
+.reveal table th {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding: 0.3em 0.7em;
+  text-align: left;
+}
+.reveal table td { border-bottom: 1px solid #ddd; padding: 0.3em 0.7em; }
+
+/* equation callout */
+.eqbox {
+  background: #f7f3ee;
+  border-left: 6px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.45em 0.9em;
+  margin: 0.6em 0;
+  font-size: 1.05em;
+  text-align: center;
+}
+
+/* dia/para/ferro classification cards */
+.classcards { display: flex; gap: 0.8em; margin-top: 0.5em; }
+.classcards .card {
+  flex: 1; border-radius: 10px; padding: 0.55em 0.8em;
+  border-top: 8px solid; background: #faf8f6;
+  font-size: 0.78em; line-height: 1.35;
+}
+.card.dia   { border-color: var(--dia); }
+.card.para  { border-color: var(--para); }
+.card.ferro { border-color: var(--ferro); }
+.card h3 { margin: 0 0 0.3em 0; font-size: 1.1em; }
+.card.dia h3   { color: var(--dia); }
+.card.para h3  { color: var(--para); }
+.card.ferro h3 { color: var(--ferro); }
+.card .kappa { font-weight: 700; }
+
+/* susceptibility ladder (log axis) */
+.ladder { width: 100%; }
+
+/* -------------------- interactive widgets -------------------- */
+
+.widget {
+  width: 100%;
+  background: #fbfaf8;
+  border: 1px solid #e2ddd6;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.widget-controls {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 10px 18px;
+  font-size: 0.55em;
+  margin-bottom: 6px;
+}
+
+.widget .wbtn {
+  font: inherit; cursor: pointer;
+  padding: 0.35em 0.9em;
+  border: 1.5px solid var(--accent);
+  background: #fff; color: var(--accent);
+  border-radius: 6px;
+}
+.widget .wbtn.active, .widget .wbtn:hover { background: var(--accent); color: #fff; }
+.widget .btn-group { display: flex; gap: 6px; }
+
+.widget .wslider { display: flex; align-items: center; gap: 8px; }
+.widget .wslider input[type="range"] { width: 170px; accent-color: var(--accent); }
+.widget .wval { font-variant-numeric: tabular-nums; min-width: 4.5em; color: var(--ink); font-weight: 600; }
+.widget .wreadout { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.widget-canvases { display: flex; gap: 12px; }
+.wpane { flex: 1; min-width: 0; }
+.wpane-wide { flex: 1.4; }
+.wpane-full { flex: 1; }
+.wpane canvas {
+  width: 100%; height: 380px; display: block;
+  background: #fff; border: 1px solid #e8e4de; border-radius: 6px;
+}
+.wpane .wcaption {
+  font-size: 0.5em; color: var(--muted); text-align: center; margin-top: 4px;
+}
+
+/* static loop-anatomy figure: shorter canvas so it fits under the cards */
+[data-widget="loopanatomy"] canvas { height: 310px; }
+
+/* title slide */
+.titleslide h1 { font-size: 1.9em; margin-bottom: 0.2em; }
+.titleslide .subtitle { font-size: 0.9em; color: var(--muted); margin-bottom: 1.4em; }
+.titleslide .meta { font-size: 0.65em; color: var(--muted); }
+.titlebar {
+  height: 10px; width: 40%; margin: 0.8em auto 1.2em auto;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 5px;
+}
+
+/* footer attribution on figure slides */
+.attrib {
+  position: absolute; bottom: 6px; right: 12px;
+  font-size: 0.42em; color: #999;
+}

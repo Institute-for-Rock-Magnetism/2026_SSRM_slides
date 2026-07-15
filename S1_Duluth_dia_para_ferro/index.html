@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S1 — Dia-, Para-, and Ferromagnetism · IRM Summer School 2026</title>
+  <link rel="stylesheet" href="lib/reveal/reset.css">
+  <link rel="stylesheet" href="lib/reveal/reveal.css">
+  <link rel="stylesheet" href="lib/reveal/theme/white.css">
+  <link rel="stylesheet" href="lib/katex/katex.min.css">
+  <link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================ -->
+<!-- TITLE                                                            -->
+<!-- ================================================================ -->
+<section id="title">
+<section class="titleslide center-slide">
+  <h1>Introduction to your hands-on Duluth Complex research this week</h1>
+  <div class="titlebar"></div>
+  <p class="subtitle">…and to diamagnetism, paramagnetism, and ferromagnetism</p>
+  <p class="meta">2026 IRM Summer School of Rock Magnetism<br>
+  Institute for Rock Magnetism · University of Minnesota</p>
+  <aside class="notes">
+    Two goals this session: (1) introduce the group project — the Duluth
+    Complex drill core you'll be characterizing all week — and (2) build the physical
+    vocabulary for the three fundamental classes of magnetic response, which are relevant to the minerals in that core.
+  </aside>
+</section>
+
+<section>
+  <h2>Who am I?</h2>
+  <div class="cols">
+    <div class="wide">
+      <p style="margin-bottom:0.3em"><strong>Nick Swanson-Hysell</strong></p>
+      <ul style="font-size:0.82em">
+        <li>Associate Professor, Earth &amp; Environmental Sciences, University of Minnesota</li>
+        <li><strong>Associate Director, Institute for Rock Magnetism</strong> — one of your instructors this week</li>
+        <li>Research: quantitative constraints on the long-term evolution of the Earth with a focus on paleogeography applied to understanding ancient supercontinents and long-term climate (including Snowball Earth) — with a focus on <strong>paleomagnetic and rock magnetic data</strong></li>
+        <li>A long-running research focus on the <strong>Midcontinent Rift</strong>: including geochronology and paleomagnetism of the Duluth Complex</li>
+        <li>Open science: our group's data, code, and course materials live on GitHub and in the MagIC database — approaches we will take for your project</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/nsh_field_oman.png" alt="Nick Swanson-Hysell pointing out stratigraphy in the field in Oman" style="max-height:54vh; border-radius:8px">
+        <figcaption>In the field in Oman — stratigraphic records of the Cryogenian Earth</figcaption>
+      </figure>
+      <p class="small" style="margin-top:0.6em">
+        <strong>Our group:</strong><br>
+        swanson-hysell.esci.umn.edu<br>
+        github.com/Swanson-Hysell-Group
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    Brief personal intro — the point for students: rock magnetic data of the kind they
+    will collect this week is the foundation for paleogeography and deep-time Earth
+    history questions, and the Duluth Complex is a system our group has worked on
+    directly (the U-Pb dates and map coming up shortly are from that work).
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 1: THE PROJECT                                              -->
+<!-- ================================================================ -->
+</section>
+<section id="project">
+<section class="divider">
+  <p class="kicker">Part 1</p>
+  <h2>Your project: the Duluth Complex</h2>
+</section>
+
+<section class="figslide">
+  <div class="cols">
+    <div class="narrow" style="flex:1">
+      <h2>The Midcontinent Rift, seen magnetically</h2>
+      <ul style="font-size:0.82em">
+        <li>Aeromagnetic anomaly map of Minnesota — flown mainly 1979–1991, compiled by the Minnesota Geological Survey</li>
+        <li>The <strong>Midcontinent Rift</strong> is a major feature: the ca. 1.1 Ga rift's volcanic and intrusive rocks along Lake Superior stand out from the Archean and Paleoproterozoic basement fabric</li>
+        <li>Why? Their <strong>magnetite-rich rocks</strong> carry strong induced <em>and</em> remanent magnetization.</li>
+      </ul>
+    </div>
+    <div class="wide" style="flex:1.35">
+      <figure>
+        <iframe class="plotframe tall" data-src="aeromagnetic_minnesota.html"
+                title="Interactive aeromagnetic anomaly map of Minnesota with total field, tilt-enhanced, and vertical-derivative views"></iframe>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    The hook for the whole session: you can see the rift magnetically before you
+    ever pick up a rock. Start on total field — the strong anomaly belt along Lake
+    Superior is the North Shore Volcanic Group and Duluth Complex; the D-6A area is
+    at the north edge near Dunka. Contrast with the ENE-trending Archean fabric to
+    the northwest. Switch to vertical derivative for shallow detail. Segue: the
+    geologic map on the next slide shows what those anomalous rocks actually are.
+    Question to plant: what makes one rock body light up an aeromagnetic map while
+    its neighbor stays quiet? That is dia/para/ferromagnetism + concentration —
+    today's topic.
+  </aside>
+</section>
+
+<section>
+  <h2>The Duluth Complex &amp; the Midcontinent Rift</h2>
+  <div class="cols">
+    <div class="narrow">
+      <ul>
+        <li>Most of its volume emplaced ca. 1096 Ma — the <strong>Midcontinent Rift</strong>'s most voluminous magmatic stage</li>
+        <li>Second-largest exposed mafic intrusive complex on Earth</li>
+        <li>Layered series = troctolitic &amp; gabbroic cumulates — <em>plagioclase + olivine + augite + Fe-Ti oxides</em></li>
+        <li>Carries a well-resolved remanent magnetization</li>
+      </ul>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/Swanson-Hysell2021_map.png" alt="Geologic map of the Duluth Complex and surrounding Midcontinent Rift units">
+        <figcaption>Duluth Complex and North Shore Volcanic Group with U-Pb dates
+        (Swanson-Hysell et al., 2021, <em>Geology</em>).</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="figslide">
+  <h2>Locating drill core D-6A</h2>
+  <figure>
+    <iframe class="plotframe" data-src="D_6A_location_map.html"
+            title="Interactive map of Duluth Complex bedrock geology with the D-6A drill hole location"></iframe>
+    <figcaption>Interactive — zoom/pan · click map units for details · layer control (upper right) switches basemaps.
+    Bedrock geology from Macrostrat / Minnesota Geological Survey state map (CC BY 4.0); D-6A collar from the
+    MN DNR Drill Core Library. Basemap tiles require an internet connection.</figcaption>
+  </figure>
+  <aside class="notes">
+    Orient the students: the Duluth Complex map pattern, the South Kawishiwi
+    intrusion along its northern margin, and the D-6A collar at the Dunka Pit.
+    Zoom in from the whole complex to the drill site; click neighboring units
+    to show the MGS unit assignments. This is the hole whose core log is on
+    the next slide.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Drill core D-6A — South Kawishiwi intrusion</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <iframe class="plotframe" data-src="D_6A_log_interactive.html"
+                title="Interactive D-6A drill log: stratigraphic column with sample depths, Cu-Ni-Co assays, and susceptibility profile"></iframe>
+        <figcaption>Interactive — drag a box to zoom (depth stays synced across panels) · scroll to zoom · double-click to reset · hover for lithology &amp; values</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul class="small" style="font-size:0.8em">
+        <li>Vertical exploration hole, Dunka Pit area; 2125 ft to the Archean Giants Range Batholith footwall</li>
+        <li>Logged by Mark Severson (1992); Cu-Ni-Co assays by Exxon (1979)</li>
+        <li><strong>Sampled by us (myself, Kate Akin, Mary Yao) in May 2026</strong> — 84 samples + a KT-10 susceptibility profile on the split core</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>A variable signal that we will investigate</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <iframe class="plotframe" data-src="D_6A_lith_susc_interactive.html"
+                title="Interactive D-6A lithology beside the KT-10 magnetic susceptibility profile"></iframe>
+        <figcaption>Interactive — drag a box to zoom · scroll to zoom · double-click to reset · hover for lithology &amp; values</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.82em">
+        <li>KT-10 magnetic susceptibility, measured every few feet on the split core</li>
+        <li>The axis is <strong>logarithmic</strong>: the profile spans ~10⁻⁵ to ~1 SI — <strong>five orders of magnitude</strong> in one drill hole</li>
+        <li>Why does the granophyre near 400 ft drop to ~10⁻⁵ while the basal oxide-rich zones reach ~1?</li>
+        <li>What sets the steady background through the main augite troctolite?</li>
+        <li>Why does the <em>granite</em> footwall have higher magnetic susceptibility than a granophyre?</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This is the framing slide for the whole session. The lithologic units differ
+    enormously in magnetic response, and the principal controls are the dia-, para-,
+    and ferromagnetic contributions — above all the abundance of ferrimagnetic oxides.
+    Return to this figure in the closing part of the session.
+  </aside>
+</section>
+
+<section>
+  <h2>The core itself</h2>
+  <div class="cols" style="align-items:flex-start">
+    <div class="narrow">
+      <figure>
+        <img src="images/core_shed.png" alt="Kate Akin and Mary Yao pulling D-6A core boxes in the aisles of the Minnesota DNR Drill Core Library" style="max-height:56vh">
+        <figcaption>Kate Akin and Mary Yao pulling D-6A boxes at the Minnesota DNR Drill Core Library, Hibbing (May 2026).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/core_box.jpg" alt="D-6A core boxes 97 and 98 from the MAIN AGT unit, 1052-1061 ft, with Severson's unit placards" style="max-height:56vh">
+        <figcaption>Boxes 97–98 (1052–1061 ft): augite troctolite of the MAIN AGT unit, with Severson's unit placard and correlation chart.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <ul style="font-size:0.85em">
+        <li>Mafic intrusive rocks: dominantly <strong>plagioclase + olivine</strong> — with augite, oxides, and sulfides varying by unit</li>
+      </ul>
+      <figure style="margin-top:0.4em">
+        <img src="images/modal_classification.png" alt="Ternary diagram of plagioclase, olivine, and pyroxene modal percentages with rock names from anorthosite to troctolite, gabbro, peridotite, and dunite" style="max-height:44vh">
+        <figcaption>Rock names from modal plagioclase–olivine–pyroxene — the classification behind
+        the D-6A log's troctolite, augite troctolite, and picrite units (after Phinney, 1972).</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Five groups, five lithologic units</h2>
+  <table>
+    <tr><th>Group</th><th>Unit(s)</th><th>Interval (ft)</th><th>Samples</th></tr>
+    <tr><td>1 — Main Augite Troctolite</td><td>MAIN AGT</td><td>124–1297</td><td>34</td></tr>
+    <tr><td>2 — Ultramafic</td><td>U1; U3</td><td>1297–1463; 1817–1872</td><td>18</td></tr>
+    <tr><td>3 — BAN</td><td>BAN (u); BAN (l)</td><td>1725–1817; 1872–2050</td><td>11</td></tr>
+    <tr><td>4 — Heterogeneous</td><td>BH (u); BH</td><td>1463–1605; 1695–1725</td><td>12</td></tr>
+    <tr><td>5 — Felsic</td><td>GRAN + granophyre</td><td>2050–2125 + xenoliths</td><td>9</td></tr>
+  </table>
+  <p class="small" style="margin-top:0.8em">Each group rotates through all five instrument stations
+  (VSM · MPMS · RAPID SRM · Kappabridges · QDM) through the Summer School.</p>
+  <p>The comparison <strong>across units</strong> is a major focus: magnetic mineralogy,
+  domain state, and remanence behavior of each unit, assembled into a picture of the whole intrusion.</p>
+</section>
+
+<section>
+  <h2>Questions the assembled data can address</h2>
+  <ul>
+    <li>How does the ratio of <strong>remanent to induced</strong> magnetization (Koenigsberger ratio) vary between units — and what does that mean for interpreting aeromagnetic maps of the Duluth Complex?</li>
+    <li>Has <strong>serpentinization</strong> of the olivine-rich units modified their magnetic mineralogy?</li>
+    <li>Is remanence carried by <strong>inclusions inside silicates</strong> or by interstitial oxides?</li>
+    <li>How does lab susceptibility on specimens compare with the <strong>along-core KT-10</strong> profile?</li>
+  </ul>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 2: FIELDS AND MAGNETIZATION                                 -->
+<!-- ================================================================ -->
+</section>
+<section id="fields">
+<section class="divider">
+  <p class="kicker">Part 2</p>
+  <h2>Fields, magnetization, and units</h2>
+</section>
+
+<section>
+  <h2>Where do magnetic fields come from?</h2>
+  <div class="eqbox" style="font-size:1.1em">Magnetic fields are produced by <strong>electric currents</strong>
+  and by the <strong>magnetic moments of electrons</strong>.</div>
+  <ul style="margin-top:0.7em">
+    <li>Electron <strong>orbital motion and intrinsic spin</strong> in atoms → atomic magnetic moments — the source of every rock's magnetism</li>
+    <li>Electrons <strong>flowing in wires</strong> → electromagnets — the coils that apply fields in every instrument you will use this week</li>
+    <li>At the planetary scale: convecting currents in Earth's liquid iron outer core → the <strong>geomagnetic field</strong></li>
+  </ul>
+  <p class="small">Isolated magnetic charges (monopoles) have never been observed —
+  the elementary magnetic entity is the <strong>dipole</strong>.</p>
+  <aside class="notes">
+    This single idea unifies the session: the same physics connects the coil in the VSM,
+    the electrons in an olivine crystal, and the core dynamo. Everything that follows —
+    moments, magnetization, susceptibility — is bookkeeping for electron currents and
+    moments. One honest caveat if asked: spin is an intrinsic quantum property, not a
+    literal spinning ball of charge — the "orbiting and spinning electron" is a cartoon,
+    but the moments are real.
+  </aside>
+</section>
+
+<section>
+  <h2>Three vector fields</h2>
+  <ul>
+    <li><strong>Magnetic field strength \(\mathbf{H}\)</strong> — the applied (magnetizing) field, sourced by electric currents · <em>A/m</em></li>
+    <li><strong>Magnetization \(\mathbf{M}\)</strong> — magnetic moment per unit volume carried by matter · <em>A/m</em></li>
+    <li><strong>Magnetic induction \(\mathbf{B}\)</strong> (flux density) — the total field, drive + material response · <em>tesla (T)</em></li>
+  </ul>
+  <div class="eqbox">\(\mathbf{B} = \mu_0\,(\mathbf{H} + \mathbf{M})\), &nbsp; with &nbsp; \(\mu_0 \approx 4\pi\times10^{-7}\ \mathrm{H\,m^{-1}}\)</div>
+  <p>\(\mathbf{B}\) is what interacts with the physical world — it exerts the Lorentz force
+  and induces voltages. <strong>A magnetometer senses the flux or field produced by a rock and
+  reports its magnetic moment</strong>; dividing by volume or mass gives magnetization.</p>
+  <p class="small">Geomagnetic fields are weak: we quote \(\mathbf{B}\) in μT (Earth's surface field ≈ 25–65 μT) and nT.</p>
+</section>
+
+<section>
+  <h2>Where the units come from: a current loop</h2>
+  <div class="cols">
+    <div class="narrow">
+      <figure>
+        <img src="images/current_loop.png" alt="Current loop producing a magnetic field H">
+      </figure>
+    </div>
+    <div class="wide">
+      <p>Field at the center of a loop of radius \(r\) carrying current \(i\):</p>
+      <div class="eqbox">\(H = \dfrac{i}{2r}\ \mathrm{[A/m]}\)<br>
+      \(B = \mu_0 H = \dfrac{\mu_0 i}{2r}\) <span style="font-size:0.8em">(in vacuum)</span></div>
+      <p>The loop has a magnetic moment:</p>
+      <div class="eqbox">\(m = i \cdot \mathrm{area}\ \mathrm{[A\,m^2]}\)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Magnetization: the volume density of magnetic dipoles</h2>
+  <div class="cols">
+    <div class="wide">
+      <div class="eqbox">\(\mathbf{M} = \dfrac{1}{V}\sum_i \mathbf{m}_i\)</div>
+      <p style="font-size:0.85em">Sum the atomic dipole moments in a volume, divide by that volume —
+      a <strong>vector density</strong>.</p>
+      <p style="font-size:0.85em">A uniformly magnetized body can be described equivalently as:</p>
+      <ul style="font-size:0.8em">
+        <li>an assembly of <strong>current loops</strong> — interior currents cancel, leaving
+        <strong>surface (Ampèrian) currents</strong>, like a solenoid</li>
+        <li>an assembly of <strong>magnetic dipoles</strong> — interior poles cancel, leaving
+        <strong>surface poles</strong> on the ends</li>
+      </ul>
+      <p style="font-size:0.85em">For a given magnetization the two descriptions are mathematically
+      equivalent — they produce the same field. The loop picture is the physical one
+      (electron currents), the pole picture is often the easier one to compute with.</p>
+    </div>
+    <div class="narrow">
+      <div style="display:flex; gap:0.5em">
+        <figure style="flex:1">
+          <img src="images/surface_currents.png" alt="Uniformly magnetized block as an assembly of current loops with net surface currents">
+          <figcaption>Surface currents:<br>assembly of current loops</figcaption>
+        </figure>
+        <figure style="flex:1">
+          <img src="images/surface_poles.png" alt="Uniformly magnetized block as an assembly of dipoles with surface poles">
+          <figcaption>Surface poles:<br>assembly of dipoles</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Normalizing magnetic moment: magnetization</h2>
+  <p>A measured moment \(m\ \mathrm{[A\,m^2]}\) scales with how much material is in the
+  instrument. To compare specimens we normalize:</p>
+  <div class="cols" style="align-items:stretch; margin-top:0.5em">
+    <div>
+      <h3>By volume</h3>
+      <div class="eqbox">\(M = \dfrac{m}{V}\ \mathrm{[A/m]}\)</div>
+      <ul class="small">
+        <li>Same units as \(H\) — so \(\kappa = M/H\) is dimensionless</li>
+        <li>Natural for field comparisons (e.g. anomaly modeling) and volume susceptibility</li>
+        <li>Requires knowing the specimen volume</li>
+      </ul>
+    </div>
+    <div>
+      <h3>By mass</h3>
+      <div class="eqbox">\(\sigma = \dfrac{m}{\mathrm{mass}}\ \mathrm{[A\,m^2/kg]}\)</div>
+      <ul class="small">
+        <li>Mass is quicker and more precise to measure than volume — chips, powders, irregular specimens</li>
+        <li>How VSM and MPMS data are usually reported (e.g. magnetite \(M_s \approx 92\ \mathrm{A\,m^2/kg}\))</li>
+        <li>Mass susceptibility \(\chi = \kappa/\rho\ \mathrm{[m^3/kg]}\)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small" style="margin-top:0.6em">You will deal with both conventions this week: every instrument fundamentally
+  measures a moment-related signal, but Kappabridge susceptibilities are typically reported volume-normalized
+  (dimensionless SI) while VSM and MPMS magnetizations are typically mass-normalized (A m²/kg).
+  Converting between them just takes the density.</p>
+</section>
+
+<section>
+  <h2>Two kinds of magnetization</h2>
+  <div class="cols" style="align-items:stretch; margin-top:0.5em">
+    <div>
+      <h3>Induced magnetization</h3>
+      <ul style="font-size:0.85em">
+        <li>Measured <strong>in an applied field</strong></li>
+        <li><strong>The reversible response — vanishes when the field is removed</strong></li>
+        <li>Proportional to the field for most rocks in weak fields: \(\mathbf{M}_{ind} = \kappa\,\mathbf{H}\)</li>
+        <li>What a Kappabridge measures (low-field susceptibility)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Remanent magnetization</h3>
+      <ul style="font-size:0.85em">
+        <li><strong>Persists in the absence of an external field</strong> — memory</li>
+        <li>Recorded when the rock formed (or was later remagnetized)</li>
+        <li>The signal paleomagnetism reads</li>
+        <li>What a magnetometer measures in zero field</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:0.7em">A rock in Earth's field can carry <strong>both at once</strong> — their ratio in the
+  ambient geomagnetic field is the <strong>Koenigsberger ratio</strong>
+  \(Q = M_{rem}/M_{ind} = M_{rem}/\kappa H\), the quantity your project will pin down for
+  each Duluth Complex unit, informing future aeromagnetic interpretation.</p>
+</section>
+
+<section>
+  <h2>Magnetic units and conversions</h2>
+  <p style="font-size:0.8em; margin-bottom:0.5em">\(\mathbf{B}\) and \(\mathbf{H}\) or \(\mathbf{M}\) have
+  different units and dimensions, and in SI \(\mu_0 \approx
+  4\pi \times 10^{-7}\ \mathrm{T\,m\,A^{-1}}\)</p>
+  <table style="font-size:0.62em">
+    <tr><th>Parameter</th><th>Symbol</th><th>SI unit</th><th>cgs unit</th><th>Conversion</th></tr>
+    <tr><td></td><td></td>
+        <td><strong>B = μ<sub>0</sub>(H + M)</strong></td>
+        <td>B = (H + 4πM)</td><td></td></tr>
+    <tr><td>Magnetic moment</td><td>m, μ</td>
+        <td><strong>A m²</strong></td><td>emu</td>
+        <td>1 A m² = 10³ emu</td></tr>
+    <tr><td>Magnetization (volume)</td><td>M, J</td>
+        <td><strong>A/m</strong></td><td>emu/cm³</td>
+        <td>1 A/m = 10⁻³ emu/cm³</td></tr>
+    <tr><td>Magnetization (mass)</td><td>σ</td>
+        <td><strong>A m²/kg</strong></td><td>emu/g</td>
+        <td>1 A m²/kg = 1 emu/g</td></tr>
+    <tr><td>Magnetic field</td><td>H</td>
+        <td><strong>A/m</strong></td><td>oersted (Oe)</td>
+        <td>1 A/m = 4π × 10⁻³ Oe</td></tr>
+    <tr><td>Magnetic induction</td><td>B</td>
+        <td><strong>tesla (T)</strong></td><td>gauss (G)</td>
+        <td>1 T = 10⁴ G</td></tr>
+    <tr><td rowspan="2">Susceptibility (M/H)</td><td>κ (volume)*</td>
+        <td><strong>dimensionless</strong></td><td>emu/(cm³ Oe)</td>
+        <td>1 (SI) = 1/4π emu/(cm³ Oe)</td></tr>
+    <tr><td>χ (mass)</td>
+        <td><strong>m³/kg</strong></td><td>emu/(g Oe)</td>
+        <td>1 m³/kg = 10³/4π emu/(g Oe)</td></tr>
+  </table>
+  <p class="small" style="margin-top:0.5em">*Even though κ is dimensionless, it is common to
+  attach "SI" to the value to avoid confusion.</p>
+  <p style="margin-top:0.6em"><strong>Much of the primary magnetism literature (pre-1990 and outside
+  geomagnetism and paleomagnetism) is still written using cgs units.</strong></p>
+  <aside class="notes">
+    The constitutive relations differ: in SI, B = μ₀(H+M); in cgs, B = H + 4πM, so
+    the 4π factors are hiding everywhere in conversions. The two trip-ups to flag:
+    emu is not one unit (an emu of moment vs emu/cm³ of magnetization), and volume
+    susceptibility differs by 4π between the systems — a cgs susceptibility is
+    smaller than the same SI value by 4π. Instrument software this week reports SI;
+    the classic literature (and much of the mining-industry aeromagnetic
+    literature) is cgs. Footnote if asked: since the 2019 SI redefinition μ₀ is a
+    measured constant (1.25663706127(20)×10⁻⁶ N A⁻²), no longer exactly 4π×10⁻⁷ —
+    the difference is at the 10⁻¹⁰ level and irrelevant for rock magnetism.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 3: SUSCEPTIBILITY                                           -->
+<!-- ================================================================ -->
+</section>
+<section id="susceptibility">
+<section class="divider">
+  <p class="kicker">Part 3</p>
+  <h2>Magnetic susceptibility</h2>
+</section>
+
+<section>
+  <h2>Susceptibility: the response coefficient</h2>
+  <p>Place a material in a field \(\mathbf{H}\); it develops a magnetization \(\mathbf{M}\).
+  For most geological materials in weak fields the response is <strong>linear</strong>:</p>
+  <div class="eqbox">\(\mathbf{M} = \kappa\,\mathbf{H}\)</div>
+  <ul>
+    <li>\(M\) and \(H\) share units, so volume susceptibility \(\kappa\) is <strong>dimensionless</strong> (SI)</li>
+    <li>\(\kappa\) is an efficiency ratio: magnetization gained per unit of applied field</li>
+    <li>The <strong>sign and magnitude of \(\kappa\)</strong> are a window into atomic-scale magnetic behavior — and our first diagnostic of mineralogy</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Three classes of magnetic response</h2>
+  <div class="classcards">
+    <div class="card dia">
+      <h3>Diamagnetic</h3>
+      <p><span class="kappa">κ &lt; 0</span>, small (~ −10⁻⁵)</p>
+      <p>Induced magnetization <em>opposes</em> the field. All matter does this.</p>
+      <p><strong>Quartz, calcite, plagioclase, water</strong></p>
+    </div>
+    <div class="card para">
+      <h3>Paramagnetic</h3>
+      <p><span class="kappa">κ &gt; 0</span>, small (10⁻⁵–10⁻³)</p>
+      <p>Unpaired spins partially align with the field; thermal energy randomizes.</p>
+      <p><strong>Olivine, pyroxene, amphibole, biotite</strong></p>
+    </div>
+    <div class="card ferro">
+      <h3>Ferromagnetic <span style="font-weight:400">(s.l.)</span></h3>
+      <p><span class="kappa">κ ≫ 0</span>, huge (up to ~10⁰–10¹)</p>
+      <p>Exchange coupling orders spins collectively → spontaneous magnetization + <em>memory</em>.</p>
+      <p><strong>Magnetite, hematite, pyrrhotite</strong></p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:0.7em">Ferromagnetic minerals are so strong that
+  <strong>trace amounts of magnetite dominate the bulk susceptibility of a rock</strong> —
+  which is why susceptibility can work as a proxy for magnetic mineral concentration.</p>
+</section>
+
+<section>
+  <h2>Where common minerals sit</h2>
+  <svg class="ladder" viewBox="0 0 1200 330" role="img" aria-label="Log-scale ladder of mineral susceptibilities">
+    <defs>
+      <marker id="tri" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="#555"/>
+      </marker>
+    </defs>
+    <!-- axis -->
+    <line x1="60" y1="200" x2="1160" y2="200" stroke="#555" stroke-width="2.5" marker-end="url(#tri)"/>
+    <text x="1160" y="175" font-size="20" fill="#555" text-anchor="end">|κ| (SI, log scale)</text>
+    <!-- ticks -->
+    <g font-size="19" fill="#777" text-anchor="middle">
+      <line x1="95"  y1="193" x2="95"  y2="207" stroke="#777" stroke-width="2"/><text x="95"  y="232">10⁻⁵</text>
+      <line x1="291" y1="193" x2="291" y2="207" stroke="#777" stroke-width="2"/><text x="291" y="232">10⁻⁴</text>
+      <line x1="487" y1="193" x2="487" y2="207" stroke="#777" stroke-width="2"/><text x="487" y="232">10⁻³</text>
+      <line x1="684" y1="193" x2="684" y2="207" stroke="#777" stroke-width="2"/><text x="684" y="232">10⁻²</text>
+      <line x1="880" y1="193" x2="880" y2="207" stroke="#777" stroke-width="2"/><text x="880" y="232">10⁻¹</text>
+      <line x1="1076" y1="193" x2="1076" y2="207" stroke="#777" stroke-width="2"/><text x="1076" y="232">10⁰</text>
+    </g>
+    <!-- diamagnetic (below axis) -->
+    <g font-size="21" fill="#0a7d44">
+      <circle cx="130" cy="200" r="7" fill="#0a7d44"/>
+      <text x="130" y="285" text-anchor="middle">quartz · calcite · plagioclase</text>
+      <text x="130" y="312" text-anchor="middle" font-size="18">κ ≈ −1×10⁻⁵ (negative!)</text>
+      <line x1="130" y1="207" x2="130" y2="262" stroke="#0a7d44" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </g>
+    <!-- paramagnetic -->
+    <g font-size="21" fill="#c25400">
+      <circle cx="450" cy="200" r="7" fill="#c25400"/>
+      <text x="450" y="120" text-anchor="middle">augite ~10⁻³</text>
+      <line x1="450" y1="193" x2="450" y2="135" stroke="#c25400" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle cx="527" cy="200" r="7" fill="#c25400"/>
+      <text x="540" y="70" text-anchor="middle">olivine ≈ 1.6×10⁻³</text>
+      <line x1="527" y1="193" x2="527" y2="85" stroke="#c25400" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </g>
+    <!-- rock with magnetite -->
+    <g font-size="21" fill="#555">
+      <circle cx="743" cy="200" r="7" fill="#555"/>
+      <text x="743" y="285" text-anchor="middle">rock with ~1% magnetite</text>
+      <line x1="743" y1="207" x2="743" y2="262" stroke="#555" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </g>
+    <!-- ferromagnetic -->
+    <g font-size="21" fill="#c22b2b">
+      <circle cx="1120" cy="200" r="7" fill="#c22b2b"/>
+      <text x="1050" y="120" text-anchor="middle">magnetite ~10⁰–10¹</text>
+      <line x1="1120" y1="193" x2="1090" y2="135" stroke="#c22b2b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </g>
+  </svg>
+  <p class="small">The D-6A along-core profile spans this entire range — from the nearly
+  diamagnetic granophyre to the Fe-Ti oxide-rich U3 pods.</p>
+</section>
+
+<!-- ================================================================ -->
+<!-- DIAMAGNETISM                                                     -->
+<!-- ================================================================ -->
+</section>
+<section id="diamagnetism">
+<section>
+  <h2>Diamagnetism</h2>
+  <p class="tagline">every atom does it — weakly, and backwards</p>
+  <div class="cols">
+    <div class="wide">
+      <ul>
+        <li>The behavior of materials with <strong>no unpaired electrons</strong> — no permanent atomic moments, but orbiting electrons are still microscopic current loops</li>
+        <li>An applied field modifies the orbital motion (Larmor precession) → an <strong>induced moment that opposes the field</strong></li>
+        <li>A direct consequence of electromagnetic induction — needs no permanent atomic moments</li>
+        <li><strong>Nearly temperature independent</strong>: thermal agitation doesn't disrupt an induced orbital response</li>
+        <li>Present in <em>all</em> matter, but so weak that any para- or ferromagnetic contribution buries it</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/larmor.png" alt="Larmor precession of an electron orbit in field H" style="max-height:48vh">
+        <figcaption>Precession of the orbital angular momentum \(L\) about \(H\).
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <p class="small">Quartz, calcite, feldspar → clean sandstones and limestones can have net
+  <em>negative</em> susceptibility. κ ~ −10⁻⁶ to −10⁻⁵ (SI).</p>
+</section>
+
+<section>
+  <h2>Explore: the diamagnetic response</h2>
+  <div class="widget" data-widget="dia"></div>
+  <p class="tiny" style="margin-top:0.4em">Drag the field slider (or cycle it): induced moments grow with
+  the field and always <strong>oppose</strong> it, so the M–B line has a negative slope.
+  When B returns to zero, M returns to zero — <strong>no memory</strong>.
+  (The slider reports the applied field as \(B = \mu_0 H\); the susceptibility relation
+  remains \(M = \kappa H\).)</p>
+  <aside class="notes">
+    Start at zero field: nothing to see — diamagnetic moments are induced, not permanent.
+    Drag B up slowly and watch the opposing moments grow; flip the field sign and the
+    moments flip with it. Note the tiny magnitude: −4.8 A/m at 0.4 T.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PARAMAGNETISM                                                    -->
+<!-- ================================================================ -->
+</section>
+<section id="paramagnetism">
+<section>
+  <h2>Paramagnetism</h2>
+  <p class="tagline">permanent moments vs. thermal chaos</p>
+  <div class="cols">
+    <div class="wide">
+      <ul style="margin-bottom:0.5em">
+        <li>Atoms with <strong>unpaired electrons</strong> (Fe²⁺, Fe³⁺…) carry permanent magnetic moments — and two energies compete:</li>
+      </ul>
+      <p style="margin:0.4em 0 0.1em"><strong>Magnetic energy</strong> — the field pulls each moment into alignment:</p>
+      <div class="eqbox" style="font-size:0.9em; margin:0.25em 0">\(E_m = -\mu B\cos\theta\)</div>
+      <p style="margin:0.5em 0 0.1em"><strong>Thermal energy</strong> — randomizes the moments:</p>
+      <div class="eqbox" style="font-size:0.9em; margin:0.25em 0">\(E_T = k_B T\), &nbsp;
+        \(k_B = 1.38\times10^{-23}\ \mathrm{J\,K^{-1}}\)</div>
+    </div>
+    <div class="narrow" style="text-align:center; flex:0.45">
+      <svg viewBox="0 0 150 150" style="height:22vh" role="img" aria-label="moment mu at angle theta from field B">
+        <line x1="40" y1="130" x2="40" y2="26" stroke="var(--ink)" stroke-width="3.5"/>
+        <polygon points="40,12 33.5,28 46.5,28" fill="var(--ink)"/>
+        <line x1="40" y1="130" x2="112" y2="67" stroke="var(--ink)" stroke-width="3.5"/>
+        <polygon points="123,57 106.5,61.5 115,71.5" fill="var(--ink)"/>
+        <path d="M 40 100 A 30 30 0 0 1 62.6 110.2" fill="none" stroke="var(--ink)" stroke-width="2"/>
+        <text x="32" y="20" font-size="18" font-weight="bold" fill="var(--ink)">B</text>
+        <text x="126" y="52" font-size="18" font-style="italic" fill="var(--ink)">μ</text>
+        <text x="52" y="96" font-size="16" font-style="italic" fill="var(--ink)">θ</text>
+      </svg>
+    </div>
+  </div>
+  <p class="small" style="margin:0.5em 0 0.2em">Example: one high-spin Fe²⁺ ion, as in fayalite, Fe₂SiO₄ (\(\mu \approx 5\mu_B\))</p>
+  <table>
+    <tr><th>B, T</th><th>\(\mu B\)</th><th>\(k_B T\)</th><th>\(\mu B / k_B T\)</th><th></th></tr>
+    <tr><td>B = 0.01 T, T = 300 K</td><td>4.6 × 10⁻²⁵ J</td><td>4.1 × 10⁻²¹ J</td><td>10⁻⁴</td>
+      <td>\(\mu B \ll k_B T\) — weak alignment</td></tr>
+    <tr><td>B = 10 T, T = 10 K</td><td>4.6 × 10⁻²² J</td><td>1.4 × 10⁻²² J</td><td>3</td>
+      <td>\(\mu B > k_B T\) — strong alignment</td></tr>
+  </table>
+  <aside class="notes">
+    The energy budget frames everything: at Earth-like fields and room temperature the
+    magnetic energy is four orders of magnitude below thermal — alignment is a tiny
+    statistical bias, which is why κ is small and linear. Flip to MPMS conditions
+    (10 T, 10 K) and μB beats k_BT — you can approach saturation of a paramagnet.
+    That ratio μB/k_BT is exactly the Langevin argument.
+  </aside>
+</section>
+
+<section>
+  <h2>Paramagnetism is strongly temperature dependent</h2>
+  <p class="tagline">thermal energy competes with alignment</p>
+  <ul>
+    <li>Zero field: thermal agitation randomizes moments → <strong>no net magnetization</strong></li>
+    <li>Applied field: partial alignment → small positive \(M\), <strong>linear</strong> in weak fields</li>
+    <li>Cool it down and the moments become <strong>more effectively aligned</strong>: κ grows as \(1/T\)</li>
+  </ul>
+  <div class="eqbox" style="font-size:0.9em; margin:0.4em 0">Curie's law: \(\kappa \approx \dfrac{C}{T}\)</div>
+  <p class="small" style="margin:0.3em 0">The Curie constant \(C \propto N\mu_{\mathrm{eff}}^2\) encodes how
+  <em>many</em> moments and how <em>strong</em> — in rocks it largely tracks the abundance of Fe-bearing ions.</p>
+  <div class="spin-row" style="margin-top:0.5em; gap:4em">
+    <div class="spin-panel">
+      <svg viewBox="0 0 260 190" style="height:24vh" role="img" aria-label="M versus H: a line through the origin with slope kappa">
+        <line x1="60" y1="175" x2="60" y2="14" stroke="var(--ink)" stroke-width="2.5"/>
+        <polygon points="60,6 54.5,20 65.5,20" fill="var(--ink)"/>
+        <line x1="18" y1="95" x2="240" y2="95" stroke="var(--ink)" stroke-width="2.5"/>
+        <polygon points="248,95 234,89.5 234,100.5" fill="var(--ink)"/>
+        <line x1="22" y1="112.1" x2="235" y2="16.3" stroke="var(--para)" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="48" y="30" font-size="17" font-style="italic" fill="var(--ink)" text-anchor="end">M</text>
+        <text x="48" y="60" font-size="16" fill="var(--ink)" text-anchor="end">+</text>
+        <text x="48" y="140" font-size="16" fill="var(--ink)" text-anchor="end">−</text>
+        <text x="242" y="115" font-size="17" font-style="italic" fill="var(--ink)" text-anchor="end">H</text>
+        <text x="150" y="87" font-size="16" fill="var(--para)">slope = κ</text>
+        <text x="118" y="130" font-size="17" fill="var(--ink)">M = κH,&#8201; κ &gt; 0</text>
+      </svg>
+      <div class="spin-label">linear response through the origin — no memory</div>
+    </div>
+    <div class="spin-panel">
+      <svg viewBox="0 0 260 190" style="height:24vh" role="img" aria-label="susceptibility falling as one over temperature">
+        <line x1="18" y1="160" x2="18" y2="14" stroke="var(--ink)" stroke-width="2.5"/>
+        <polygon points="18,6 12.5,20 23.5,20" fill="var(--ink)"/>
+        <line x1="18" y1="160" x2="240" y2="160" stroke="var(--ink)" stroke-width="2.5"/>
+        <polygon points="248,160 234,154.5 234,165.5" fill="var(--ink)"/>
+        <polyline points="24,10 27,27.3 31,42.5 35,56 39,68 44,78.6 50,88 56,96.2 64,103.6 72,110.1 81,115.8 92,120.9 104,125.4 118,129.4 133,132.9 150,136 170,138.8 192,141.2 217,143.4 245,145.3"
+                  fill="none" stroke="var(--para)" stroke-width="3.5"/>
+        <text x="30" y="24" font-size="17" font-style="italic" fill="var(--ink)">κ</text>
+        <text x="238" y="180" font-size="17" font-style="italic" fill="var(--ink)" text-anchor="end">T</text>
+        <text x="120" y="60" font-size="24" font-style="italic" fill="var(--ink)">κ ∝ 1/T</text>
+      </svg>
+      <div class="spin-label">cool it down and κ climbs as 1/T — Curie's law</div>
+    </div>
+  </div>
+  <aside class="notes">
+    Left: the whole paramagnetic response is a line through the origin — remove the field
+    and M vanishes, no remanence. Right: read the curve toward low T — cooling quiets the
+    thermal agitation, so the same field aligns the moments more effectively and κ climbs
+    as 1/T. This is why low-temperature measurements (MPMS this week) are so sensitive to
+    paramagnetic Fe. If asked: Curie's law is the ideal noninteracting limit — interacting
+    moments follow Curie–Weiss, κ = C/(T−θ). Segue to the table of iron-bearing silicates next.
+  </aside>
+</section>
+
+<section>
+  <h2>Paramagnetism is an iron story</h2>
+  <ul>
+    <li>The dominant behavior of <strong>iron-bearing silicates</strong>: olivine, pyroxene, amphibole, biotite</li>
+    <li>Susceptibility scales with iron content:</li>
+  </ul>
+  <table style="margin-top:0.5em">
+    <tr><th>Mineral</th><th>Composition</th><th>κ (SI)</th><th>Class</th></tr>
+    <tr><td>Forsterite</td><td>Mg₂SiO₄</td><td>−1.2 × 10⁻⁵</td><td>diamagnetic</td></tr>
+    <tr><td>Typical olivine</td><td>(Mg,Fe)₂SiO₄</td><td>≈ 1.6 × 10⁻³</td><td>paramagnetic</td></tr>
+    <tr><td>Fayalite</td><td>Fe₂SiO₄</td><td>≈ 5.5 × 10⁻³</td><td>paramagnetic</td></tr>
+  </table>
+  <p class="tiny" style="margin-top:0.4em">Representative room-temperature values — susceptibility
+  varies with composition (Fe/Mg), crystallographic orientation, and any ferromagnetic inclusions.</p>
+  <p style="margin-top:0.8em">Your troctolites are <strong>plagioclase (diamagnetic) + olivine (paramagnetic)</strong>
+  + augite (paramagnetic) — the <em>matrix</em> of every rock in D-6A is a dia/para mixture (with a nice dash of ferromagnetism thrown in too!).
+</p>
+</section>
+
+<section>
+  <h2>Explore: the paramagnetic response</h2>
+  <div class="widget" data-widget="para"></div>
+  <p class="tiny" style="margin-top:0.4em">Permanent moments jitter thermally and lean into the field —
+  positive slope, ~100× steeper than the diamagnetic response. Raise T and watch the moments get wilder
+  and κ fall (Curie's law). Still a line through the origin: <strong>no remanence, no coercivity, no memory.</strong></p>
+  <p class="tiny" style="margin-top:0.3em"><em>Caveats: the alignment is exaggerated ~10⁴× for visibility
+  (at these fields and temperatures μB/k<sub>B</sub>T ~ 10⁻⁴); the jitter is a schematic wobble, not
+  Boltzmann statistics; and the plotted M follows the exact Curie law — the arrows illustrate the mechanism,
+  they aren't summed.</em></p>
+  <aside class="notes">
+    Start at zero field: the moments exist (unlike the diamagnet) but point randomly — zero
+    net M. Drag B up: they lean in. Then drag temperature from 300 K to 900 K at fixed B and
+    watch M drop as κ ∝ 1/T. Key takeaway for both linear responses: when B returns to zero,
+    M returns to zero — the "hysteresis loop" collapses to a line. That sets up ferromagnetism.
+
+    How the visualization works: each orange arrow is the permanent moment of one atom —
+    fixed length, because |μ| never changes; only its orientation responds. The wobble is a
+    cartoon of thermal agitation (its amplitude and speed grow with T), and each moment is
+    leaned from its random thermal direction toward B by a Langevin-like factor that
+    saturates with B and falls as 1/T. The faint blue background arrows are the applied
+    field, scaled to its strength.
+
+    Simplifications to be upfront about: (1) the alignment is exaggerated ~10,000× — at
+    these fields and temperatures μB/k_BT ~ 10⁻⁴ (previous slide's energy budget), so a
+    faithful drawing would look completely random; (2) the jitter is a smooth deterministic
+    wobble, not a real Boltzmann-statistics simulation — 24 moments in 2-D stand in for an
+    ensemble average; (3) moments are independent (ideal paramagnet, no interactions); and
+    (4) the plotted M and κ readout come from the exact Curie law κ = κ₃₀₀·(300/T), not from
+    summing the drawn arrows — the arrows illustrate the mechanism, the curve is the physics.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- FERROMAGNETISM                                                   -->
+<!-- ================================================================ -->
+</section>
+<section id="ferromagnetism">
+<section>
+  <h2>Ferromagnetism <span style="font-weight:400">(s.l.)</span></h2>
+  <p class="tagline">exchange coupling changes everything — and gives rocks memory</p>
+  <ul>
+    <li>In dia- and paramagnets, atoms act <em>independently</em></li>
+    <li>In ferromagnets <em>(sensu lato)</em>, quantum-mechanical <strong>exchange interactions</strong> couple neighboring moments into collective long-range order</li>
+    <li><strong>Spontaneous magnetization</strong> — magnetized even with no applied field</li>
+    <li><strong>Hysteresis</strong> — magnetization depends on field <em>history</em>: rocks can remember</li>
+  </ul>
+  <figure style="margin-top:0.5em">
+    <div class="spin-row">
+      <div class="spin-panel">
+        <svg viewBox="0 0 116 100" role="img" aria-label="four parallel spins pointing up">
+          <line x1="16" y1="94" x2="16" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="16,2 9,20 23,20" fill="var(--ink)"/>
+          <line x1="44" y1="94" x2="44" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="44,2 37,20 51,20" fill="var(--ink)"/>
+          <line x1="72" y1="94" x2="72" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="72,2 65,20 79,20" fill="var(--ink)"/>
+          <line x1="100" y1="94" x2="100" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="100,2 93,20 107,20" fill="var(--ink)"/>
+        </svg>
+        <div class="spin-label">ferromagnetic<br>→ large net M</div>
+      </div>
+      <div class="spin-panel">
+        <svg viewBox="0 0 116 100" role="img" aria-label="alternating up and down spins of equal size">
+          <line x1="16" y1="94" x2="16" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="16,2 9,20 23,20" fill="var(--ink)"/>
+          <line x1="44" y1="6" x2="44" y2="84" stroke="var(--ink)" stroke-width="4"/><polygon points="44,98 37,80 51,80" fill="var(--ink)"/>
+          <line x1="72" y1="94" x2="72" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="72,2 65,20 79,20" fill="var(--ink)"/>
+          <line x1="100" y1="6" x2="100" y2="84" stroke="var(--ink)" stroke-width="4"/><polygon points="100,98 93,80 107,80" fill="var(--ink)"/>
+        </svg>
+        <div class="spin-label">antiferromagnetic<br>→ net M ≈ 0</div>
+      </div>
+      <div class="spin-panel">
+        <svg viewBox="0 0 116 100" role="img" aria-label="antiparallel spins canted from vertical, giving a small net moment">
+          <g transform="rotate(18 16 50)"><line x1="16" y1="94" x2="16" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="16,2 9,20 23,20" fill="var(--ink)"/></g>
+          <g transform="rotate(-18 44 50)"><line x1="44" y1="6" x2="44" y2="84" stroke="var(--ink)" stroke-width="4"/><polygon points="44,98 37,80 51,80" fill="var(--ink)"/></g>
+          <g transform="rotate(18 72 50)"><line x1="72" y1="94" x2="72" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="72,2 65,20 79,20" fill="var(--ink)"/></g>
+          <g transform="rotate(-18 100 50)"><line x1="100" y1="6" x2="100" y2="84" stroke="var(--ink)" stroke-width="4"/><polygon points="100,98 93,80 107,80" fill="var(--ink)"/></g>
+        </svg>
+        <div class="spin-label">spin-canted antiferromagnetic (hematite) → weak net M</div>
+      </div>
+      <div class="spin-panel">
+        <svg viewBox="0 0 116 100" role="img" aria-label="antiferromagnetic lattice with a missing spin, giving a net moment">
+          <line x1="16" y1="94" x2="16" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="16,2 9,20 23,20" fill="var(--ink)"/>
+          <circle cx="44" cy="50" r="12" fill="none" stroke="var(--ink)" stroke-width="4"/>
+          <line x1="72" y1="94" x2="72" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="72,2 65,20 79,20" fill="var(--ink)"/>
+          <line x1="100" y1="6" x2="100" y2="84" stroke="var(--ink)" stroke-width="4"/><polygon points="100,98 93,80 107,80" fill="var(--ink)"/>
+        </svg>
+        <div class="spin-label">defect antiferromagnetic<br>→ weak net M</div>
+      </div>
+      <div class="spin-panel">
+        <svg viewBox="0 0 116 100" role="img" aria-label="antiparallel spins of unequal size, giving a net moment">
+          <line x1="16" y1="94" x2="16" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="16,2 9,20 23,20" fill="var(--ink)"/>
+          <line x1="44" y1="34" x2="44" y2="76" stroke="var(--ink)" stroke-width="4"/><polygon points="44,90 37,72 51,72" fill="var(--ink)"/>
+          <line x1="72" y1="94" x2="72" y2="16" stroke="var(--ink)" stroke-width="4"/><polygon points="72,2 65,20 79,20" fill="var(--ink)"/>
+          <line x1="100" y1="34" x2="100" y2="76" stroke="var(--ink)" stroke-width="4"/><polygon points="100,90 93,72 107,72" fill="var(--ink)"/>
+        </svg>
+        <div class="spin-label">ferrimagnetic (magnetite)<br>→ net M ≠ 0</div>
+      </div>
+    </div>
+    <figcaption>In rock magnetism, all spin orderings with a net moment are called "ferromagnetic <em>s.l.</em>"
+    These are patterns of <em>long-range order</em>, present below an ordering temperature.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Exchange and superexchange in Earth materials</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.9em">
+        <li>Magnetic order in rocks is controlled mainly by <strong>exchange interactions</strong>:
+        how electron spins influence each other through the overlap of electron clouds
+        between neighboring atoms</li>
+        <li>In oxides and sulfides, the magnetic (Fe) ions are separated by
+        O²⁻ or S²⁻ anions</li>
+        <li>Coupling therefore usually occurs <em>through the anion</em>:
+        <strong>superexchange</strong></li>
+        <li>Superexchange commonly favors <strong>antiparallel alignment</strong> of
+        neighboring spins</li>
+      </ul>
+      <p style="font-size:0.85em; margin-top:0.5em">This antiparallel coupling is the basis for both
+      <strong>antiferromagnetism</strong> and <strong>ferrimagnetism</strong> — the orderings that
+      matter most in Earth materials.</p>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/negative_exchange.png" alt="Negative exchange (superexchange): Fe 3d orbitals of two iron ions couple through the O 2p orbitals of an intervening oxygen, favoring antiparallel spins">
+        <figcaption>Negative exchange through an O²⁻ ion: the Fe 3d orbitals couple via the
+        oxygen 2p electrons, favoring antiparallel Fe spins.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    In iron metal, direct exchange between neighboring atoms favors parallel spins —
+    true ferromagnetism. In the minerals we care about, the dominant Fe–Fe coupling
+    is mediated through the intervening oxygen (or sulfur) — superexchange — which
+    commonly (though not invariably; it depends on bond geometry and orbital
+    occupancy) favors antiparallel spins. Magnetite's B sublattice, with electron
+    hopping between Fe²⁺ and Fe³⁺, is a more complicated story than the simple ionic
+    picture. Still, the punchline holds: "ferromagnetic" minerals in rocks are almost
+    all antiferromagnets in disguise — either canted (hematite) or with unbalanced
+    sublattices (magnetite) — which the next slide makes concrete.
+  </aside>
+</section>
+
+<section>
+  <h2>Why magnetite is ferrimagnetic</h2>
+  <div class="eqbox">\(\mathrm{Fe_3O_4} \;=\; \mathrm{Fe^{3+}_{A}\,[Fe^{3+}Fe^{2+}]_{B}\,O_4}\)</div>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>Two magnetic sublattices: <strong>A (tetrahedral) sites</strong> and
+        <strong>B (octahedral) sites</strong></li>
+        <li>A sites hold only Fe³⁺; B sites hold Fe³⁺ <em>and</em> Fe²⁺</li>
+        <li>Superexchange through the oxygens forces the A and B sublattices
+        <strong>antiparallel</strong></li>
+        <li>The Fe³⁺ moments on A and B <strong>cancel</strong>; the Fe²⁺ moment
+        <strong>does not</strong></li>
+        <li>Result (in this ideal ionic model): antiparallel order with a <strong>net magnetization</strong> ≈ the Fe²⁺
+        moment (~4 μ<sub>B</sub> per formula unit)</li>
+      </ul>
+      <p style="font-size:0.85em; margin-top:0.4em"><strong>Ferrimagnetism = antiparallel alignment +
+      unequal moments.</strong></p>
+    </div>
+    <div class="narrow">
+      <figure>
+        <svg viewBox="0 0 300 150" role="img" aria-label="Magnetite sublattice bookkeeping: A-site iron three plus down, B-site iron three plus and iron two plus up, leaving a net moment equal to the iron two plus moment" style="width:100%; max-width:300px">
+          <!-- A site: Fe3+ down (5 units) -->
+          <line x1="45" y1="18" x2="45" y2="96" stroke="var(--ink)" stroke-width="4"/>
+          <polygon points="45,110 38,92 52,92" fill="var(--ink)"/>
+          <text x="45" y="128" font-size="13" fill="#555" text-anchor="middle">A: Fe³⁺</text>
+          <!-- B site: Fe3+ up (5 units) + Fe2+ up (4 units) -->
+          <line x1="125" y1="110" x2="125" y2="32" stroke="var(--ink)" stroke-width="4"/>
+          <polygon points="125,18 118,36 132,36" fill="var(--ink)"/>
+          <line x1="160" y1="110" x2="160" y2="48" stroke="var(--ink)" stroke-width="4"/>
+          <polygon points="160,34 153,52 167,52" fill="var(--ink)"/>
+          <text x="142" y="128" font-size="13" fill="#555" text-anchor="middle">B: Fe³⁺ + Fe²⁺</text>
+          <!-- equals net Fe2+ moment -->
+          <text x="205" y="70" font-size="18" fill="#555" text-anchor="middle">=</text>
+          <line x1="250" y1="110" x2="250" y2="48" stroke="var(--ferro)" stroke-width="4"/>
+          <polygon points="250,34 243,52 257,52" fill="var(--ferro)"/>
+          <text x="250" y="128" font-size="13" fill="var(--ferro)" text-anchor="middle">net ≈ Fe²⁺</text>
+        </svg>
+        <figcaption>Per formula unit: the antiparallel Fe³⁺ pair cancels;
+        the B-site Fe²⁺ survives as the net moment.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    This is the payoff of the superexchange slide: magnetite is not a ferromagnet in
+    the strict sense — it is an antiferromagnet whose two sublattices don't balance.
+    The bookkeeping: Fe³⁺ is 5 μB, Fe²⁺ is ~4 μB; A-site Fe³⁺ (down) cancels B-site
+    Fe³⁺ (up), leaving the B-site Fe²⁺ ≈ 4 μB per formula unit — which matches the
+    measured Ms of magnetite. Same logic, different arithmetic, gives hematite its
+    much weaker canted moment.
+  </aside>
+</section>
+
+<section>
+  <h2>Anatomy of a hysteresis loop</h2>
+  <div class="cols">
+    <div>
+      <h3 style="color:var(--ferro)">M<sub>s</sub> — saturation magnetization</h3>
+      <p class="small">A strong enough field drives M to its high-field limit.
+      <strong>∝ concentration</strong> of ferromagnetic minerals.</p>
+    </div>
+    <div>
+      <h3 style="color:var(--ferro)">M<sub>r</sub> — saturation remanence</h3>
+      <p class="small">Remove the field and magnetization <em>stays</em>.
+      <strong>This is why rocks record paleomagnetism.</strong></p>
+    </div>
+    <div>
+      <h3 style="color:var(--ferro)">B<sub>c</sub> — coercivity</h3>
+      <p class="small">Reverse field needed to drive M back to zero — resistance to
+      field-driven remagnetization, <strong>a key ingredient of remanence stability</strong>
+      (along with grain size, domain state, and temperature).</p>
+    </div>
+  </div>
+  <div class="widget" data-widget="loopanatomy" style="margin-top:0.6em"></div>
+  <aside class="notes">
+    Point at each feature on the loop as you define it: Ms at the closed high-field
+    branches, Mr where the descending branch crosses B = 0, Bc where M passes through
+    zero. On the Lake Shore VSM this week they will measure all three on their unit's
+    specimens; loop shape vs. grain size gets its own session (fine-particle magnetism).
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: ferromagnetic hysteresis</h2>
+  <div class="widget" data-widget="ferro"></div>
+  <p class="tiny" style="margin-top:0.4em">Stoner–Wohlfarth physics: uniaxial single-domain magnetite grains with
+  randomly oriented easy axes (shape anisotropy of prolate grains, B<sub>K</sub> = μ₀(N<sub>b</sub>−N<sub>a</sub>)M<sub>s</sub>).
+  Each moment rides its energy minimum — rotating reversibly toward B, flipping irreversibly when the minimum
+  vanishes. The loop is computed from these same grains: M<sub>r</sub> and B<sub>c</sub> are emergent, not dialed in.</p>
+  <aside class="notes">
+    Starts demagnetized: every moment on its own easy axis with random polarity, M = 0.
+    Press cycle field: at peak field the moments approach alignment with B (that's Ms); back at zero each
+    relaxes to the easy-axis direction nearest the field — that's Mr, and that's why rocks
+    remember. Reverse the field to walk M through zero at Bc; each step in the loop is one
+    grain flipping. Drag elongation: skinnier grains → higher B_K → wider loop — a preview
+    of the anisotropy session. New grains re-draws the random easy axes.
+  </aside>
+</section>
+
+<section>
+  <h2>Ferromagnetism dies at the Curie temperature</h2>
+  <div class="cols">
+    <div class="narrow">
+      <ul>
+        <li style="font-size:0.85em">Thermal energy vs. exchange: exchange wins at low T — long-range order below the ordering temperature, paramagnetic behavior above</li>
+        <li style="font-size:0.85em"><strong>Curie temperature T<sub>c</sub></strong>: loss of ferro/ferrimagnetic order · <strong>Néel temperature T<sub>N</sub></strong>: loss of antiferromagnetic order</li>
+        <li style="font-size:0.85em">Magnetite: T<sub>c</sub> ≈ 580 °C · hematite: T<sub>N</sub> ≈ 675 °C</li>
+        <li style="font-size:0.85em">The ordering temperature can be diagnostic → thermomagnetic runs on the Kappabridge furnace</li>
+      </ul>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/MsT.png" alt="Ms vs temperature dropping at the Curie temperature" style="max-height:52vh">
+        <figcaption>M<sub>s</sub>/M<sub>s0</sub> collapses at T<sub>c</sub>.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Real rocks are mixtures</h2>
+  <div class="widget" data-widget="mixture"></div>
+  <p class="tiny" style="margin-top:0.4em">Magnetite is ~230× stronger than hematite (M<sub>s</sub> 92 vs 0.4 Am²/kg).
+  Slide the magnetite fraction: in this two-component model, near ~0.5 wt% the two phases contribute
+  comparably and the loop goes
+  <strong>wasp-waisted</strong> — a pinched loop is a classic sign of mixed soft + hard coercivity.
+  Coercivity spectra and unmixing will be covered later on in the summer school.</p>
+  <aside class="notes">
+    Start at 0.5% — the classic wasp-waist. Slide down to 0.01%: hematite-dominated, broad
+    loop. Slide up to a few %: pure-looking magnetite loop, hematite invisible. Lesson:
+    hysteresis is exquisitely sensitive to trace strong phases — same reason bulk
+    susceptibility is a magnetite-concentration proxy in D-6A.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 7: BACK TO THE CORE                                         -->
+<!-- ================================================================ -->
+</section>
+<section id="core">
+
+<section>
+  <h2>The sessions ahead: what each station measures</h2>
+  <table>
+    <tr><th>Station</th><th>Measurement</th><th>Connects to</th></tr>
+    <tr><td>Lake Shore VSM</td><td>Hysteresis loops, M<sub>s</sub>, M<sub>r</sub>, B<sub>c</sub>, high-field slope</td><td>today's loops — for real</td></tr>
+    <tr><td>MPMS</td><td>Low-temperature remanence, Verwey &amp; Besnus transitions, FC/ZFC</td><td>fingerprinting magnetite &amp; pyrrhotite</td></tr>
+    <tr><td>Kappabridges</td><td>Susceptibility vs. temperature &amp; frequency, AMS</td><td>κ, Curie temperatures, fabrics</td></tr>
+    <tr><td>RAPID SRM</td><td>NRM + AF/thermal demagnetization</td><td>remanence, Koenigsberger ratios</td></tr>
+    <tr><td>QDM</td><td>Magnetic microscopy</td><td>which grains carry the signal</td></tr>
+  </table>
+  <p class="small" style="margin-top:0.8em">Everything on the schedule is a measurement of
+  \(\mathbf{M}\) — induced (κ) or remanent — as a function of field, temperature, or position.</p>
+</section>
+
+<section>
+  <h2>Sources &amp; further reading</h2>
+  <ul class="small">
+    <li>Tauxe, L. &amp; Swanson-Hysell, N. L. (2026). <a href="https://pmagpy.github.io/Essentials-JupyterBook/"><em>Essentials of Paleomagnetism</em>, interactive JupyterBook edition</a> (CC BY 4.0): figures on Larmor precession and M<sub>s</sub>(T)</li>
+    <li>Hunt, C. P., Moskowitz, B. M., &amp; Banerjee, S. K. (1995). Magnetic properties of rocks and minerals.
+    In <em>Rock Physics &amp; Phase Relations: A Handbook of Physical Constants</em> (AGU Reference Shelf 3), 189–204 —
+    source of the mineral susceptibility and M<sub>s</sub> values</li>
+    <li>Takács, J. (2001). A phenomenological mathematical model of hysteresis. <em>COMPEL</em>, 20(4), 1002–1014 — the tanh loop model behind the interactive loops</li>
+    <li>Swanson-Hysell, N. L. et al. (2021). Rapid emplacement of massive Duluth Complex intrusions
+    within the North American Midcontinent rift. <em>Geology</em>, 49(2), 185–189 — U-Pb geochronology and the geologic map</li>
+    <li>Severson, M. (1992). D-6A drill log, NRRI; Severson &amp; Hauck (2016) on South Kawishiwi stratigraphy</li>
+    <li>Beck, M. E. (1970). Paleomagnetism of Keweenawan intrusive rocks, Minnesota. <em>JGR</em>, 75</li>
+    <li>Course notebooks: <code>W2_dia_para_ferro/</code> in the 2026 ESCI pmag course repository</li>
+  </ul>
+  <p class="small" style="margin-top:1em">Slides + interactive widgets:
+  <code>S1_Duluth_dia_para_ferro/</code> — reveal.js, self-contained, works offline.</p>
+</section>
+
+</section>
+</div>
+</div>
+
+<script src="lib/reveal/reveal.js"></script>
+<script src="lib/reveal/notes/notes.js"></script>
+<script src="lib/katex/katex.min.js"></script>
+<script src="lib/katex/auto-render.min.js"></script>
+<script src="js/widgets.js"></script>
+<script>
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: '$$', right: '$$', display: true },
+      { left: '\\(', right: '\\)', display: false },
+    ],
+    throwOnError: false,
+  });
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.03,
+    hash: true,
+    slideNumber: 'c/t',
+    navigationMode: 'linear',
+    transition: 'fade',
+    plugins: [RevealNotes],
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 IRM Summer School — Lecture Slides</title>
+  <style>
+    :root {
+      --accent: #7a0019;
+      --accent2: #ffcc33;
+      --muted: #555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #222;
+      background: #faf9f7;
+      line-height: 1.5;
+      padding: 3rem 1.5rem;
+    }
+    main { max-width: 46rem; margin: 0 auto; }
+    h1 { color: var(--accent); font-size: 1.9rem; letter-spacing: -0.01em; }
+    .titlebar {
+      height: 8px; width: 34%; margin: 1rem 0 1.5rem 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px;
+    }
+    p.lede { color: var(--muted); margin-bottom: 2rem; }
+    .deck {
+      display: block;
+      background: #fff;
+      border: 1px solid #e2ddd6;
+      border-left: 6px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .deck:hover { border-color: var(--accent); background: #fffdf8; }
+    .deck h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.25rem; }
+    .deck p { font-size: 0.95rem; color: var(--muted); }
+    .schedule-wrap { overflow-x: auto; }
+    table.schedule {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid #e2ddd6;
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+    table.schedule th {
+      text-align: left;
+      color: #fff;
+      background: var(--accent);
+      padding: 0.5rem 0.8rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    table.schedule td {
+      padding: 0.45rem 0.8rem;
+      border-top: 1px solid #eee8e0;
+      vertical-align: top;
+    }
+    table.schedule td.day {
+      border-top: 3px solid var(--accent2);
+      white-space: nowrap;
+    }
+    table.schedule td.day strong { display: block; }
+    table.schedule td.day .room { font-size: 0.82rem; color: var(--muted); }
+    table.schedule td.time { white-space: nowrap; color: var(--muted); }
+    table.schedule tr.newday td { border-top: 3px solid var(--accent2); }
+    table.schedule a { color: var(--accent); font-weight: 600; }
+    table.schedule .note { font-size: 0.85rem; color: var(--muted); }
+    table.schedule tr.break td {
+      background: #f6f4f1;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-style: italic;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+    p.linknote { font-size: 0.88rem; color: var(--muted); margin-top: 0.8rem; }
+    footer { margin-top: 2.5rem; font-size: 0.85rem; color: var(--muted); }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>2026 IRM Summer School of Rock Magnetism</h1>
+  <div class="titlebar"></div>
+  <p class="lede">Lecture schedule and slides for the summer school.</p>
+
+  <div class="schedule-wrap">
+  <table class="schedule">
+    <thead>
+      <tr><th>Date</th><th>Time</th><th>Topic</th><th>Instructor</th></tr>
+    </thead>
+    <tbody>
+      <tr class="newday">
+        <td class="day" rowspan="4"><strong>Mon July 20</strong><span class="room">Rm 401-20</span></td>
+        <td class="time">9:00–9:15</td><td>Welcome, introduction to the IRM and the summer school</td><td>Josh Feinberg</td>
+      </tr>
+      <tr><td class="time">9:15–10:00</td><td>Rock magnetism overview</td><td>Maxwell Brown</td></tr>
+      <tr class="break"><td class="time">10:00–10:15</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">10:15–11:45</td><td><a href="S1_Duluth_dia_para_ferro/">Project introduction</a></td><td>Nick Swanson-Hysell</td></tr>
+      <tr class="newday">
+        <td class="day" rowspan="5"><strong>Tue July 21</strong><span class="room">Rm 401-20</span></td>
+        <td class="time">8:30–9:30</td><td>Fine particle magnetism I</td><td>Nick Swanson-Hysell</td>
+      </tr>
+      <tr class="break"><td class="time">9:30–9:45</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">9:45–10:45</td><td>Fine particle magnetism II</td><td>Nick Swanson-Hysell</td></tr>
+      <tr class="break"><td class="time">10:45–11:00</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">11:00–12:00</td><td>Magnetic domain states</td><td>Maxwell Brown</td></tr>
+      <tr class="newday">
+        <td class="day"><strong>Wed July 22</strong><span class="room">Rm 301-20</span></td>
+        <td class="time">9:00–12:00</td><td>Remanent magnetization: how rocks become and stay magnetized <span class="note">(breaks interspersed)</span></td><td>Nick Swanson-Hysell</td>
+      </tr>
+      <tr class="newday">
+        <td class="day" rowspan="2"><strong>Thu July 23</strong><span class="room">Rm 301-20</span></td>
+        <td class="time" rowspan="2">9:00–12:00</td><td>Magnetic mineralogy</td><td>Josh Feinberg</td>
+      </tr>
+      <tr><td>Low-temperature magnetism <span class="note">(breaks interspersed)</span></td><td>Josh Feinberg</td></tr>
+      <tr class="newday">
+        <td class="day" rowspan="5"><strong>Fri July 24</strong><span class="room">Rm 201-20</span></td>
+        <td class="time">8:30–9:30</td><td>High-temperature magnetism</td><td>Josh Feinberg</td>
+      </tr>
+      <tr class="break"><td class="time">9:30–9:45</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">9:45–10:45</td><td>Magnetic anisotropy of rock samples</td><td>Maxwell Brown</td></tr>
+      <tr class="break"><td class="time">10:45–11:00</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">11:00–12:00</td><td>Magnetic fabrics and petrofabrics</td><td>Maxwell Brown</td></tr>
+      <tr class="newday">
+        <td class="day"><strong>Sat July 25</strong></td>
+        <td class="time">8:00–20:00</td><td>Field trip to the Duluth Complex in Duluth, Minnesota <span class="note">— meet outside Centennial Hall at 8:00 am</span></td><td></td>
+      </tr>
+      <tr class="newday">
+        <td class="day"><strong>Sun July 26</strong></td>
+        <td class="time"></td><td>Day off. Enjoy Minneapolis!</td><td></td>
+      </tr>
+      <tr class="newday">
+        <td class="day" rowspan="3"><strong>Mon July 27</strong><span class="room">Rm 401-20</span></td>
+        <td class="time">9:00–10:15</td><td>Micromagnetic modeling</td><td>Yiming Zhang</td>
+      </tr>
+      <tr class="break"><td class="time">10:15–10:30</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">10:30–11:45</td><td>Magnetic microscopy</td><td>Yiming Zhang</td></tr>
+      <tr class="newday">
+        <td class="day" rowspan="3"><strong>Tue July 28</strong><span class="room">Rm 401-20</span></td>
+        <td class="time">9:00–10:00</td><td>Remanent magnetism of sediments</td><td>Josh Feinberg</td>
+      </tr>
+      <tr class="break"><td class="time">10:00–10:15</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">10:15–11:15</td><td>FORCs</td><td>Josh Feinberg</td></tr>
+      <tr class="newday">
+        <td class="day" rowspan="4"><strong>Wed July 29</strong><span class="room">Rm 401-20</span></td>
+        <td class="time">9:00–10:00</td><td>Absolute paleointensity</td><td>Maxwell Brown</td>
+      </tr>
+      <tr class="break"><td class="time">10:00–10:15</td><td colspan="2">Break</td></tr>
+      <tr><td class="time">10:15–11:15</td><td>Planetary rock magnetism</td><td>Katie Bristol</td></tr>
+      <tr><td class="time">13:00–16:00</td><td>Group presentations</td><td></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="linknote">Topics link to slides as they become available — slide decks hosted
+  on this site open in the browser; other lecture slides will be linked as files.</p>
+
+  <footer>
+    <p>Institute for Rock Magnetism · University of Minnesota ·
+    <a href="https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides">source on GitHub</a> ·
+    Duluth Complex project materials:
+    <a href="https://institute-for-rock-magnetism.github.io/2026_SSRM_Duluth_Complex/">project web book</a></p>
+    <p>In a deck: arrow keys to navigate · <kbd>f</kbd> fullscreen · <kbd>Esc</kbd> slide overview ·
+    append <code>?print-pdf</code> to a deck URL and print for a PDF copy.</p>
+    <p>Slide content is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code is
+    <a href="https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/LICENSE">BSD 3-Clause</a>.
+    Figure attribution is noted in slide captions.</p>
+  </footer>
+</main>
+</body>
+</html>
