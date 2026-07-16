@@ -689,13 +689,22 @@ class BackfieldWidget {
   constructor(root) {
     this.root = root;
     this.q = 1.5;                  // elongation → median B_K (soft population)
-    this.sigma = 0.0;              // log-normal spread of B_K (0 = ideal SD)
+    this.sigma = 0.25;             // log-normal spread of B_K (0 = ideal SD,
+                                   // where the astroid piles the spectrum
+                                   // into a spike at 0.5 B_K)
     this.fHard = 0.5;              // fraction of grains in the hard population
     this.hardRatio = 4;            // hard-population B_K as a multiple of soft
-    this.N = 400;
+    this.N = 1600;
     this.hmax = 6.0;
     this.hNow = 0;                 // current reverse field (units of B_K,median)
     this.playing = false;
+    // discrete measurement protocol: each step re-saturates, applies the
+    // back field, and measures the remanence at zero field
+    this.stepFields = Array.from({ length: 40 }, (_, i) => this.hmax * (i + 1) / 40);
+    this.measured = [];            // back fields measured so far this run
+    this.stepIdx = 0;
+    this.phase = 'back';           // 'sat' = off to saturation, 'back' = to the curve
+    this.phaseT = 0;
     this.rebuild();
     this.buildDOM();
     this.lastT = performance.now();
@@ -797,7 +806,7 @@ class BackfieldWidget {
         </div>
         <div class="wpane wpane-wide">
           <canvas class="c-plot"></canvas>
-          <div class="wcaption">remanence after each backfield step (green) vs in-field magnetization (grey)</div>
+          <div class="wcaption">remanence measured at zero field after each saturate-then-backfield cycle</div>
         </div>
       </div>`;
     this.cSpec = this.root.querySelector('.c-spec');
@@ -813,6 +822,7 @@ class BackfieldWidget {
       this.playing = false;
       this.playBtn.textContent = '▶ run experiment';
       this.hNow = parseFloat(this.sB.value) / 1000 / this.bK();
+      this.measured = [];
     });
     this.sFh.addEventListener('input', () => {
       this.fHard = parseFloat(this.sFh.value);
@@ -824,7 +834,14 @@ class BackfieldWidget {
     });
     this.playBtn.addEventListener('click', () => {
       this.playing = !this.playing;
-      if (this.playing && this.hNow >= this.hmax * 0.99) this.hNow = 0;
+      if (this.playing) {
+        if (this.hNow >= this.hmax * 0.99) { this.hNow = 0; this.measured = []; }
+        const next = this.stepFields.findIndex(hb => hb > this.hNow);
+        this.stepIdx = next === -1 ? this.stepFields.length : next;
+        this.phase = 'back';
+        this.phaseT = 0;
+        if (this.stepIdx >= this.stepFields.length) this.playing = false;
+      }
       this.playBtn.textContent = this.playing ? '⏸ pause' : '▶ run experiment';
     });
   }
@@ -834,11 +851,25 @@ class BackfieldWidget {
     this.lastT = tNow;
     const bkMT = this.bK() * 1000;
     if (this.playing) {
-      this.hNow += dt * 0.6;
-      if (this.hNow >= this.hmax) {
-        this.hNow = this.hmax;
-        this.playing = false;
-        this.playBtn.textContent = '▶ run experiment';
+      // one measurement cycle: fly to saturation ('sat'), then out to the
+      // back field and down to the zero-field remanence ('back')
+      this.phaseT += dt;
+      if (this.phaseT >= this.phaseDur()) {
+        this.phaseT = 0;
+        if (this.phase === 'sat') {
+          this.phase = 'back';
+        } else {
+          const hb = this.stepFields[this.stepIdx];
+          this.hNow = hb;
+          this.measured.push(hb);
+          this.stepIdx++;
+          if (this.stepIdx >= this.stepFields.length) {
+            this.playing = false;
+            this.playBtn.textContent = '▶ run experiment';
+          } else {
+            this.phase = 'sat';
+          }
+        }
       }
       this.sB.value = (this.hNow * bkMT).toFixed(1);
     }
@@ -850,6 +881,25 @@ class BackfieldWidget {
     this.ro.ratio.textContent = (this.hcr / this.hcInField).toFixed(2);
     this.drawSpec(bkMT);
     this.drawPlot(bkMT);
+  }
+
+  phaseDur() { return this.phase === 'sat' ? 0.1 : 0.14; }
+
+  mrAt(h) {
+    // interpolate the backfield remanence curve (uniform grid in h)
+    const n = this.curveH.length;
+    const f = Math.max(0, Math.min(n - 1.001, h / this.hmax * (n - 1)));
+    const i = Math.floor(f);
+    return this.curveM[i] + (f - i) * (this.curveM[i + 1] - this.curveM[i]);
+  }
+
+  markerPos(bkMT) {
+    // live sample marker: on the curve when idle; during a run it sits at
+    // saturation, then reappears at the measurement point — no travel
+    if (!this.playing) return { x: -this.hNow * bkMT, y: this.mrAt(this.hNow) };
+    if (this.phase === 'sat') return { x: 0, y: 1 };
+    const hb = this.stepFields[Math.min(this.stepIdx, this.stepFields.length - 1)];
+    return { x: -hb * bkMT, y: this.mrAt(hb) };
   }
 
   drawSpec(bkMT) {
@@ -904,29 +954,26 @@ class BackfieldWidget {
         margin: { l: 62, r: 20, t: 14, b: 44 } });
     plot.frame(dark);
 
-    // in-field descending branch (M/Ms — note different normalization)
-    const gcol = dark ? 'rgba(170,170,180,0.8)' : 'rgba(110,110,120,0.7)';
-    plot.line(this.inField.H.filter(v => v <= 0).map(v => v * bkMT),
-              this.inField.M.filter((_, i) => this.inField.H[i] <= 0), gcol, 2, [6, 4]);
-    plot.label('in-field M/Ms', -lim * 0.97, -0.62, gcol, 'left', 'bold 13px sans-serif');
-
     // backfield remanence curve up to the current field
     const green = dark ? '#8fd48f' : '#0a7d44';
     const idx = this.curveH.findIndex(v => v > this.hNow);
     const upto = idx === -1 ? this.curveH.length : Math.max(1, idx);
     plot.line(this.curveH.slice(0, upto).map(v => -v * bkMT),
               this.curveM.slice(0, upto), green, 3.5);
-    const mNow = this.curveM[Math.min(upto - 1, this.curveM.length - 1)];
-    plot.dot(-this.hNow * bkMT, mNow, dark ? '#fff' : '#111');
 
-    // Bcr and Bc markers
+    // measurement points recorded so far this run
+    for (const hb of this.measured) plot.dot(-hb * bkMT, this.mrAt(hb), green, 3);
+
+    // live sample marker (flies to saturation and back during a run)
+    const pos = this.markerPos(bkMT);
+    plot.dot(pos.x, pos.y, dark ? '#fff' : '#111');
+
+    // Bcr marker
     const accent = dark ? '#7fd4ff' : '#0b6aa8';
     if (this.hNow >= this.hcr) {
       plot.dot(-this.hcr * bkMT, 0, accent, 6);
       plot.label('−Bcr', -this.hcr * bkMT, 0.16, accent, 'left', 'bold 15px sans-serif');
     }
-    plot.dot(-this.hcInField * bkMT, 0, gcol, 5);
-    plot.label('−Bc', -this.hcInField * bkMT + lim * 0.01, -0.2, gcol, 'left', 'bold 14px sans-serif');
   }
 }
 
