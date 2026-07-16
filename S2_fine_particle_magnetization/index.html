@@ -1225,12 +1225,12 @@ results = rmag.process_hyst_loops(hyst_experiments, measurements)
 -->
 
 <!-- ================================================================ -->
-<!-- PART 6: DOMAIN STATES                                            -->
+<!-- PART 7: DOMAIN STATES                                            -->
 <!-- ================================================================ -->
 </section>
 <section id="domains">
 <section class="divider">
-  <p class="kicker">Part 6</p>
+  <p class="kicker">Part 7</p>
   <h2>Beyond uniform:<br>flower, vortex — and the road to domains</h2>
 </section>
 
@@ -1445,6 +1445,16 @@ results = rmag.process_hyst_loops(hyst_experiments, measurements)
 </section>
 -->
 
+<!-- ================================================================ -->
+<!-- BACKFIELD EXPERIMENTS (EXTRA SLIDES)                             -->
+<!-- ================================================================ -->
+</section>
+<section id="backfield">
+<section class="divider">
+  <p class="kicker">Extra slides</p>
+  <h2>Backfield experiments</h2>
+</section>
+
 <section>
   <h2>The backfield experiment: isolating the remanence</h2>
   <figure>
@@ -1468,19 +1478,25 @@ results = rmag.process_hyst_loops(hyst_experiments, measurements)
 <section>
   <h2>Explore: a simulated backfield experiment</h2>
   <div class="widget" data-widget="backfield"></div>
-  <p class="tiny" style="margin-top:0.4em">Same Stoner–Wohlfarth population as before (3-D random easy axes;
-  each grain flips at \(B_K\cdot h_f(\psi)\)). Run the experiment: grains flip in order of switching field
-  (left panel) and the remanence walks from +SIRM through zero at \(B_{cr}\).
-  For ideal SD grains \(H_{cr}/H_c \approx 1.09\) — nearly equal. Multidomain grains push the ratio
-  far higher (≈ 5) — one axis of the Day plot, coming next.</p>
+  <p class="tiny" style="margin-top:0.4em">Same Stoner–Wohlfarth physics (3-D random easy axes; each grain
+  flips at \(B_K\cdot h_f(\psi)\)), now a <strong>mixture of two populations</strong>: soft (blue) and hard
+  (pink, 4× the microscopic coercivity). Run the experiment: grains flip in order of switching field and
+  the remanence walks from +SIRM through zero at \(B_{cr}\). Slide the hard fraction: \(B_{cr}\) lands
+  <strong>between the modes, where almost no grains actually switch</strong> — a mixture's \(B_{cr}\) is a
+  crossing point, not a property of either mineral.</p>
   <aside class="notes">
-    Two things to milk: (1) with σ = 0 the population still has a coercivity
+    Things to milk: (1) with σ = 0 each population still has a coercivity
     spectrum — the spread comes purely from easy-axis ORIENTATION via h_f(ψ),
     peaking near B_K/2 (the 45° grains flip first); (2) the in-field curve
     (grey) crosses zero before the remanence curve does — H_c < H_cr always,
-    because in-field reversible rotation helps pull M through zero. For SD the
-    two are nearly equal (ratio ~1.09); wall motion in MD grains decouples
-    them (~5). Crank σ up to see a broadened natural-looking spectrum.
+    because in-field reversible rotation helps pull M through zero (set hard
+    fraction to 0 to recover the single-population SD ratio ~1.09);
+    (3) with two populations, watch the remanence curve develop a shoulder
+    and Bcr fall in the trough between modes — the single number summarizes a
+    bimodal spectrum badly, which is the motivation for coercivity unmixing
+    of the full backfield curve (Thursday). Push the hard fraction past 50%
+    and Bcr jumps toward the hard mode. Crank σ up to blur the two modes
+    together — real spectra overlap.
   </aside>
 </section>
 
