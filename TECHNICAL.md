@@ -54,7 +54,18 @@ Safari note above). Press `s` in a deck for speaker notes.
 Each deck's README documents how to regenerate its interactive figures — for
 S1, `build_D_6A_interactive.py` (run in the `ess-jbook` environment) rebuilds
 the Plotly core logs from CSVs in the sibling `2026_SSRM_Duluth_Complex`
-checkout.
+checkout; for S2, `build_anisotropy_interactive.py` (same environment)
+rebuilds the three 3-D anisotropy-energy-surface figures adapted from the
+Essentials JupyterBook chapter 4 code cells, and
+`images/build_para_figures.py` rebuilds the Langevin-function and
+Curie-law figures; for S3,
+`build_FC_zijderveld.py` (same environment; also needs the PmagPy checkout
+importable) rebuilds the demagnetization figure from the MagIC tables in the
+sibling `2020_Duluth_Complex` checkout. S2 embeds the chapter 5
+flipping-field widget and S3 the three chapter 7 Néel-diagram widgets from
+the Essentials JupyterBook, localized for offline use as described in the
+[S2](S2_fine_particle_magnetization/README.md) and
+[S3](S3_remanent_magnetization/README.md) deck READMEs.
 
 ## Licenses
 
