@@ -690,7 +690,7 @@ class BackfieldWidget {
     this.root = root;
     this.q = 1.5;                  // elongation → median B_K (soft population)
     this.sigma = 0.0;              // log-normal spread of B_K (0 = ideal SD)
-    this.fHard = 0.35;             // fraction of grains in the hard population
+    this.fHard = 0.5;              // fraction of grains in the hard population
     this.hardRatio = 4;            // hard-population B_K as a multiple of soft
     this.N = 400;
     this.hmax = 6.0;
