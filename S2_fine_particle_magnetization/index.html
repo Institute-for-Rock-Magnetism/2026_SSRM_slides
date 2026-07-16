@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S2 — Fine-Particle Magnetization · IRM Summer School 2026</title>
+  <link rel="stylesheet" href="lib/reveal/reset.css">
+  <link rel="stylesheet" href="lib/reveal/reveal.css">
+  <link rel="stylesheet" href="lib/reveal/theme/white.css">
+  <link rel="stylesheet" href="lib/katex/katex.min.css">
+  <link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================ -->
+<!-- TITLE                                                            -->
+<!-- ================================================================ -->
+<section id="title">
+<section class="titleslide center-slide">
+  <h1>Fine-particle magnetization</h1>
+  <div class="titlebar"></div>
+  <p class="subtitle">anisotropy, domain states, and hysteresis —<br>
+  how small grains record magnetic fields, and how to read your loops</p>
+  <p class="meta">2026 IRM Summer School of Rock Magnetism<br>
+  Institute for Rock Magnetism · University of Minnesota</p>
+  <aside class="notes">
+    Two linked hours this morning. Hour I: where permanent atomic moments come
+    from, how exchange organizes them, and the anisotropy energies that pin a
+    grain's magnetization to particular directions. Hour II: what happens as
+    grains grow (flower, vortex), what it takes to flip a moment
+    (Stoner–Wohlfarth), and hysteresis + backfield experiments — ending with the
+    VSM data the first group measured yesterday afternoon. Max's lecture at 11
+    takes over where we stop: multidomain behavior.
+  </aside>
+</section>
+
+<section>
+  <h2>Where we are going today</h2>
+  <ul>
+    <li>Yesterday: rocks respond to fields as <strong>dia-, para-, and ferromagnetic</strong> mixtures — and ferromagnetic <em>(s.l.)</em> minerals give rocks <strong>memory</strong></li>
+    <li>Today we zoom inside individual ferromagnetic particles and ask:</li>
+    <ul>
+      <li>What <strong>fixes a magnetization</strong> along particular directions in a crystal? (anisotropy energy)</li>
+      <li>What happens as particles get bigger? (<strong>single domain → flower → vortex</strong> … → multidomain)</li>
+      <li>What does it take to <strong>flip</strong> a moment? (the flipping field, Stoner &amp; Wohlfarth 1948)</li>
+      <li>What do <strong>hysteresis loops and backfield curves</strong> tell us?</li>
+    </ul>
+    <li>Multidomain grains get their own treatment in <strong>Max's lecture later this morning</strong></li>
+  </ul>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 1: ELECTRONIC SPINS AND PARAMAGNETISM                       -->
+<!-- ================================================================ -->
+</section>
+<section id="spins">
+<section class="divider">
+  <p class="kicker">Part 1</p>
+  <h2>Electronic spins:<br>where atomic moments come from</h2>
+</section>
+
+<section>
+  <h2>Unpaired spins make atomic magnets</h2>
+  <div class="cols">
+    <div class="wide" style="width:64%">
+      <ul style="font-size:0.82em; line-height:1.28">
+        <li>
+          Each electron carries a <strong>spin</strong> moment of one Bohr
+          magneton: \(m_b = 9.27\times10^{-24}\ \mathrm{Am^2}\)
+        </li>
+        <li>
+          Electrons fill orbitals under three rules:
+          <strong>Pauli exclusion</strong>, increasing energy, and
+          <strong>Hund's rule</strong>
+        </li>
+        <li>
+          Paired spins cancel; <strong>unpaired spins</strong> in the 3d shells
+          of transition metals survive as net atomic moments
+        </li>
+      </ul>
+
+      <table style="margin-top:0.45em; font-size:0.88em">
+        <tr>
+          <th>Ion</th>
+          <th>3d electrons</th>
+          <th>Unpaired spins</th>
+          <th>Moment (spin-only)</th>
+        </tr>
+        <tr>
+          <td>Fe<sup>3+</sup></td>
+          <td>3d<sup>5</sup></td>
+          <td>5</td>
+          <td>5 m<sub>b</sub></td>
+        </tr>
+        <tr>
+          <td>Fe<sup>2+</sup></td>
+          <td>3d<sup>6</sup></td>
+          <td>4</td>
+          <td>4 m<sub>b</sub></td>
+        </tr>
+        <tr>
+          <td>Ti<sup>4+</sup></td>
+          <td>3d<sup>0</sup></td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+      </table>
+
+      <p class="small" style="margin-top:0.45em; line-height:1.22">
+        <strong>Iron is the star of rock magnetism</strong> —
+        Mn<sup>2+</sup> (5 m<sub>b</sub>) and Cr<sup>3+</sup> (3 m<sub>b</sub>)
+        also have magnetic moments but are less abundant on Earth.
+      </p>
+    </div>
+
+    <div class="narrow" style="width:80%">
+      <figure style="margin:0">
+        <img
+          src="images/3d_shell_occupancy.png"
+          alt="Ion-specific 3d orbital occupancy diagram for Fe3+, Fe2+, and Ti4+, illustrating Hund's rule and the number of unpaired spins"
+          style="display:block; margin:0 auto; max-height:50vh; width:auto"
+        >
+      </figure>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Quick recap connecting to yesterday. The important thing to say out loud:
+    transition metals lose the 4s electrons first when they ionize. So Fe3+ is
+    3d5 with five unpaired spins, and Fe2+ is 3d6 with four unpaired spins.
+    The diagram isolates just the five 3d orbitals, which is why it is easier
+    to read than a full neutral-atom filling diagram.
+  </aside>
+</section>
+
+<section>
+  <h2>Paramagnetism: the Langevin function</h2>
+  <p class="tagline">independent moments vs. thermal chaos</p>
+  <div class="cols">
+    <div class="narrow" style="flex:0.85">
+      <ul style="font-size:0.78em">
+        <li>No exchange coupling → each atomic moment responds <strong>independently</strong>
+        to two competing influences:</li>
+        <ul>
+          <li>the field, which pulls it into alignment (\(E_m = -mB\cos\theta\))</li>
+          <li>thermal agitation \(k_BT\), which randomizes it</li>
+        </ul>
+        <li>The net alignment depends on the <strong>ratio of the two energies</strong>
+        (Langevin, 1905):</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.85em">\(\dfrac{M}{M_s} = \coth a - \dfrac{1}{a} = \mathcal{L}(a)\)<br>
+        <span style="font-size:0.8em">with &nbsp;\(a = mB\,/\,k_B T\)</span></div>
+      <p class="small" style="margin-top:0.4em">
+      \(m\) — atomic magnetic moment (unpaired spins) ·
+      \(B\) — applied field ·
+      \(k_B\) — Boltzmann's constant ·
+      \(T\) — temperature (K) ·
+      \(M_s\) — saturation magnetization: every moment aligned</p>
+    </div>
+    <div class="wide" style="flex:1.15">
+      <figure>
+        <img src="images/langevin.png" alt="The Langevin function rising from the origin with initial slope a over 3 and saturating toward M over Ms of 1, with the 90 percent saturation point at a of about 10 marked" style="max-height:56vh">
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Keep this quick — S1 covered the phenomenology; this is the theory backbone.
+    The core move: Boltzmann statistics on a two-energy competition, and the
+    answer depends only on the dimensionless ratio a. Walk the figure: the
+    initial slope is a/3 (next slide runs with it); saturation needs a ~ 10-20,
+    which is ~900 T at 300 K even for a 5-Bohr-magneton ion — hence no lab
+    saturates a paramagnet at room temperature. The Langevin function is
+    today's recurring character: Weiss theory feeds it a molecular field to
+    get ferromagnetism; superparamagnetism feeds it a whole particle moment
+    instead of an atomic one.
+  </aside>
+</section>
+
+<section>
+  <h2>Paramagnetism: Curie's law</h2>
+  <div class="cols">
+    <div class="narrow" style="flex:0.85">
+      <ul style="font-size:0.78em">
+        <li>Paramagnetic susceptibility (\(\chi_p\)) varies inversely with temperature. In Earth-like fields (where the response is linear), the relationship is:</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.85em">\(\chi_p = \dfrac{N m^2 \mu_0}{3 k_B v}\cdot\dfrac{1}{T}
+        = \dfrac{C}{T}\)</div>
+      <p class="small" style="margin-top:0.4em">
+      \(N/v\) — number of moments per volume ·
+      \(m\) — atomic moment ·
+      \(\mu_0\) — permeability of free space ·
+      \(C\) — the Curie constant, set by how <em>many</em> moments and how <em>strong</em></p>
+      <ul style="font-size:0.78em">
+        <li>\(\chi_p\) is <strong>positive</strong>, small, and <strong>∝ 1/T</strong> —
+        cool the specimen and the same field aligns the moments more effectively</li>
+        <li>Remove the field and \(M\) vanishes: <strong>no memory</strong></li>
+      </ul>
+    </div>
+    <div class="wide" style="flex:1.15">
+      <div class="recallbox">Recall: <strong>magnetic susceptibility (\(\chi\))</strong> is the response
+      coefficient — the magnetization gained per unit of applied field, \(M=\chi H\)</div>
+      <figure>
+        <img src="images/curie_law.png" alt="Curie's law: paramagnetic susceptibility falling as one over temperature, normalized to its room-temperature value, with 300 K and 150 K reference points marked" style="max-height:52vh">
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Two ideas to land: (1) in weak fields everything is linear — this is why
+    "susceptibility" is a useful single number for rocks; (2) the 1/T is a
+    measurement lever: at MPMS temperatures (10-20 K) the paramagnetic
+    response of Fe-bearing silicates is ~15-30x its room-temperature value,
+    which is why low-T curves are so sensitive to the paramagnetic matrix.
+    The Curie constant C encodes concentration x moment strength — in rocks
+    it largely tracks Fe content. If asked about interacting moments:
+    Curie-Weiss chi = C/(T - theta) is coming two slides ahead.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 2: FERROMAGNETISM                                           -->
+<!-- ================================================================ -->
+</section>
+<section id="ferromagnetism">
+<section class="divider">
+  <p class="kicker">Part 2</p>
+  <h2>Ferromagnetism:<br>spins working in concert</h2>
+</section>
+
+<section>
+  <h2>Exchange coupling creates magnetic order</h2>
+  <div class="cols">
+    <div class="wide">
+      <p style="font-size:0.85em; margin-top:0">
+        <strong>Exchange</strong> couples neighboring spins through orbital
+        overlap.
+      </p>
+      <div class="eqbox" style="font-size:0.95em">\(\epsilon_e = -2 J_e\, \mathbf{S}_i \cdot \mathbf{S}_j\)</div>
+
+      <p class="small" style="margin:0.35em 0 0.55em">
+        \(\epsilon_e\): exchange energy;
+        \(J_e\): exchange constant, with units of energy;
+        \(\mathbf{S}_i,\mathbf{S}_j\): spin vectors on neighboring lattice sites \(i\) and \(j\).
+      </p>
+
+      <div style="font-size:0.85em; text-align:center; margin:0.4em 0 0.65em">
+        \(J_e>0\): <strong>parallel</strong>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        \(J_e<0\): <strong>antiparallel</strong>
+      </div>
+
+      <ul style="font-size:0.85em">
+        <li>
+          <strong>Direct exchange</strong> requires overlap between neighboring
+          magnetic-ion orbitals and is important in Fe, Ni, and Co metals.
+        </li>
+        <li>
+          In oxides and sulfides, coupling commonly passes through an anion’s
+          \(p\) orbitals: <strong>superexchange</strong>, often favoring
+          antiparallel alignment.
+        </li>
+        <li>Exchange energies are <strong>enormous</strong>: equivalent to a field of order
+        <strong>1000 T</strong> on each moment.
+        </li>
+      </ul>
+    </div>
+
+    <div class="narrow">
+      <figure>
+        <img
+          src="images/exchange.png"
+          alt="Superexchange between two iron cations through the 2p orbitals of an intervening oxygen anion"
+          style="max-height:42vh"
+        >
+        <figcaption>
+          Fe moments coupled through oxygen \(2p\) orbitals.
+          Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of
+          Paleomagnetism</em>, redrawn from O'Reilly (1984) (CC BY 4.0).
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <aside class="notes">
+    The 1000 T number is the key intuition: exchange is not a gentle bias like
+    the Earth's field on a paramagnet — it is overwhelming, which is why
+    spontaneous magnetization survives thermal agitation up to hundreds of °C.
+
+    In the sign convention used here, positive J_e favors parallel alignment
+    and negative J_e favors antiparallel alignment. Other texts may omit the
+    factor of 2 or reverse the sign convention.
+
+    Superexchange is often antiferromagnetic, especially for near-180-degree
+    pathways between suitable occupied orbitals, but its sign also depends on
+    orbital occupancy and bond geometry.
+
+    The 100-to-1000 T scale is an equivalent internal exchange field, not a
+    macroscopic field outside the specimen. It explains why magnetic ordering
+    can survive thermal agitation to hundreds of degrees Celsius.
+  </aside>
+</section>
+
+<section>
+  <h2>The magnetic ordering zoo</h2>
+  <p class="tagline">"ferromagnetic (<i>sensu lato</i>)" covers every ordering with a net moment</p>
+  <div class="order-row">
+    <div class="order-panel">
+      <img src="images/ordering_ferromagnetism.png" alt="Lattice of parallel spins with large net magnetization">
+      <div class="order-label"><strong>ferromagnetism (s.s.)</strong>large M<sub>s</sub></div>
+      <div class="order-note">Fe, Ni, Co, Fe–Ni alloys (meteorites!)</div>
+    </div>
+    <div class="order-panel">
+      <img src="images/ordering_ferrimagnetism.png" alt="Antiparallel sublattices of unequal moment with a net magnetization">
+      <div class="order-label"><strong>ferrimagnetism</strong>unequal sublattices → net M<sub>s</sub></div>
+      <div class="order-note">magnetite, titanomagnetite, pyrrhotite, greigite</div>
+    </div>
+    <div class="order-panel">
+      <img src="images/ordering_antiferromagnetism.png" alt="Perfectly antiparallel spins with zero net magnetization">
+      <div class="order-label"><strong>antiferromagnetism</strong>M<sub>s</sub> = 0</div>
+      <div class="order-note">ilmenite (orders below ~57 K), ulvöspinel</div>
+    </div>
+    <div class="order-panel">
+      <img src="images/ordering_canted.png" alt="Antiparallel spins canted by a few degrees giving a weak net magnetization">
+      <div class="order-label"><strong>spin-canted AF</strong>weak net M<sub>s</sub></div>
+      <div class="order-note">hematite</div>
+    </div>
+    <div class="order-panel">
+      <img src="images/ordering_defect.png" alt="Antiferromagnetic lattice with vacancies giving a weak defect moment">
+      <div class="order-label"><strong>defect AF</strong>weak net M<sub>s</sub></div>
+      <div class="order-note">goethite, fine-grained hematite</div>
+    </div>
+  </div>
+  <p style="margin-top:0.7em; font-size:0.82em"><strong>Antiferromagnetism and ferrimagnetism are the
+  main ordering types in terrestrial rock-forming minerals</strong> — true ferromagnetism is for metals.
+  Ordering vanishes above the <strong>Curie temperature</strong> (ferro/ferrimagnets) or
+  <strong>Néel temperature</strong> (antiferromagnets).</p>
+  <p class="attrib">Spin-ordering panels after R. Egli</p>
+  <aside class="notes">
+    Walk the zoo left to right: true ferromagnetism is essentially absent from
+    the mineral world (iron metal — meteorites, the core); everything we
+    measure this week is an antiferromagnet in disguise. Magnetite: unbalanced
+    sublattices (recall the 5-and-4 Bohr magneton bookkeeping from S1).
+    Hematite: canting by a fraction of a degree plus defect moments — which is
+    why its Ms is ~230× weaker than magnetite's. The two hematite mechanisms
+    (canting vs defect) behave differently at low temperature — the Morin
+    transition suppresses canting but not the defect moment (Thursday's
+    low-temperature lecture).
+  </aside>
+</section>
+
+<section>
+  <h2>Ferromagnetic order dies at the Curie temperature</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.82em">
+        <li><strong>As temperature increases (\(T \rightarrow T_c\))</strong>, thermal fluctuations increasingly disrupt exchange alignment, causing <strong>saturation magnetization (\(M_s\))</strong> to collapse.</li>
+        <li>Above \(T_c\), the mineral becomes <strong>paramagnetic</strong>, governed by the <strong>Curie–Weiss law</strong> (which accounts for exchange interactions between spins):</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.9em; display:flex; align-items:center; justify-content:center; gap:1.4em; text-align:left">
+        <span style="flex:0 0 auto">\(\chi = \dfrac{C}{T - \theta}\)</span>
+        <span style="font-size:0.72em; line-height:1.5; border-left: 2px solid var(--accent); padding-left: 1.1em">
+          <strong>&theta; = 0</strong> — paramagnet (pure Curie law)<br>
+          <strong>&theta; &gt; 0</strong> — ferromagnetic interactions<br>
+          <strong>&theta; &lt; 0</strong> — antiferromagnetic interactions
+        </span>
+      </div>
+      <ul style="font-size:0.82em">
+        <li>Near \(T_c\), the collapse of order is characterized by a quantum-mechanical power law:
+        \(\;M_s(T)/M_s(T_0) = \left[(T_c - T)/(T_c - T_0)\right]^{\gamma}\)</li>
+      </ul>
+      <p class="small">For magnetite, data (B. Moskowitz, in Banerjee 1991) are best fit with
+      \(\gamma \approx 0.36\text{–}0.39\) and \(T_c \approx 565\text{–}580°\mathrm{C}\).
+      The ordering temperature is <strong>diagnostic of mineralogy</strong> (more in Friday's high-T lecture).</p>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/curie.png" alt="Normalized saturation magnetization of magnetite versus temperature with power-law fits" style="max-height:52vh">
+        <figcaption>M<sub>s</sub>(T) for magnetite with power-law fits.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0);
+        data of B. Moskowitz cited in Banerjee (1991).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    We intentionally skip Weiss molecular field theory on this slide to focus on real physical behavior—Weiss is a mean-field theory that incorrectly predicts a critical exponent of 0.5, whereas real magnetite near Tc displays critical behavior with γ ≈ 0.36-0.39. Moskowitz's data were measured here at the IRM. Ms(T) matters beyond thermomagnetic runs: anisotropy constants scale as powers of Ms, so all of today's energy barriers are temperature dependent — the seed of thermal demagnetization and TRM (tomorrow's session). Notation footnote if asked: we follow the Essentials chapter in calling the Ms(T) exponent γ; the critical-phenomena literature writes this magnetization exponent as β and reserves γ for susceptibility. Either way it is an asymptotic law near Tc, not a whole-range description.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 3: MAGNETIC ANISOTROPY                                      -->
+<!-- ================================================================ -->
+</section>
+<section id="anisotropy">
+<section class="divider">
+  <p class="kicker">Part 3</p>
+  <h2>Anisotropy:<br>why some directions are easy</h2>
+</section>
+
+<section>
+  <h2>The governing principle: energy minimization</h2>
+  <p>A ferromagnetic grain adopts the magnetization configuration that <strong>minimizes its
+  total energy</strong>. The key energies (as volume-normalized energy densities \(\epsilon\), J/m³) are:</p>
+  <div class="energycards">
+    <div class="card">
+      <h3>Exchange \(\epsilon_e\)</h3>
+      <p>Strongly favors neighboring spins remaining aligned, but does not by itself select a preferred direction in the grain.</p>
+    </div>
+    <div class="card">
+      <h3>Zeeman Energy (External Field) \(\epsilon_z = -\mathbf{M}\cdot\mathbf{B}_{\text{ext}}\)</h3>
+      <p>Pulls <b>M</b> toward an applied field — the energy that lets fields do work on the grain.
+      Its self-field sibling — the <em>demagnetizing (self) energy</em> — appears under shape anisotropy.</p>
+    </div>
+    <div class="card">
+      <h3>Anisotropy \(\epsilon_a\)</h3>
+      <p>Defines energetically favorable ("easy") and unfavorable ("hard") axes of magnetization within the grain. Driven by <strong>magnetocrystalline</strong> (lattice symmetry), <strong>magnetostrictive</strong> (stress), and <strong>shape</strong> (demagnetizing field) effects</p>
+    </div>
+  </div>
+  <p style="margin-top:0.7em">Anisotropy creates <strong>energy barriers between "easy" directions</strong>.
+  A barrier high enough to resist thermal fluctuations can hold a magnetization in place for
+  <strong>billions of years</strong> — the physical basis of paleomagnetism.</p>
+  <aside class="notes">
+    This slide is the thesis of the whole session. Everything that follows is
+    computing ε_a for different mechanisms, then asking when thermal energy or
+    an applied field can push M over the barrier. Note the convention: ε for
+    energy density (J/m³), E for energy (J) — the barrier that matters for
+    stability is ε times the grain volume, which is why grain SIZE is
+    everything in rock magnetism.
+  </aside>
+</section>
+
+<section>
+  <h2>Magnetocrystalline anisotropy: magnetite</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/magnetite.png" alt="Magnetite octahedron photo, inverse spinel crystal structure, and 3D anisotropy energy surface" style="max-height:46vh">
+        <figcaption>a) Magnetite octahedron [photo: Lou Perloff, <em>The Photo-Atlas of Minerals</em>].
+        b) Inverse spinel structure: Fe³⁺ on tetrahedral A sites; Fe²⁺ + Fe³⁺ on octahedral B sites.
+        c) Anisotropy energy surface [from Williams et al., 1995]. Via Tauxe &amp; Swanson-Hysell (2026) (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <p style="font-size:0.8em">For a cubic crystal, with direction cosines \(\alpha_i\) of
+      <b>M</b> relative to [100], [010], [001]:</p>
+      <div class="eqbox" style="font-size:0.72em">\(\epsilon_a = K_1(\alpha_1^2\alpha_2^2 + \alpha_2^2\alpha_3^2
+        + \alpha_3^2\alpha_1^2) + K_2\,\alpha_1^2\alpha_2^2\alpha_3^2\)</div>
+      <ul style="font-size:0.78em">
+        <li>Magnetite at 300 K:<br>\(K_1 = -1.35\times10^4\ \mathrm{J\,m^{-3}}\)</li>
+        <li>\(K_1 &lt; 0\) → <strong>easy along [111]</strong> body diagonals,
+          <strong>hard along [100]</strong> cube edges</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The 3d orbitals "poke" in particular crystallographic directions, so
+    spin–orbit coupling makes the exchange-coupled spin system feel the lattice.
+    The empirical constants K1, K2 package all of that. Easy = [111] is
+    specific to magnetite at room temperature — and it CHANGES with
+    temperature, which is the next slide and the interactive.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>The energy landscape in 3-D — magnetite at 300 K</h2>
+  <div class="cols">
+    <div class="wide" style="flex:1.5">
+      <iframe class="plotframe tall" data-src="anisotropy_magnetite_300K.html"
+              title="Interactive 3D magnetocrystalline anisotropy energy surface of magnetite at 300 K"></iframe>
+    </div>
+    <div class="narrow" style="flex:0.75">
+      <div class="eqbox" style="font-size:0.72em; margin-bottom: 0.8em;">
+        \(\epsilon_a = K_1(\alpha_1^2\alpha_2^2 + \alpha_2^2\alpha_3^2
+        + \alpha_3^2\alpha_1^2) + K_2\,\alpha_1^2\alpha_2^2\alpha_3^2\)
+      </div>
+      <ul style="font-size:0.78em">
+        <li>Radius and color = energy of magnetizing in that direction</li>
+        <li><span style="color:#c22b2b"><strong>Red axes</strong></span>: hard [100] directions (bulges)</li>
+        <li><span style="color:#2b52c2"><strong>Blue dashed axes</strong></span>: easy [111] directions (dimples)</li>
+        <li>Toggle "Crystal Geometry" to compare with the cubic crystal</li>
+        <li>Drag to orbit — find the eight dimples</li>
+      </ul>
+    </div>
+  </div>
+  <p class="attrib">Interactive from Tauxe &amp; Swanson-Hysell (2026),<br><em>Essentials of Paleomagnetism</em> ch. 4 (CC BY 4.0)</p>
+  <aside class="notes">
+    Give them a minute to orbit it. Point out that the energy differences look
+    dramatic because of the geometric exaggeration. Two numbers to keep
+    straight: the colorbar's easy-to-hard range is ~75 kBT for this 50-nm
+    grain, but the barrier that matters for reversal — easy axis to easy axis
+    over the [110] saddle — is |K1|v/12 ≈ 18 kBT. Still comfortably stable at
+    room temperature, and the same grain at 550 °C has a barrier near zero
+    because K1 collapses with Ms. Note the colorbar is total energy (J), not
+    density — grain volume is folded in.
+  </aside>
+</section>
+
+<section>
+  <h2>Anisotropy constants depend strongly on temperature</h2>
+  <div class="cols">
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Electronic interactions depend on interatomic spacing → \(K_1, K_2\) vary strongly with \(T\)</li>
+        <li>Magnetite's \(K_1\) crosses <strong>zero at ~130 K</strong> — the <strong>isotropic point</strong> \(T_i\)</li>
+        <li>At \(T_i\) with the main \(K_1\) magnetocrystalline barriers gone, only the weak \(K_2\) term
+        remains and spins wander far more freely — though <strong>shape and stress anisotropy
+        remain</strong></li>
+        <li>Below \(T_i\) the topology <strong>inverts</strong>: cube edges become easy, body diagonals hard</li>
+      </ul>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/K-T.png" alt="Magnetite K1 and K2 versus temperature, with K1 crossing zero at the 130 K isotropic point" style="max-height:52vh">
+        <figcaption>\(K_1\) (red) and \(K_2\) (blue) of magnetite vs. temperature; solid: Syono (1963), dashed: Fletcher &amp; O'Reilly (1974).
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="figslide">
+  <h2>The same landscape at the isotropic point (130 K)</h2>
+  <div class="cols">
+    <div class="wide" style="flex:1.5">
+      <iframe class="plotframe tall" data-src="anisotropy_magnetite_130K.html"
+              title="Interactive 3D magnetocrystalline anisotropy energy surface of magnetite at 130 K, nearly isotropic"></iframe>
+    </div>
+    <div class="narrow" style="flex:0.75">
+      <ul style="font-size:0.78em">
+        <li>Same grain, same colorbar scale as the 300 K figure</li>
+        <li>\(K_1 = 0\): the [111] dimples and [100] bulges are gone —
+          only the weak \(K_2\) term remains</li>
+        <li><strong>The magnetocrystalline barriers have all but collapsed</strong> —
+          shape, stress, and defect anisotropies persist</li>
+      </ul>
+      <p class="small" style="margin-top:0.6em">Cooling magnetite through \(T_i\)
+      momentarily unpins the magnetization that magnetocrystalline anisotropy <em>alone</em>
+      was holding.</p>
+    </div>
+  </div>
+  <p class="attrib">Interactive from Tauxe &amp; Swanson-Hysell (2026),<br><em>Essentials of Paleomagnetism</em> ch. 4 (CC BY 4.0)</p>
+  <aside class="notes">
+    Rhetorical question lands on the next slide: low-temperature
+    demagnetization. Cycling through the isotropic point + Verwey transition
+    strips remanence held by walls pinned via magnetocrystalline anisotropy,
+    while SD grains held by SHAPE anisotropy sail through — shape doesn't care
+    about K1.
+  </aside>
+</section>
+
+<section>
+  <h2>Low-temperature transitions &amp; demagnetization</h2>
+  <div class="cols">
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li><strong>Cooling a room-temperature saturation remanence (RTSIRM)</strong> applied to a magnetite-bearing sample can lead to demagnetization due to two factors:
+          <span style="display:block; margin: 0.35em 0 0.35em 1em; opacity: 0.95; line-height: 1.4;">
+            &bull; <strong>\(T_i \approx 130\ \mathrm{K}\)</strong>: \(K_1 \rightarrow 0\), unpinning multidomain (MD) walls.<br>
+            &bull; <strong>\(T_v \approx 120\ \mathrm{K}\)</strong>: The cubic to monoclinic <strong>Verwey transition</strong>.
+          </span>
+        </li>
+
+        <li>On warming, magnetization <strong>only partly recovers</strong>. The unpinned MD walls reorganize irreversibly, while stable single-domain (SD) magnetization largely survives.</li>
+      </ul>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/verwey.png" alt="RTSIRM cooling and warming curves for a Duluth Complex area basaltic dike showing the drop at the Verwey transition and partial recovery" style="max-height:54vh">
+        <figcaption>RTSIRM cooling (blue) and rewarming (red) of a magnetite-bearing basaltic dike specimen — through the
+        isotropic point (~130 K) and Verwey transition (~120 K). Data: Swanson-Hysell et al. (2021),
+        MagIC database <a href="https://earthref.org/MagIC/20213">earthref.org/MagIC/20213</a>.
+        Tauxe &amp; Swanson-Hysell (2026) (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    This specimen is from our own Minnesota work — a magnetite-bearing
+    basaltic dike from the East-Central Minnesota batholith study
+    (Swanson-Hysell et al., 2021, Tectonics) — the same rocks as the course
+    notebook examples. Groups will see exactly this experiment on the MPMS.
+    
+    Make sure to point out the sequential cooling steps: first we cross the isotropic point Ti (~130 K) where the magnetocrystalline barriers they just saw collapse, unpinning the domain walls. Then we cross the structural transition Tv (~120 K). 
+    
+    The memory fraction is diagnostic: high memory = SD-dominated (or strongly
+    pinned); big irreversible loss = MD magnetite. This irreversible loss is the physical basis of LTD (Low-Temperature Demagnetization)—a technique to clean soft MD overprints. Also flag: oxidized (maghemitized) magnetite suppresses/smears the Verwey transition — Thursday's low-T lecture goes deeper. If a condensed-matter-minded student pushes on the mechanism: the simple charge-freezing picture on the slide is the historical first approximation — the modern view is a coupled structural-electronic transition with charge/orbital ordering organized into three-site "trimeron" units (Senn et al., 2012, Nature).
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Uniaxial anisotropy: hematite's easy plane</h2>
+  <div class="cols">
+    <div class="wide" style="flex:1.5">
+      <iframe class="plotframe tall" data-src="anisotropy_hematite.html"
+              title="Interactive 3D energy surface for hematite's uniaxial easy-plane anisotropy"></iframe>
+    </div>
+    <div class="narrow" style="flex:0.75">
+      <div class="eqbox" style="font-size:0.85em; margin-bottom: 0.8em;">
+        \(\epsilon_a = K_u\sin^2\theta\)
+      </div>
+      <ul style="font-size:0.76em">
+        <li><strong>Sign of \(K_u\) defines the geometry:</strong>
+          <span style="display:block; margin: 0.25em 0 0.5em 1em; opacity: 0.95; line-height: 1.35;">
+            &bull; \(K_u &gt; 0\): Single <strong>easy axis</strong><br>
+            &bull; \(K_u &lt; 0\): Perpendicular <strong>easy plane</strong>
+          </span>
+        </li>
+        <li><strong>Hematite's extreme contrast:</strong>
+          <span style="display:block; margin: 0.25em 0 0 1em; opacity: 0.95; line-height: 1.35;">
+            &bull; <strong>Out-of-plane is very hard:</strong> Perpendicular to the basal plane, \(K_u \approx -10^6\ \mathrm{J\,m^{-3}}\). The canted moment is locked in the plane.<br>
+            &bull; <strong>In-plane is very easy:</strong> Basal plane anisotropy is \(\sim 5\) orders of magnitude weaker (\(\sim 10\ \mathrm{J\,m^{-3}}\)), pinned only by minor stress or defects.
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p class="attrib">Interactive from Tauxe &amp; Swanson-Hysell (2026),<br><em>Essentials of Paleomagnetism</em> ch. 4 (CC BY 4.0)</p>
+  <aside class="notes">
+    Warn the students about how to read this 3D shape: radius represents energy, not magnetization. So the giant yellow bulges at the poles are the hardest, high-energy directions (c-axis). The narrow dark-blue "waist" at the equator is the easy plane.
+    
+    Point out the physics of the 2D world: because the out-of-plane barrier is so massive (Ku is negative and ~10^6 J/m^3), it is incredibly hard to pull the canted moment out of the basal plane. But once you are inside that easy plane, the magnetocrystalline energy landscape is almost completely flat (only ~10 J/m^3). This means the spins can rotate incredibly freely in 2D, and are ultimately steered and pinned by tiny local stresses, defect fields, or shape effects.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Magnetoelastic anisotropy: stress &amp; magnetic energy</h2>
+  <div class="cols" style="align-items:flex-start; gap: 2rem;">
+    <!-- Left Column: Fundamentals & Scale -->
+    <div style="flex: 1;">
+      <div class="eqbox" style="font-size:0.85em; margin-bottom: 0.8em;">
+        \(\epsilon_\sigma = \tfrac{3}{2}\,\bar{\lambda}_s\,\sigma \sin^2\theta\)
+      </div>
+      <ul style="font-size:0.78em">
+        <li><strong>Magnetoelastic Effect:</strong> Physical stress (\(\sigma\), Pa) deforms the lattice, shifting magnetic energy barriers.</li>
+        <li><strong>Uniaxial Form:</strong> Stress acts as a virtual symmetry axis. The sign of \(\bar{\lambda}_s\sigma\) dictates whether it creates an <strong>easy axis</strong> or an <strong>easy plane</strong>.</li>
+        <li><strong>The Scale (\(\bar{\lambda}_s \approx 35\text{--}40\times10^{-6}\)):</strong> 
+          <span style="display:block; margin: 0.2em 0 0 1em; opacity: 0.9;">
+            &bull; Maximum fractional length change is \(\sim 0.0038\%\).<br>
+            &bull; For a \(1\ \mu\mathrm{m}\) grain, domain changes shift boundaries by only <strong>\(\sim 0.04\ \mathrm{nm}\)</strong> (less than typical interatomic spacing).
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Column: Microscopic Pinning in Typical Grains -->
+    <div style="flex: 1.1;">
+      <h3 style="margin-top:0;">Why it matters in typical grains</h3>
+      <ul style="font-size:0.78em">
+        <li><strong>Local Stress Fields:</strong> Even in unstressed rocks, crystal defects and dislocation networks produce complex, spatially varying internal stress fields (\(\sigma\)).</li>
+        <li><strong>Energy Landscapes:</strong> These varying stress fields map directly onto a localized magnetic potential energy landscape.</li>
+        <li><strong>Microscopic Pinning:</strong> Domain walls (MD) and vortex cores can get trapped in stress-induced energy wells, giving grains <strong>coercivity (\(H_c\))</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Distinguish "magnetostriction" (magnetization causing strain) from "magnetoelastic anisotropy" (stress changing magnetic energy). Stress (sigma) in the equation is in Pascals, not strain.
+    
+    The simple uniaxial equation relies on polycrystalline averaging and an isotropic lambda-bar. For a 1-micron grain, a domain shift moves boundaries by just 0.04 nm—smaller than typical interatomic spacing.
+    
+    In a typical grain, dislocation networks generate spatially varying stress fields. These map onto a complex, localized magnetic energy landscape. Domain walls and vortex cores get trapped in these energy wells, which is the exact microscopic mechanism that pins magnetization and generates coercivity (Hc).
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Shape anisotropy</h2>
+  <div class="cols" style="align-items: center; gap: 2rem;">
+    <!-- Left: Visuals -->
+    <div style="flex: 1.2;">
+      <figure>
+        <img src="images/demagfield.png" alt="Demagnetizing fields on spheres and ellipsoids" style="max-height:48vh">
+        <figcaption style="font-size: 0.6em; margin-top: 0.5em;">
+          Internal magnetization ↔ surface poles ↔ internal demagnetizing field \(\mathbf{H}_d\).<br>
+          Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em>, redrawn from O'Reilly (1984).
+        </figcaption>
+      </figure>
+    </div>
+    
+    <!-- Right: Geometric Concepts -->
+    <div style="flex: 1;">
+      <div class="eqbox" style="font-size:0.9em; margin-bottom: 1em;">
+        \(\mathbf{H}_d = -\mathbf{N}\cdot\mathbf{M}\)
+      </div>
+      <ul style="font-size:0.8em">
+        <li><strong>The Demagnetizing Field (\(\mathbf{H}_d\)):</strong> Surface poles generate an internal magnetic field that directly opposes the grain's own magnetization (\(\mathbf{M}\)).</li>
+        <li><strong>The Shape Factor (\(\mathbf{N}\)):</strong> A geometric tensor describing pole spacing.
+          <span style="display:block; margin: 0.25em 0 0 1em; opacity: 0.9;">
+            &bull; <strong>Sphere:</strong> \(N = \tfrac{1}{3}\) in all directions. No geometric preference.<br>
+            &bull; <strong>Prolate Ellipsoid:</strong> Poles are physically farther apart along the long axis (\(N_a &lt; \tfrac{1}{3} &lt; N_b\)).
+          </span>
+        </li>
+        <li><strong>The Easy Axis:</strong> Magnetizing along the long axis (\(\theta = 0^\circ\) in panel f) minimizes pole density, making it <strong>favored low-energy configuration</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Start by explaining that when a body is magnetized, free magnetic poles form on its outer boundaries. These "surface poles" act like a miniature magnet pointing backward, creating an internal "demagnetizing field" (Hd) that fights the grain's magnetization.
+    
+    Use the diagram to show this: in panel (a), the arrows show uniform magnetization to the right. This leaves north poles on the right and south poles on the left (panel b). These poles create an internal field Hd pointing to the left (panel c).
+    
+    Now explain how shape changes this. For a sphere (panel d), the poles are symmetrically distributed, so N is 1/3 in all directions. Changing the angle theta of magnetization (panel d) has no energy penalty.
+    
+    But if we stretch the sphere into a prolate ellipsoid (cigar shape, panel e), magnetizing along the long 'a' axis keeps the poles far apart, reducing Hd. Point out panel (f): theta is the angle between magnetization (M) and this long axis (a). 
+    
+    When theta = 0, the poles are furthest apart, making the long axis "magnetostatically favored" (the easy axis). As theta rotates toward 90 degrees, Hd spikes, creating a high energy barrier.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Shape-anisotropy energy scales as \(M_s^2\)</h2>
+  <div class="eqbox" style="font-size:0.95em; max-width: 320px; margin: 0 auto 1.5rem auto;">
+    \(K_{\mathrm{shape}} = \tfrac{1}{2}\,\Delta N\,\mu_0 M_s^2\)
+  </div>
+
+  <div class="cols" style="align-items: stretch; gap: 2rem;">
+    <!-- Magnetite Column -->
+    <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 8px; border-top: 4px solid #a61c1c;">
+      <h3 style="margin-top:0; color: #a61c1c;">Magnetite (\(M_s \approx 480\ \mathrm{kA/m}\))</h3>
+      <p style="font-size: 0.8em; margin-bottom: 0.5em;"><strong>Shape can be a dominant anisotropy</strong></p>
+      <ul style="font-size:0.75em; padding-left: 1.2em;">
+        <li>For an ideal prolate spheroid with moderate elongation (\(a/b = 1.5\)):
+          <div style="margin: 0.4em 0; font-weight: bold; font-size: 1.1em;">
+            \(\Delta N \approx 0.151 \rightarrow K_{\mathrm{shape}} \approx 2.2 \times 10^4\ \mathrm{J\,m^{-3}}\)
+          </div>
+        </li>
+        <li>This is comparable to or larger than magnetite's room-temperature magnetocrystalline anisotropy scale:
+          <span style="display:block; margin-top: 0.25em; opacity: 0.9;">
+            \(|K_1| \approx 1.1\text{--}1.3 \times 10^4\ \mathrm{J\,m^{-3}}\).
+          </span>
+        </li>
+        <li><strong>Takeaway:</strong> Shape strongly influences the easy axis and magnetic stability of elongated, near-single-domain magnetite.</li>
+      </ul>
+    </div>
+
+    <!-- Hematite Column -->
+    <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 8px; border-top: 4px solid #4a5568;">
+      <h3 style="margin-top:0; color: #718096;">Hematite (\(M_s \approx 2\ \mathrm{kA/m}\))</h3>
+      <p style="font-size: 0.8em; margin-bottom: 0.5em;"><strong>Negligible shape anisotropy</strong></p>
+      <ul style="font-size:0.75em; padding-left: 1.2em;">
+        <li>Because energy scales with the <strong>square of saturation magnetization (\(M_s^2\))</strong>:
+          <div style="margin: 0.4em 0; font-weight: bold; font-size: 1.1em; color: #718096;">
+            \(M_s^2\) is \(\sim 5\times10^4\) smaller!
+          </div>
+        </li>
+        <li>The same moderate geometry yields a negligible shape energy density:
+          <span style="display:block; margin-top: 0.25em; opacity: 0.9;">
+            \(K_{\mathrm{shape}} \approx 0.4\ \mathrm{J\,m^{-3}}\).
+          </span>
+        </li>
+        <li><strong>Takeaway:</strong> Hematite coercivity is generally governed by intrinsic and magnetoelastic anisotropy, not by magnetostatic shape anisotropy.</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    This slide illustrates how the square-law dependence of shape anisotropy on saturation magnetization (Ms^2) leads to completely different physical behaviors in magnetite versus hematite.
+    
+    On the left, look at magnetite. It has a high Ms. If we moderately stretch an ideal magnetite grain to an aspect ratio of 1.5, the shape anisotropy energy (K_shape) is roughly 2.2 x 10^4 J/m^3. This meets or exceeds the scale of magnetite's bulk magnetocrystalline anisotropy constant (K1 is negative, with an absolute value of 1.1 to 1.3 x 10^4 J/m^3). 
+    
+    Be careful to point out to the students that crystal anisotropy still matters—especially for realistic faceted crystals, surface effect variations, or microstructures—but shape behaves as a dominant, highly influential force in determining the easy axis and switching barriers of near-single-domain magnetite. This is why stable carriers like magnetofossils or plagioclase exsolution needles rely heavily on shape.
+    
+    Now, look at hematite on the right. Because it's an antiferromagnet with a weak canted moment, its Ms is tiny (about 2 kA/m). Because shape energy scales with Ms^2, its K_shape drops by nearly 50,000 times compared to magnetite. In the exact same geometry, its shape anisotropy is a mere 0.4 J/m^3. 
+    
+    Explain to the students that this means the magnetostatic shape of hematite's weak net moment is negligible. Instead, hematite's high coercive stability is mostly governed by intrinsic and magnetoelastic anisotropy (associated with strain, defects, and dislocations).
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 4: THE FLIPPING FIELD                                       -->
+<!-- ================================================================ -->
+</section>
+<section id="flipping">
+<section class="divider">
+  <p class="kicker">Part 4</p>
+  <h2>The flipping field:<br>Stoner–Wohlfarth</h2>
+</section>
+
+<section>
+  <h2>Microscopic coercivity: the field that flips a moment</h2>
+  <p>Anisotropy sets the energy barrier; the barrier sets the field needed to force
+  a uniformly magnetized (single domain) particle over it:</p>
+  <div class="eqbox" style="font-size:0.95em; margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; gap: 4rem;">
+    <div style="display: flex; align-items: center; gap: 0.3em;">
+      <strong>Magnetocrystalline (Cubic):</strong> 
+      <span>\(\mu_0 H_k = \dfrac{4}{3}\dfrac{|K_1|}{M_s}\)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.3em;">
+      <strong>Shape:</strong> 
+      <span>\(\mu_0 H_k = \mu_0\,\Delta N\, M_s\)</span>
+    </div>
+  </div>
+  <table style="margin-top:0.6em">
+    <tr><th>Magnetite grain</th><th>Dominant anisotropy</th><th>μ₀H<sub>k</sub></th></tr>
+    <tr><td>equant</td><td>magnetocrystalline (K₁)</td><td>≈ 37 mT</td></tr>
+    <tr><td>a/b = 1.5</td><td>shape</td><td>≈ 90 mT</td></tr>
+    <tr><td>a/b = 2</td><td>shape</td><td>≈ 145 mT</td></tr>
+    <tr><td>needle (a/b → ∞)</td><td>shape</td><td>≈ 300 mT</td></tr>
+  </table>
+  <p class="small" style="margin-top:0.6em">Also called the <em>flipping field</em>, <em>switching field</em>,
+  or <em>intrinsic coercivity</em>.
+  These are <strong>single-grain, coherent-rotation values</strong>: the bulk coercivity of a random
+  assemblage is about half of \(H_k\), and interactions, vortex states, and domain
+  walls pull measured \(H_c\) lower still.</p>
+  <aside class="notes">
+      Preview these numbers to calibrate expectations for their VSM lab data. Magnetite coercivities generally live between ~10 and 300 mT depending on shape and grain size. 
+    
+    In contrast, hematite can easily reach multiple tesla. This is NOT because of weak magnetocrystalline anisotropy in its basal plane, but because its high coercivity is dominated by magnetoelastic (strain) anisotropy and defect pinning. When you divide even a modest strain-energy barrier by hematite's tiny Ms, the switching field spikes into the tesla range.
+    
+    Note the unit hygiene point from the chapter: coercivity derived theoretically is an H-field (A/m), but laboratory instruments report μ₀H in tesla. 
+    
+    *Pro-tip for Q&amp;A:* In engineering, "intrinsic coercivity" (Hci) refers specifically to the bulk M-H loop crossing point (where M=0) compared to normal B-H loop coercivity. In rock magnetism, we almost exclusively measure M-H loops, so we often use "coercivity" and "intrinsic coercivity" interchangeably, using "microscopic coercivity" (Hk) specifically for the single-domain particle switching limit.
+  </aside>
+</section>
+
+<section class="figslide">
+  <div class="cols" style="align-items:flex-start">
+    <div class="wide" style="flex:1.6">
+      <iframe class="plotframe flipframe-full" data-src="flipping_field_widget.html"
+              title="Interactive Stoner-Wohlfarth magnetization reversal: energy landscape evolving with applied field until the moment flips"></iframe>
+    </div>
+    <div class="narrow" style="flex:0.7">
+      <h2 style="font-size:1.1em; margin-top:0.4em">Explore: tilting the energy landscape until the moment flips</h2>
+      <ul style="font-size:0.76em">
+        <li>Prolate magnetite spheroid, field applied opposite the moment</li>
+        <li>Drag the field slider up: the occupied minimum gets shallower…</li>
+        <li>…and at \(\mu_0H_f\) it <strong>vanishes</strong> — the moment flips irreversibly</li>
+        <li>Lower panel: the flip happens where \(d\epsilon_t/d\theta = 0\) <em>and</em>
+        \(d^2\epsilon_t/d\theta^2 = 0\) — the <strong>flipping condition</strong>
+        (Stoner &amp; Wohlfarth, 1948)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="attrib">Interactive from Tauxe &amp; Swanson-Hysell (2026),<br><em>Essentials of Paleomagnetism</em> ch. 5 (CC BY 4.0)</p>
+  <aside class="notes">
+    Let a student drive this one. The moment tracks its local minimum as the
+    field grows; watch the second derivative panel — when the curvature at the
+    occupied minimum hits zero, the well ceases to exist and the moment rolls
+    into the global minimum. Irreversible: back the field off and it stays
+    flipped. This single mechanism, summed over a population, IS the
+    hysteresis loop.
+  </aside>
+</section>
+
+<section>
+  <h2>The flipping field depends on the field's angle</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/bf.png" alt="Flipping field versus angle phi between the applied field and the easy axis: 58 mT at 0 and 90 degrees with a minimum near 45 degrees" style="max-height:48vh">
+        <figcaption>\(\mu_0H_f\) vs. \(\phi\) for a prolate magnetite spheroid (a/b = 1.5).
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <div class="eqbox" style="font-size:0.72em">\(\mu_0 H_f = \dfrac{2K_u}{M_s}\,
+        \dfrac{1}{(\cos^{2/3}\phi + \sin^{2/3}\phi)^{3/2}}\)</div>
+      <ul style="font-size:0.78em">
+        <li>Maximum at \(\phi = 0°\): the <strong>microscopic coercivity</strong>
+          \(\mu_0H_k = 2K_u/M_s\) from Part 3</li>
+        <li><strong>Minimum at 45°</strong> — grains at intermediate angles flip <em>easiest</em>
+          (at \(\mu_0H_k/2\))</li>
+        <li>At exactly \(\phi = 90°\): no irreversible switching at any field — the moment
+          rotates <strong>reversibly</strong> and springs back</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Three anchors to call out: 0° gives the full 2Ku/Ms; 45° gives half that;
+    90° gives reversible rotation with no remanence change. A randomly
+    oriented rock contains grains at ALL these angles simultaneously — so a
+    natural specimen's response is this whole curve averaged, which is exactly
+    what the widgets in the next part compute.
+  </aside>
+</section>
+
+<section>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/chapter5_figure1.png" alt="Prolate magnetite particle with moment at angle theta to the easy axis and field at angle phi; energy density versus theta for 0, 30, and 500 mT applied fields" style="max-height:85vh">
+      </figure>
+    </div>
+    <div class="narrow" style="text-align:left">
+      <h2 style="font-size:1.1em; line-height:1.3">A uniaxial particle in an applied field</h2>
+      <p class="small">A prolate magnetite grain with elongation a/b = 2, field applied
+      at φ = 45° to the easy axis. Anisotropy energy \(\epsilon_a = K_u \sin^2\theta\)
+      digs two minima (the easy axis); the field adds the interaction energy
+      \(\epsilon_m = -M_sB\cos(\phi-\theta)\), which tilts the landscape.
+      A 30 mT field tilts it; 500 mT dominates it.</p>
+      <div class="eqbox" style="font-size:0.8em">\(\epsilon_t = K_u \sin^2\theta \;-\; M_s B \cos(\phi - \theta)\)</div>
+      <p class="tiny" style="margin-top:0.8em">Tauxe &amp; Swanson-Hysell (2026),
+      <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Set up the cast: theta = moment angle from the easy axis; phi = field angle
+    from the easy axis. Anisotropy digs two wells (0° and 180°); the field
+    tilts the landscape toward phi. The moment sits in whichever LOCAL minimum
+    it occupies — not necessarily the global one. That's the entire origin of
+    hysteresis: history decides which well you're in.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 5: HYSTERESIS                                               -->
+<!-- ================================================================ -->
+</section>
+<section id="hysteresis">
+<section class="divider">
+  <p class="kicker">Part 5</p>
+  <h2>Hysteresis loops</h2>
+</section>
+
+<section>
+  <h2>The experiment: a vibrating sample magnetometer</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>Specimen on a rod between the pole pieces of an <strong>electromagnet</strong> (applied field \(B\), up to ~1.8 T on our Lake Shore VSM)</li>
+        <li>Specimen <strong>vibrates</strong> at a known frequency → its moment produces an
+        oscillating flux in <strong>pickup coils</strong> → induced voltage ∝ magnetic moment</li>
+        <li>A lock-in amplifier extracts the signal at the drive frequency →
+        sensitive measurement of \(m\) as a function of \(B\)</li>
+        <li>Protocol: ramp to a (hoped-for) saturating field, sweep down through zero to the
+        opposite extreme, and back: the <strong>hysteresis loop</strong></li>
+      </ul>
+      <p style="font-size:0.85em; margin-top:0.5em">One group ran such experiments yesterday afternoon on
+      D-6A specimens — every group will this week.</p>
+    </div>
+    <div class="narrow">
+      <ul class="small">
+        <li><strong>Loop shape encodes:</strong> mineralogy, domain state, grain size,
+        SP fractions, and the dia/paramagnetic matrix</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Explore: one grain's loop, angle by angle</h2>
+  <div class="widget" data-widget="swsingle"></div>
+  <p class="tiny" style="margin-top:0.4em">Exact Stoner–Wohlfarth physics: the moment rides the occupied
+  minimum of \(\epsilon_t = K_u\sin^2\theta - M_sB\cos(\phi-\theta)\), flipping only when that minimum
+  vanishes (at the marked \(\mu_0H_f\)). At φ = 0°: a square loop closing at ±μ₀H<sub>f</sub>.
+  At φ = 45°: flipping at half the field, with reversible rotation rounding the corners.
+  At φ = 90°: no flip — a closed, fully reversible curve. Between 76.7° and 90°: the little cusp
+  at ±μ₀H<sub>f</sub> is real — the flip <em>reduces</em> the projection along B, so m<sub>∥</sub>
+  overshoots just before switching (Stoner &amp; Wohlfarth, 1948).</p>
+  <aside class="notes">
+    Reproduce the chapter's loop-gallery live: 0° square; 22° and 70° share
+    nearly the same flipping field (the H_f(φ) curve is symmetric about 45°)
+    but very different loop heights; 90° collapses to a reversible line. The
+    projection matters: what the VSM measures is the moment component along B,
+    which is why even the square loop's plateau sits below 1 for oblique
+    angles. Slide the angle to ~85° for a surprise: above 76.7° the flip
+    actually decreases the component along B (the moment swings past the
+    field direction), so the branch overshoots into a small cusp at H_f —
+    a genuine SW-1948 feature, not a glitch. Next slide: add up a whole
+    population of these.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>A rock: millions of randomly oriented grains</h2>
+  <div class="cols" style="align-items: center; gap: 2rem;">
+    <!-- Left Column: The Loop Diagram -->
+    <div style="flex: 1.2;">
+      <div class="widget" data-widget="sdloop"></div>
+    </div>
+    
+    <!-- Right Column: Focused Core Calibration Points -->
+    <div style="flex: 1;">
+      <ul style="font-size:0.85em; line-height: 1.5;">
+        <li><strong>Stoner–Wohlfarth Ensemble:</strong> The bulk loop is the integrated sum of independent, random 3-D easy-axis orientations.</li>
+        
+        <li style="margin-top: 1em;"><strong>Squareness (\(M_r / M_s\)):</strong> Removing the field lets moments relax to their nearest easy axis. For any uniaxial shape, this geometry yields:
+          <div style="margin: 0.25em 0 0 0.5em; font-weight: bold; color: #a61c1c; font-size: 1.05em;">
+            \(M_r = 0.5\,M_s\) exactly
+          </div>
+        </li>
+        
+        <!-- User's streamlined phrasing -->
+        <li style="margin-top: 1em;"><strong>Bulk Coercivity (\(\mu_0 H_c\)):</strong> While the flipping field for these individual grains is 100 mT, a randomly oriented assemblage has a collective coercivity of:
+          <div style="margin: 0.25em 0 0 0.5em; font-weight: bold; color: #0056b3; font-size: 1.05em;">
+            48 mT
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Emphasize that the 0.5 squareness value is pure 3D spatial geometry. When you saturate a random ensemble and release the field, each individual single-domain moment falls back to its NEAREST easy axis hemisphere. The mathematical average of cos(psi) over a hemisphere is exactly 0.5. 
+    
+    This 0.5 value serves as a major baseline calibration mark in rock magnetism. If students measure a ratio close to 0.5 in the lab, they are looking at textbook uniaxial single-domain behavior. If they measure a very low ratio like 0.1 or lower, they are dealing with multi-domain or vortex states, which is highly likely for their real-world rock samples.
+    
+    For the coercivity line, highlight how orientation softens the system: even though an individual grain requires a 100 mT flipping field when perfectly aligned, hitting a random mix of them from all angles drops the collective threshold of the rock down to just 48 mT. You can point right to the blue Bc dot on the widget to show them exactly where that 48 mT manifests on the plot.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Walking the loop, state by state</h2>
+  <figure style="margin: 0 auto; max-width: 100%;">
+    <img src="images/sdloops.png" alt="Hysteresis loop of a random single-domain assemblage with snapshots of the particle moment configurations at the demagnetized, saturated, remanent, and coercive states" style="max-height: 52vh; display: block; margin: 0 auto;">
+    
+    <!-- Clean, Single-Paragraph Caption -->
+    <figcaption style="font-size: 0.75em; line-height: 1.5; margin-top: 1.2rem; text-align: center;">
+      <strong>(1) Demagnetized:</strong> \(M=0\) (slope \(\chi_{lf}\)) &nbsp;·&nbsp;
+      <strong>(2) Saturation:</strong> \(M = M_s\) (aligned with \(\mathbf{B}\)) <br>
+      <strong>(3) Remanence:</strong> \(M = M_r\) (field off) &nbsp;·&nbsp;
+      <strong>(4) Coercivity:</strong> \(M = 0\) (at \(\mu_0 H_c\))
+      
+      <div style="margin-top: 0.6rem; font-size: 0.8em; opacity: 0.5;">
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).
+      </div>
+    </figcaption>
+  </figure>
+
+  <aside class="notes">
+    Use this as the vocabulary slide. Walk the four numbered states and have the students describe what the moment population looks like at each point:
+    
+    1. State 1 is demagnetized. The moments are completely balanced on their easy axes, meaning the net M is 0. Point out the initial slope—that first response is the low-field susceptibility (chi_lf).
+    2. State 2 is saturation. The external field is strong enough to pull all moments parallel to it, maximizing M at Ms.
+    3. State 3 is remanence. Turn the field off, and the moments relax back to their nearest easy direction. For uniaxial SD grains, this geometry means Mr is exactly half of Ms.
+    4. State 4 is coercivity. Applying a reverse field flips exactly half of the net moment, bringing the bulk magnetization back to zero.
+    
+    *Segue to next slide:* "If we don't go all the way to saturation in State 2, but stop partway and turn the field off, we acquire what is called an Isothermal Remanent Magnetization (IRM). If we do go all the way to saturation first, we call that a saturation IRM (sIRM). Let's look at how we measure that..."
+  </aside>
+</section>
+
+
+<section>
+  <h2>Real loops: parameters after slope correction</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/Bcr.png" alt="Hysteresis loop with high-field paramagnetic slope, and the slope-corrected loop with Ms, Mr, Hc labeled" style="max-height:52vh">
+        <figcaption>Green: initial curve; red: measured loop, whose high-field slope \(\chi_{hf}\) is the
+        non-ferromagnetic matrix; dashed blue: the loop after subtracting it.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.75em">
+        <li><strong>\(\chi_{lf}\)</strong> — initial slope from a demagnetized state</li>
+        <li><strong>\(\chi_{hf}\)</strong> — slope after ferromagnetic saturation:
+          <strong>primarily para + dia</strong> → subtract it (unsaturated hematite/goethite
+          adds curvature — see approach to saturation, Part 7)</li>
+        <li><strong>\(M_s\)</strong> — saturation magnetization (after correction)</li>
+        <li><strong>\(M_r\)</strong> — saturation remanence (sIRM)</li>
+        <li><strong>\(\mu_0H_c\)</strong> — coercivity: in-field \(M = 0\)</li>
+        <li><strong>\(\mu_0H_{cr}\)</strong> — coercivity of remanence: the backfield that zeros
+          the <em>remanence</em> (next slides)</li>
+      </ul>
+      <p class="small" style="margin-top:0.4em">Your D-6A troctolites: olivine + plagioclase matrix
+      → expect a strong paramagnetic \(\chi_{hf}\) on top of the magnetite loop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 6: YOUR DATA                                                -->
+<!-- ================================================================ -->
+</section>
+<section id="yourdata">
+<section class="divider">
+  <p class="kicker">Part 6</p>
+  <h2>Processing your D-6A hysteresis data</h2>
+</section>
+
+<section>
+  <h2>From the VSM to your notebook</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>Yesterday's VSM group measured <strong>hysteresis loops + backfield curves</strong> on
+        their unit's D-6A specimens</li>
+        <li>Data flow: <strong>Lake Shore VSM → IRM database → MagIC format → RockmagPy</strong></li>
+        <li>The <code>hysteresis_processing</code> notebook walks through:</li>
+      </ul>
+      <pre style="font-size:0.5em; background:#f7f3ee; border-left:6px solid var(--accent); border-radius:4px; padding:0.8em 1em; margin:0.5em 0"><code>import pmagpy.rockmag as rmag
+
+hyst_experiments = rmag.make_experiment_df(hyst_measurements)
+results = rmag.process_hyst_loops(hyst_experiments, measurements)
+# → slope correction, Ms, Mr, Bc for every specimen</code></pre>
+      <ul style="font-size:0.85em">
+        <li><code>process_hyst_loop</code> implements the <strong>IRM decision tree</strong>
+        (Jackson &amp; Solheid, 2010): gridding, centering &amp; drift checks, quality factor \(Q\),
+        saturation tests, then the appropriate high-field correction</li>
+        <li>The <code>hysteresis_processing_walk_through</code> notebook unpacks every step —
+        the next three slides preview the key ones</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/rockmagpy_logo.png" alt="RockmagPy logo: a magpie perched on a rock" style="max-height:40vh">
+        <figcaption><a href="https://pmagpy.github.io/RockmagPy-notebooks/">RockmagPy</a> —
+        analysis notebooks for IRM instrument data in MagIC format</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>A loop is a mixture of the ferromagnetic and dia/paramagnetic responses</h2>
+  <div class="widget" data-widget="slopecorr"></div>
+  <p class="tiny" style="margin-top:0.4em">A synthetic "troctolite": single-domain magnetite
+  (Stoner–Wohlfarth loop, M<sub>s</sub> = 92 Am²/kg for pure magnetite) in a paramagnetic
+  olivine-rich matrix. The high-field slope (fit at |B| &gt; 0.7 B<sub>max</sub>) is the paramagnetic
+  susceptibility; subtracting it closes the loop and yields M<sub>s</sub>, M<sub>r</sub>, and
+  M<sub>r</sub>/M<sub>s</sub>. Try a low magnetite content: the raw loop looks almost like a
+  paramagnet — the correction rescues the ferromagnetic signal.</p>
+  <aside class="notes">
+    This is exactly what process_hyst_loops does to their data. Set magnetite
+    to ~0.03 wt% and the raw "loop" is nearly a straight paramagnetic line —
+    which is what some of the troctolite specimens may look like. Apply the
+    correction: a clean SD loop pops out with Mr/Ms = 0.5 because this
+    synthetic is pure SD. Their REAL specimens won't give 0.5 — that
+    discrepancy is the next slide and the setup for Max.
+  </aside>
+</section>
+
+<section>
+  <h2>When the loop doesn't saturate: approach to saturation</h2>
+  <ul style="font-size:0.78em">
+    <li>The linear \(\chi_{hf}\) correction <strong>assumes the ferromagnetic loop is saturated</strong>
+    in the fitting window — if it isn't, unresolved curvature is absorbed into the slope and
+    \(M_s\) is <strong>underestimated</strong> (and \(M_r/M_s\) overestimated)</li>
+    <li><code>process_hyst_loop</code> <em>F</em>-tests high-field linearity (windows above 60/70/80%
+    of peak field); when all fail, it fits the approach-to-saturation model
+    \(M(H) = \chi_{hf}H + M_s + a_1H^{-1} + a_2H^{-2}\) instead
+    (<code>fit_type='Fabian'</code> for the Fabian 2006 power law)</li>
+  </ul>
+  <figure>
+    <img src="images/hysteresis_processing.png" alt="Two-panel figure: a) a processed hysteresis loop decomposed into Mrh, Mih, and the ferromagnetic loop; b) the high-field ferromagnetic curve after a linear correction, artificially flattened with Ms of 0.1140, versus the approach-to-saturation correction still rising toward Ms of 0.1208" style="max-height:46vh">
+    <figcaption>East-central Minnesota Batholith granitoid NED18-2c: the loop fails the linearity
+    test at all three windows (\(F_{nl}\) up to ~99 vs. a critical value of ~2.5). The linear
+    correction (orange) flattens the high-field curve and yields an \(M_s\) <strong>6% lower</strong>
+    than the approach-to-saturation fit (blue). Swanson-Hysell et al., RockmagPy paper (in prep.).</figcaption>
+  </figure>
+  <p class="small" style="margin-top:0.4em">If the statistics say "not saturated" even for the
+  nonlinear fit, \(M_s\) is a <strong>minimum estimate</strong> at your peak field — watch for this in the
+  felsic-group and any hematite/goethite-bearing specimens.</p>
+  <aside class="notes">
+    The practical trap: an unsaturated loop LOOKS fine after a linear
+    correction — panel (b) shows the artificially flattened orange curve you'd
+    happily accept. The bias hides in Ms (and therefore in Mr/Ms, and
+    therefore in the Day-plot position). Classic case: the remagnetized
+    Appalachian carbonates with Mr/Ms &gt; 0.5 interpreted as cubic anisotropy —
+    reprocessing with approach-to-saturation fits (Jackson &amp; Solheid, 2012)
+    raised Ms and brought Mr/Ms back below 0.5. The 60/70/80% windows plus
+    the F statistic catch it objectively; here F_NL = 98.7, 25.2, 17.5.
+    High-coercivity minerals (hematite, goethite) are Thursday's story — but
+    the felsic group may meet them first.
+  </aside>
+</section>
+
+<section>
+  <h2>Inside the processing: split the loop into two curves</h2>
+  <div class="cols">
+    <div class="wide" style="flex:1.5">
+      <div class="widget" data-widget="mrhmih"></div>
+    </div>
+    <div class="narrow" style="flex:0.7">
+      <div class="eqbox" style="font-size:0.72em">\(M_{rh} = \tfrac{1}{2}(M^+ - M^-)\)<br>
+        \(M_{ih} = \tfrac{1}{2}(M^+ + M^-)\)</div>
+      <ul style="font-size:0.74em">
+        <li><strong>\(M_{rh}\)</strong> — everything <strong>irreversible</strong> (switching):
+        \(M_r = M_{rh}(0)\); its median field \(B_{rh}\) is a loop-derived proxy for \(B_{cr}\)</li>
+        <li><strong>\(M_{ih}\)</strong> — everything <strong>reversible</strong>
+        (rotation + para/dia)</li>
+        <li>\(M_{rh}\) should be even, \(M_{ih}\) odd — deviations feed the
+        <strong>loop-closure test</strong> and quality factor \(Q\)</li>
+      </ul>
+      <p class="small" style="margin-top:0.4em">Jackson &amp; Solheid (2010).</p>
+    </div>
+  </div>
+  <aside class="notes">
+    The decomposition is the workhorse inside process_hyst_loop: Mrh isolates
+    the switching (its half-width Brh is a loop-derived stand-in for Bcr — no
+    backfield experiment needed), and the even/odd symmetry requirements give
+    quantitative quality control: the mismatch between the upper branch and
+    the inverted lower branch defines the noise for the Q statistic, and the
+    high-field tail of Mrh tests loop closure. When students see Q, Qf, and
+    the closure flag in their results table, this is what's behind them.
+  </aside>
+</section>
+
+<!-- 
+<section>
+  <h2>Mr/Ms as a domain-state meter → the Day plot</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/mdloop.png" alt="Multidomain hysteresis loop, its low Mr and Hc, and the Day diagram of Mr/Ms versus Hcr/Hc with SD, PSD, and MD regions" style="max-height:50vh">
+        <figcaption>a–b) MD loops: thin, low \(M_r\), low \(H_c\) — wall motion is easy.
+        c) The Day diagram (Day et al., 1977): \(M_r/M_s\) vs. \(H_{cr}/H_c\), with the
+        theoretical SD–MD mixing curve of Dunlop (2002) in red.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.74em">
+        <li>Uniaxial SD theory: \(M_r/M_s = 0.5\), \(H_{cr}/H_c \approx 1.1\)</li>
+        <li>MD: \(M_r/M_s \lesssim 0.05\), \(H_{cr}/H_c \gtrsim 5\)</li>
+        <li>Day et al. boxes (historical, schematic): SD at \(M_r/M_s &gt; 0.5\);
+        "PSD" at 0.05–0.5 <em>and</em> \(H_{cr}/H_c\) 1.5–5; MD below</li>
+        <li><strong>Almost every natural specimen lands in the "PSD" box</strong> — SD+MD mixtures,
+        SP contributions, vortex states, and interactions all push points there</li>
+        <li>So treat the Day plot as a <strong>conversation starter, not a verdict</strong>
+        (see Roberts et al., 2018 for the full critique)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Predict out loud before they compute: coarse intrusive rocks like these
+    Duluth Complex cumulates should fall well below the SD line — Mr/Ms of
+    0.02–0.2 with Hcr/Hc of 2–5, i.e., vortex-to-MD territory, possibly with a
+    finer SD-like population from oxide exsolution in silicates pulling some
+    units up. When your Mr/Ms comes out at 0.1, the question isn't "is it SD?"
+    — it's "what mixture of states could produce this?" And for that we need
+    real multidomain physics: Max's lecture, right after the break.
+  </aside>
+</section>
+-->
+
+<!-- ================================================================ -->
+<!-- PART 6: DOMAIN STATES                                            -->
+<!-- ================================================================ -->
+</section>
+<section id="domains">
+<section class="divider">
+  <p class="kicker">Part 6</p>
+  <h2>Beyond uniform:<br>flower, vortex — and the road to domains</h2>
+</section>
+
+<section>
+  <h2>The problem with staying uniform</h2>
+  <div class="cols" style="align-items: center; gap: 2rem;">
+    <div class="wide">
+      <ul style="font-size:0.85em; line-height: 1.55;">
+        <!-- More physically grounded phrasing for the energy state -->
+        <li>A uniformly magnetized (<strong>single domain, SD</strong>) configuration <strong>incurs the maximum possible</strong> magnetostatic <strong>self-energy</strong>: \(E_d = \epsilon_d\,v \propto M_s^2\,v\) — a total that scales with the <strong>cube</strong> of grain diameter</li>
+        
+        <li style="margin-top: 0.6em;"><strong>Exchange energy</strong> wants spins strictly parallel; <strong>self-energy</strong> wants the external magnetic field (the surface poles) eliminated</li>
+        
+        <li style="margin-top: 0.6em;">Exchange wins the budget fight only in the <strong>smallest grains</strong> (≲ 60–70 nm for equant magnetite)</li>
+        
+        <!-- Aligned "relief" phrasing to be physically precise -->
+        <li style="margin-top: 0.6em;">Larger grains <strong>minimize this energy penalty</strong> by letting the magnetization <strong>curl</strong>: spins rotate gradually (low exchange cost per neighbor) as the external field — and the self-energy — collapse</li>
+      </ul>
+      <p style="font-size:0.8em; margin-top:1rem; opacity: 0.9;">
+        Micromagnetic models (e.g., <strong>MERRILL</strong>) find the configurations that minimize the total: watch the states evolve →
+      </p>
+    </div>
+    
+    <div class="narrow" style="text-align: center;">
+      <figure>
+        <img src="images/domains.png" alt="Domain configurations from single domain through lamellar domains with closure domains, with decreasing external field" style="max-height:46vh; display: block; margin: 0 auto;">
+        <figcaption style="font-size: 0.65em; line-height: 1.4; margin-top: 0.8rem; text-align: left; opacity: 0.8;">
+          The classical endpoint: subdivision into domains kills the external field.
+          Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Frame this as a competing energy budget: 
+    
+    The magnetostatic self-energy (or stray-field energy) is at its absolute maximum when magnetization is perfectly uniform, and because it is a volume-based integration, it scales with the cube of the grain's diameter (d³). 
+    
+    Any non-uniform state—like curling or domain walls—introduces a domestic "cost" in exchange energy, but because those transitions occur across surfaces or boundary planes, that cost scales roughly with the cross-sectional area (d²). 
+    
+    Below the crossover diameter, exchange wins and the grain stays uniform. Above it, the d³ scaling of the self-energy becomes too massive, forcing the system into a structured, flux-closed state to minimize total energy.
+    
+    Point out that while the classical 20th-century cartoons jump straight from uniform SD to discrete, striped domain walls (as shown in the figure), modern micromagnetics (which we'll see on the next slide) reveal a beautiful intermediate phase of continuous curling and vortices first.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>What micromagnetics reveals: SD → flower → vortex</h2>
+  <figure>
+    <img src="images/vortex.png" alt="MERRILL micromagnetic simulations: elongate grains go from single domain at 90 nm to a single vortex at 160 nm; equant grains from single domain at 80 nm through a flower state at 90 nm to a vortex at 140 nm" style="max-height:60vh">
+    <figcaption>Remanent states of magnetite computed with MERRILL. Top: elongate grains (b/a = 2.25);
+    bottom: equant grains. Numbers are equivalent-sphere diameters; colors show alignment with easy axes.
+    Modified from Williams et al. (2024) (CC BY 4.0), via Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em>.</figcaption>
+  </figure>
+  <p class="small">Equant: uniform at 80 nm → <strong>flower</strong> (surface spins splay) at 90 nm →
+  <strong>vortex</strong> by 140 nm. Elongate: SD survives to larger sizes, and the vortex core
+  aligns with the long axis.</p>
+  <aside class="notes">
+    Walk through the picture slowly — this is the modern replacement for the
+    SD/PSD/MD cartoon. Flower: the self energy first wins only at the CORNERS,
+    where surface poles are concentrated, so edge spins fan out while the
+    interior stays coherent. Vortex: past ~80-100 nm the whole magnetization
+    rolls up; neighboring spins are still nearly parallel (exchange is locally
+    happy) but the flux now closes internally. Elongate grains resist longer
+    because shape anisotropy stabilizes the uniform state — another reason
+    elongate SD magnetite is the paleomagnetic workhorse.
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: the energy budget behind the domain states</h2>
+  
+  <!-- Interactive Widget Container -->
+  <div class="widget" data-widget="domainstate"></div>
+  
+  <!-- Consolidated & Structured Bottom Text -->
+  <div style="font-size: 0.75em; line-height: 1.5; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 0.6rem; text-align: left;">
+    <!-- Actionable Core Insight (FIXED: removed color: #fff) -->
+    <p style="margin: 0 0 0.4rem 0;">
+      <strong>Drag the slider</strong> to see how the uniform state's self-energy (\(\propto d^3\)) overtakes the area-dependent energy cost (\(\propto d^2\)) of a curled, flux-closed configuration, leading to the departure from single-domain behavior.
+    </p>
+    
+    <!-- Muted Disclaimers and Citations -->
+    <p style="margin: 0; font-size: 0.9em; opacity: 0.6;">
+      Spin structures are schematic 2D slices. Threshold boundaries for equant magnetite modeled after Nagy et al. (2017) and <em>Essentials of Paleomagnetism</em> (Ch. 4). 
+      Absolute energies are highly geometry-dependent; the scaling argument is the key takeaway.
+    </p>
+  </div>
+
+  <aside class="notes">
+    Start at 40 nm: uniform, and the red d³ curve is far below the green d²
+    curve — no incentive to curl. Slide to ~75 nm: flower — the curves are
+    closing. Past ~85 nm the vortex takes over: point out the core symbols
+    (out-of-plane) — that thin core is what carries the grain's remanence, and
+    the circulating spins cancel. Past 200 nm: walls and true domains — and
+    that's where I hand off to Max at 11. The net-remanence readout makes the
+    efficiency collapse visceral: from 100% (SD) to a few % (MD).
+  </aside>
+</section>
+
+<section>
+  <h2>The vortex state can be a faithful recorder</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>The net moment of a vortex grain is carried almost entirely by the
+        <strong>narrow core</strong>; the circulating spins cancel</li>
+        <li>Vortex states can be <strong>remarkably stable</strong>: computed relaxation times
+        exceed <strong>the age of the Solar System</strong> (Nagy et al., 2017)</li>
+        <li>Behavior is SD-like in many experiments → historically labeled
+        <strong>"pseudo-single domain" (PSD)</strong></li>
+        <li>Modern usage: call the states what they are — <strong>flower, single vortex,
+        multi-vortex</strong> — "PSD" survives as the label for the in-between hysteresis behavior</li>
+      </ul>
+      <p style="font-size:0.85em; margin-top:0.5em"><strong>Why it matters for D-6A:</strong> many of the
+      magnetite grains in intrusive rocks like the Duluth Complex will be above true SD size —
+      vortex-state (and MD) grains likely dominate what you are measuring this week.</p>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/wall.png" alt="Domain wall structure: abrupt versus gradual 180-degree spin rotations" style="max-height:40vh">
+        <figcaption>Domain walls: an abrupt flip is exchange-expensive; spreading the rotation
+        over ~100s of atoms is cheaper but puts spins in hard directions.
+        Tauxe &amp; Swanson-Hysell (2026) (CC BY 4.0).</figcaption>
+      </figure>
+      <div class="eqbox" style="font-size:0.75em">\(\delta_w = \pi\sqrt{A/K} \approx 90\ \mathrm{nm}\)<br>
+      \(\epsilon_w = 2\pi\sqrt{AK} \approx 3\times10^{-3}\ \mathrm{J\,m^{-2}}\)</div>
+    </div>
+  </div>
+  <aside class="notes">
+    The wall math delivers a beautiful consistency check: the equilibrium wall
+    width in magnetite (~90 nm) is BIGGER than the grains we just called
+    vortex-state — so "the smallest wall is really more like the vortex state,"
+    and true walls only fit in grains of a few hundred nm. Theory and
+    micromagnetics agree. Hand-off framing: Max picks up there — wall pinning,
+    Barkhausen jumps, and what MD hysteresis looks like.
+  </aside>
+</section>
+
+
+
+<!--
+<section>
+  <h2>Putting it together: the Evans diagram</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/butban.png" alt="Domain state fields for magnetite parallelepipeds: superparamagnetic below the blocking curves, single domain in a wedge that widens with elongation, multidomain above the SD/MD boundary" style="max-height:56vh">
+        <figcaption>Expected domain states for magnetite at room temperature vs. size and shape
+        (after Evans &amp; McElhinny 1969; Butler &amp; Banerjee 1975). Blue/green: SP threshold for
+        τ = 100 s / 1 Gyr; dashed red: SD/MD boundary.
+        Tauxe &amp; Swanson-Hysell (2026) (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li>In this classical model, <strong>equant magnetite has almost no SD window</strong> —
+        but the prediction is model-dependent: micromagnetics puts uniform states out to
+        ~80 nm before flower/vortex take over, and SD/MD size estimates span 20–100 nm</li>
+        <li>Elongation opens the SD field dramatically (shape anisotropy again)</li>
+        <li>The τ = 100 s and τ = 1 Gyr curves are a few nm apart —
+        tiny size changes, geologic consequences</li>
+        <li>Between SD and MD live the flower and vortex states from the previous slides</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The Butler–Banerjee style diagram still frames every conversation about
+    domain state. Emphasize its predictive power AND its caveats: the SD/MD
+    boundary depends on exact shape, stress, and history — literature
+    estimates for equant magnetite span 20-100 nm. Segue to break/Part 5: "so
+    far the field has been a spectator. Now we make it do work: what field
+    does it take to flip an SD grain?"
+  </aside>
+</section>
+-->
+
+
+
+<!--
+<section>
+  <h2>Small grains distort loops: the superparamagnetic contribution</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/loops.png" alt="Langevin magnetization curve for superparamagnetic particles and the steep size dependence of the saturating field B90" style="max-height:48vh">
+        <figcaption>SP particles follow a Langevin curve — steep, saturable, and <strong>reversible</strong>
+        (no hysteresis). \(B_{90}\) (90% saturation) falls as \(d^{-3}\).
+        From Tauxe et al. (1996), via Tauxe &amp; Swanson-Hysell (2026) (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li>The whole particle moment (\(M_s v\), thousands of \(m_b\)) does the Langevin dance:
+        \(\gamma = M_sBv/k_BT\) — hence "<em>super</em>paramagnetic"</li>
+        <li>Saturates in <strong>≪ 1 T</strong> (vs. ~10³ T for a true paramagnet)</li>
+        <li>\(\chi_{sp}\) up to ~27× the equivalent SD susceptibility</li>
+        <li>SP + SD mixtures → <strong>wasp-waisted / potbellied loops</strong>
+          (Tauxe et al., 1996)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The distinguishing test vs. true paramagnetism: an SP contribution
+    saturates at accessible fields because the unit doing the aligning is the
+    whole particle moment. If a slope-corrected loop still looks pinched or
+    the "paramagnetic" slope seems to curve, suspect SP. Ties back to
+    yesterday's wasp-waisted mixture widget — same phenomenon, different soft
+    component.
+  </aside>
+</section>
+-->
+
+<section>
+  <h2>The backfield experiment: isolating the remanence</h2>
+  <figure>
+    <img src="images/backfield_schematic.png" alt="Backfield protocol: saturate, apply progressively larger reverse fields, measure remanence at zero field; the resulting curve crosses zero at Bcr" style="max-height:56vh">
+    <figcaption>Saturate (+2 T) → apply a reverse field → <strong>switch it off</strong> → measure the remanence;
+    repeat with ever larger reverse fields. The curve runs from +SIRM to −SIRM; its zero crossing is
+    \(B_{cr}\), and its derivative is the remanent switching-field distribution — the
+    <strong>coercivity spectrum</strong> of the specimen.
+    Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+  </figure>
+  <aside class="notes">
+    Contrast with the in-field loop: here every measurement is made in ZERO
+    field, so reversible rotations contribute nothing — the backfield curve is
+    pure irreversible switching. That's why its derivative is the cleanest
+    routinely-measured coercivity spectrum, and why coercivity unmixing
+    (Thursday, magnetic mineralogy) is done on curves like this. The
+    two-component example in the figure previews exactly that.
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: a simulated backfield experiment</h2>
+  <div class="widget" data-widget="backfield"></div>
+  <p class="tiny" style="margin-top:0.4em">Same Stoner–Wohlfarth population as before (3-D random easy axes;
+  each grain flips at \(B_K\cdot h_f(\psi)\)). Run the experiment: grains flip in order of switching field
+  (left panel) and the remanence walks from +SIRM through zero at \(B_{cr}\).
+  For ideal SD grains \(H_{cr}/H_c \approx 1.09\) — nearly equal. Multidomain grains push the ratio
+  far higher (≈ 5) — one axis of the Day plot, coming next.</p>
+  <aside class="notes">
+    Two things to milk: (1) with σ = 0 the population still has a coercivity
+    spectrum — the spread comes purely from easy-axis ORIENTATION via h_f(ψ),
+    peaking near B_K/2 (the 45° grains flip first); (2) the in-field curve
+    (grey) crosses zero before the remanence curve does — H_c < H_cr always,
+    because in-field reversible rotation helps pull M through zero. For SD the
+    two are nearly equal (ratio ~1.09); wall motion in MD grains decouples
+    them (~5). Crank σ up to see a broadened natural-looking spectrum.
+  </aside>
+</section>
+
+<section>
+  <h2>Why B<sub>cr</sub> = 0.525 B<sub>K</sub> — and why the IRM logo looks like that</h2>
+  <div class="disk-row">
+    <div class="disk-panel">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Disk with the right half filled: moment directions occupied at saturation remanence">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#555" stroke-width="2"/>
+        <path d="M100,20 A80,80 0 0 1 100,180 Z" fill="#222"/>
+      </svg>
+      <div class="disk-label"><strong>sIRM state (M<sub>r</sub> = 0.5 M<sub>s</sub>)</strong>
+      After saturating along +B, every moment sits on the easy-axis direction in the
+      <em>+B hemisphere</em>: the occupied directions fill a half-space, and the average of
+      \(\cos\psi\) is exactly ½.</div>
+    </div>
+    <div class="disk-panel">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Disk showing occupied moment directions after DC demagnetization: a merged 60-degree wedge toward plus B, wedges from 60 to 90 degrees on either side, and two wedges swung to the minus B side — the pinwheel">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#555" stroke-width="2"/>
+        <path d="M100,100 L169.28,140 A80,80 0 0 0 169.28,60 Z" fill="#222"/>
+        <path d="M100,100 L140,30.72 A80,80 0 0 0 100,20 Z" fill="#222"/>
+        <path d="M100,100 L60,30.72 A80,80 0 0 0 30.72,60 Z" fill="#222"/>
+        <path d="M100,100 L30.72,140 A80,80 0 0 0 60,169.28 Z" fill="#222"/>
+        <path d="M100,100 L100,180 A80,80 0 0 0 140,169.28 Z" fill="#222"/>
+      </svg>
+      <div class="disk-label"><strong>DC demagnetized state (M<sub>r</sub> = 0)</strong>
+      At −0.525 B<sub>K</sub> exactly the axes 30–60° from B flip — \(h_f(\psi)\) is lowest
+      there — and their moments swing through the origin to the −B side. Black = where
+      moments now <em>point</em>: the flipped bands cancel the survivors. Still half
+      dark, but M = 0.</div>
+    </div>
+    <div class="disk-panel" style="max-width:15em">
+      <svg viewBox="0 0 200 110" role="img" aria-label="The IRM logo motif: a half-filled disk beside the five-wedge DC-demagnetization pinwheel">
+        <circle cx="50" cy="55" r="42" fill="none" stroke="#555" stroke-width="2"/>
+        <path d="M50,13 A42,42 0 0 1 50,97 Z" fill="#222"/>
+        <g transform="translate(148,55)">
+          <path d="M0,0 L36.37,21 A42,42 0 0 0 36.37,-21 Z" fill="#222"/>
+          <path d="M0,0 L21,-36.37 A42,42 0 0 0 0,-42 Z" fill="#222"/>
+          <path d="M0,0 L-21,-36.37 A42,42 0 0 0 -36.37,-21 Z" fill="#222"/>
+          <path d="M0,0 L-36.37,21 A42,42 0 0 0 -21,36.37 Z" fill="#222"/>
+          <path d="M0,0 L0,42 A42,42 0 0 0 21,36.37 Z" fill="#222"/>
+        </g>
+      </svg>
+      <div class="disk-label"><strong>Look familiar?</strong> The Institute for Rock Magnetism's
+      logo is exactly this pair of Stoner–Wohlfarth diagrams — the sIRM half-disk and the
+      DC-demagnetized pinwheel, every wedge boundary on the 30° grid.</div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:0.6em">This is why \(B_{cr} = 0.525\,B_K\) for an ideal uniaxial SD
+  assemblage (\(h_f = 0.525\) at ψ = 30° and 60°) while \(B_c = 0.48\,B_K\) — the ratio
+  \(H_{cr}/H_c \approx 1.09\) you just saw emerge from the simulation.</p>
+  <aside class="notes">
+    The payoff slide for the backfield physics — and a piece of IRM lore.
+    Walk it: (1) at sIRM the occupied easy-axis directions fill the +B
+    hemisphere; (2) a backfield eats orientation space from the 45° band
+    outward, because h_f(ψ) has its minimum there; (3) at the field where the
+    flipped band's moment cancels the survivors' — h = 0.525 for the ideal
+    case — the remanence passes through zero, and the occupied directions
+    make the pinwheel. Bruce Moskowitz taught this with these exact diagrams
+    for years, and the Institute put them in its logo.
+  </aside>
+</section>
+
+
+<!--
+<section>
+  <h2>This week's arc, from here</h2>
+  <ul>
+    <li><strong>11:00 today — Max: magnetic domain states</strong> — walls, pinning, Barkhausen jumps,
+    and multidomain hysteresis: the physics your \(M_r/M_s\) values will demand</li>
+    <li><strong>Tomorrow — remanent magnetization</strong>: how relaxation time + temperature turn
+    today's energy barriers into geological recorders (VRM, TRM, CRM)</li>
+    <li><strong>Your project:</strong> as each group's VSM day comes, process the loops and backfield curves,
+    put every specimen on a Day plot, and compare units across the intrusion:</li>
+    <ul style="font-size:0.85em">
+      <li>Does domain state track the oxide-rich vs. silicate-dominated units?</li>
+      <li>Do the high-susceptibility zones from the KT-10 profile carry MD-like signatures?</li>
+      <li>Where does remanence live: interstitial oxides or inclusions in silicates?</li>
+    </ul>
+  </ul>
+</section>
+-->
+
+<section>
+  <h2>Sources &amp; further reading</h2>
+  <ul class="small" style="font-size:0.58em">
+    <li>Tauxe, L. &amp; Swanson-Hysell, N. L. (2026). <a href="https://pmagpy.github.io/Essentials-JupyterBook/"><em>Essentials of Paleomagnetism</em>, interactive JupyterBook edition</a> (CC BY 4.0; accessed July 2026)
+    — chapters 3, 4, and 5: source of the chapter figures and the flipping-field &amp; anisotropy interactives</li>
+    <li>Swanson-Hysell, N. L. et al. (2021). <a href="https://doi.org/10.1029/2021TC006751">The paleogeography of Laurentia in its early years: new constraints from the Paleoproterozoic East-Central Minnesota batholith</a>. <em>Tectonics</em>, 40, e2021TC006751 — the Verwey-transition RTSIRM data (MagIC contribution <a href="https://earthref.org/MagIC/20213">20213</a>)</li>
+    <li>Stoner, E. C. &amp; Wohlfarth, E. P. (1948). <a href="https://doi.org/10.1098/rsta.1948.0007">A mechanism of magnetic hysteresis in heterogeneous alloys</a>. <em>Phil. Trans. R. Soc. A</em>, 240, 599–642</li>
+    <li>Butler, R. F. &amp; Banerjee, S. K. (1975). <a href="https://doi.org/10.1029/JB080i029p04049">Theoretical single-domain grain size range in magnetite and titanomagnetite</a>. <em>JGR</em>, 80, 4049–4058</li>
+    <li>Nagy, L., Williams, W., Muxworthy, A. R., Fabian, K., Almeida, T. P., Ó Conbhuí, P., &amp; Shcherbakov, V. P. (2017). <a href="https://doi.org/10.1073/pnas.1708344114">Stability of equidimensional pseudo–single-domain magnetite over billion-year timescales</a>. <em>PNAS</em>, 114, 10356–10360</li>
+    <li>Williams, W., Moreno, R., Muxworthy, A. R., Paterson, G. A., Nagy, L., Tauxe, L., Bellon, U. D., Cowan, A. A., &amp; Ferreira, I. (2024). <a href="https://doi.org/10.1029/2024GC011462">Vortex magnetic domain state behavior in the Day plot</a>. <em>G³</em>, 25, e2024GC011462 — source of the MERRILL domain-state figure (CC BY 4.0)</li>
+    <li>Day, R., Fuller, M., &amp; Schmidt, V. A. (1977). <a href="https://doi.org/10.1016/0031-9201(77)90108-X">Hysteresis properties of titanomagnetites: grain-size and compositional dependence</a>. <em>PEPI</em>, 13, 260–267</li>
+    <li>Dunlop, D. J. (2002). <a href="https://doi.org/10.1029/2001JB000486">Theory and application of the Day plot (Mrs/Ms versus Hcr/Hc) 1</a>. <em>JGR</em>, 107, 2056</li>
+    <li>Roberts, A. P., Tauxe, L., Heslop, D., Zhao, X., &amp; Jiang, Z. (2018). <a href="https://doi.org/10.1002/2017JB015247">A critical appraisal of the "Day" diagram</a>. <em>JGR Solid Earth</em>, 123, 2618–2644</li>
+    <li>Dunlop, D. J. &amp; Özdemir, Ö. (1997). <em>Rock Magnetism: Fundamentals and Frontiers</em>. Cambridge Univ. Press — chapters 2.8, 5, and 11</li>
+    <li>Tauxe, L., Mullender, T. A. T., &amp; Pick, T. (1996). <a href="https://doi.org/10.1029/95JB03041">Potbellies, wasp-waists, and superparamagnetism in magnetic hysteresis</a>. <em>JGR</em>, 101, 571–583</li>
+    <li>Jackson, M. &amp; Solheid, P. (2010). <a href="https://doi.org/10.1029/2009GC002932">On the quantitative analysis and evaluation of magnetic hysteresis data</a>. <em>G³</em>, 11, Q04Z15 — the loop-processing protocol implemented in RockmagPy</li>
+    <li>Fabian, K. (2006). <a href="https://doi.org/10.1016/j.pepi.2005.06.016">Approach to saturation analysis of hysteresis measurements in rock magnetism…</a> <em>PEPI</em>, 154, 299–307</li>
+    <li>Course notebooks: <a href="https://github.com/PmagPy/RockmagPy-notebooks">RockmagPy hysteresis processing notebooks</a> (incl. the <code>hysteresis_processing_walk_through</code>)</li>
+  </ul>
+  <p class="tiny" style="margin-top:0.5em">Primary-source figure credits (O'Reilly 1984; Syono 1963;
+  Fletcher &amp; O'Reilly 1974; Banerjee 1991; Williams et al. 1995; Joffe &amp; Heuberger 1974; and others)
+  are given in the slide captions; full bibliographic details are in the
+  <a href="https://pmagpy.github.io/Essentials-JupyterBook/">Essentials JupyterBook bibliography</a>.
+  Slides + interactive widgets: <code>S2_fine_particle_magnetization/</code> — reveal.js, self-contained, works offline.</p>
+</section>
+
+</section>
+</div>
+</div>
+
+<script src="lib/reveal/reveal.js"></script>
+<script src="lib/reveal/notes/notes.js"></script>
+<script src="lib/katex/katex.min.js"></script>
+<script src="lib/katex/auto-render.min.js"></script>
+<script src="js/widgets.js"></script>
+<script>
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: '$$', right: '$$', display: true },
+      { left: '\\(', right: '\\)', display: false },
+    ],
+    throwOnError: false,
+  });
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.03,
+    hash: true,
+    slideNumber: 'c/t',
+    navigationMode: 'linear',
+    transition: 'fade',
+    plugins: [RevealNotes],
+  });
+</script>
+</body>
+</html>
