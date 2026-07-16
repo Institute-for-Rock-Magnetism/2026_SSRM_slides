@@ -175,10 +175,16 @@
     answer depends only on the dimensionless ratio a. Walk the figure: the
     initial slope is a/3 (next slide runs with it); saturation needs a ~ 10-20,
     which is ~900 T at 300 K even for a 5-Bohr-magneton ion — hence no lab
-    saturates a paramagnet at room temperature. The Langevin function is
-    today's recurring character: Weiss theory feeds it a molecular field to
-    get ferromagnetism; superparamagnetism feeds it a whole particle moment
-    instead of an atomic one.
+    saturates a paramagnet at room temperature. If a sharp student pushes:
+    the classical Langevin treatment is an approximation for atomic moments —
+    the exact quantum result for finite spin is the Brillouin function
+    (Langevin is its J → ∞ limit), and the weak-field response involves the
+    effective moment g√(S(S+1))μB rather than the saturation moment gSμB.
+    The classical picture is kept here because it becomes exact where we need
+    it most: superparamagnetic particle moments of thousands of μB. The
+    Langevin function is today's recurring character: Weiss theory feeds it
+    a molecular field to get ferromagnetism; superparamagnetism feeds it a
+    whole particle moment instead of an atomic one.
   </aside>
 </section>
 
@@ -217,7 +223,12 @@
     response of Fe-bearing silicates is ~15-30x its room-temperature value,
     which is why low-T curves are so sensitive to the paramagnetic matrix.
     The Curie constant C encodes concentration x moment strength — in rocks
-    it largely tracks Fe content. If asked about interacting moments:
+    it largely tracks Fe content. Fine print if pressed: with m taken as the
+    spin-only saturation moment (5 μB for Fe3+), this classical expression is
+    an approximation — the exact quantum (Brillouin-function) result uses the
+    effective moment g√(S(S+1))μB = 5.92 μB for Fe3+, so the classical form
+    underestimates the Curie constant by ~30%. Fine for the conceptual 1/T
+    story here. If asked about interacting moments:
     Curie-Weiss chi = C/(T - theta) is coming two slides ahead.
   </aside>
 </section>
@@ -492,10 +503,14 @@
     dramatic because of the geometric exaggeration. Two numbers to keep
     straight: the colorbar's easy-to-hard range is ~75 kBT for this 50-nm
     grain, but the barrier that matters for reversal — easy axis to easy axis
-    over the [110] saddle — is |K1|v/12 ≈ 18 kBT. Still comfortably stable at
-    room temperature, and the same grain at 550 °C has a barrier near zero
-    because K1 collapses with Ms. Note the colorbar is total energy (J), not
-    density — grain volume is folded in.
+    over the [110] saddle — is |K1|v/12 ≈ 18 kBT. That is BELOW the ~25 kBT
+    threshold for stability on laboratory timescales (let alone the ~60 kBT
+    needed for geological stability): relaxation time ~ tenths of a second.
+    Magnetocrystalline anisotropy alone would NOT make this grain a stable
+    remanence carrier at 300 K — shape, stress, or defect anisotropy, or a
+    larger volume, has to do the work. And the same grain at 550 °C has a
+    barrier near zero because K1 collapses with Ms. Note the colorbar is
+    total energy (J), not density — grain volume is folded in.
   </aside>
 </section>
 
@@ -507,9 +522,12 @@
         <li>Electronic interactions depend on interatomic spacing → \(K_1, K_2\) vary strongly with \(T\)</li>
         <li>Magnetite's \(K_1\) crosses <strong>zero at ~130 K</strong> — the <strong>isotropic point</strong> \(T_i\)</li>
         <li>At \(T_i\) with the main \(K_1\) magnetocrystalline barriers gone, only the weak \(K_2\) term
-        remains and spins wander far more freely — though <strong>shape and stress anisotropy
-        remain</strong></li>
-        <li>Below \(T_i\) the topology <strong>inverts</strong>: cube edges become easy, body diagonals hard</li>
+        remains and the <strong>magnetization direction</strong> can reorient far more freely — though
+        <strong>shape and stress anisotropy remain</strong></li>
+        <li>Between \(T_v\) (~120 K) and \(T_i\), \(K_1 > 0\) and the topology <strong>inverts</strong>:
+        cube edges become easy, body diagonals hard</li>
+        <li>Below \(T_v\) magnetite is <strong>monoclinic</strong> — a nearly uniaxial
+        anisotropy replaces the cubic landscape</li>
       </ul>
     </div>
     <div class="wide">
@@ -803,7 +821,7 @@
   <p class="small" style="margin-top:0.6em">Also called the <em>flipping field</em>, <em>switching field</em>,
   or <em>intrinsic coercivity</em>.
   These are <strong>single-grain, coherent-rotation values</strong>: the bulk coercivity of a random
-  assemblage is about half of \(H_k\), and interactions, vortex states, and domain
+  assemblage of <strong>uniaxial</strong> particles is about half of \(H_k\), and interactions, vortex states, and domain
   walls pull measured \(H_c\) lower still.</p>
   <aside class="notes">
       Preview these numbers to calibrate expectations for their VSM lab data. Magnetite coercivities generally live between ~10 and 300 mT depending on shape and grain size. 
@@ -1026,7 +1044,7 @@
     1. State 1 is demagnetized. The moments are completely balanced on their easy axes, meaning the net M is 0. Point out the initial slope—that first response is the low-field susceptibility (chi_lf).
     2. State 2 is saturation. The external field is strong enough to pull all moments parallel to it, maximizing M at Ms.
     3. State 3 is remanence. Turn the field off, and the moments relax back to their nearest easy direction. For uniaxial SD grains, this geometry means Mr is exactly half of Ms.
-    4. State 4 is coercivity. Applying a reverse field flips exactly half of the net moment, bringing the bulk magnetization back to zero.
+    4. State 4 is coercivity. At the ensemble coercive field (0.479 Hk for the ideal random uniaxial case), reversible rotation of the moments within their energy wells has brought the summed field-parallel magnetization back to zero — irreversible switching has not yet begun, since the softest grains (oriented at 45 degrees) only flip at 0.5 Hk. This reversible-rotation point is exactly why Hc is smaller than Hcr, which comes up shortly.
     
     *Segue to next slide:* "If we don't go all the way to saturation in State 2, but stop partway and turn the field off, we acquire what is called an Isothermal Remanent Magnetization (IRM). If we do go all the way to saturation first, we call that a saturation IRM (sIRM). Let's look at how we measure that..."
   </aside>
@@ -1274,9 +1292,9 @@ results = rmag.process_hyst_loops(hyst_experiments, measurements)
     
     The magnetostatic self-energy (or stray-field energy) is at its absolute maximum when magnetization is perfectly uniform, and because it is a volume-based integration, it scales with the cube of the grain's diameter (d³). 
     
-    Any non-uniform state—like curling or domain walls—introduces a domestic "cost" in exchange energy, but because those transitions occur across surfaces or boundary planes, that cost scales roughly with the cross-sectional area (d²). 
-    
-    Below the crossover diameter, exchange wins and the grain stays uniform. Above it, the d³ scaling of the self-energy becomes too massive, forcing the system into a structured, flux-closed state to minimize total energy.
+    Any non-uniform state—like curling or domain walls—introduces a "cost" in exchange energy. For a planar domain wall that cost genuinely scales with the cross-sectional area (d²); carrying the same d² over to curled/vortex states is a simplifying approximation (a vortex's exchange energy actually grows more slowly than that), and the real energetics require micromagnetic models.
+
+    Below the crossover diameter, exchange wins and the grain stays uniform. Above it, the d³ scaling of the self-energy becomes too massive, forcing the system into a structured, flux-closed state to minimize total energy. The qualitative point is what matters: the uniform state's magnetostatic energy grows faster with size than the cost of developing non-uniformity.
     
     Point out that while the classical 20th-century cartoons jump straight from uniform SD to discrete, striped domain walls (as shown in the figure), modern micromagnetics (which we'll see on the next slide) reveal a beautiful intermediate phase of continuous curling and vortices first.
   </aside>
@@ -1320,8 +1338,8 @@ results = rmag.process_hyst_loops(hyst_experiments, measurements)
     
     <!-- Muted Disclaimers and Citations -->
     <p style="margin: 0; font-size: 0.9em; opacity: 0.6;">
-      Spin structures are schematic 2D slices. Threshold boundaries for equant magnetite modeled after Nagy et al. (2017) and <em>Essentials of Paleomagnetism</em> (Ch. 4). 
-      Absolute energies are highly geometry-dependent; the scaling argument is the key takeaway.
+      Spin structures are schematic 2D slices. Threshold boundaries for equant magnetite modeled after Nagy et al. (2017) and <em>Essentials of Paleomagnetism</em> (Ch. 4).
+      The \(d^2\) cost is strictly that of a planar domain wall — applying it to curled/vortex states is a simplifying approximation, and micromagnetic models are needed for the real energetics. The scaling argument is the key takeaway.
     </p>
   </div>
 
