@@ -49,6 +49,18 @@ python -m http.server
 Opening a deck's `index.html` directly via `file://` also works (see the
 Safari note above). Press `s` in a deck for speaker notes.
 
+## Deployment
+
+The site is deployed by GitHub Pages from the `main` branch. A `.nojekyll`
+file at the repository root tells Pages to serve the files as-is rather than
+running them through its default Jekyll build. The decks are plain static
+HTML, so Jekyll adds nothing — and its `jekyll-github-metadata` plugin makes
+live GitHub API calls during the build, which caused a deployment to fail
+during a GitHub API outage (July 2026). Skipping Jekyll removes that
+dependency and speeds up deployment. The only side effect is that Markdown files (this one,
+the READMEs) are no longer rendered to HTML on the Pages site; they are only
+read on GitHub itself, so nothing is lost.
+
 ## Regenerating interactive figures
 
 Each deck's README documents how to regenerate its interactive figures — for

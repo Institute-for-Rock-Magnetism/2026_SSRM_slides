@@ -72,7 +72,11 @@ Reapply both if the source widget is regenerated and re-copied.
 [images/build_para_figures.py](images/build_para_figures.py) (run in the
 `ess-jbook` environment from the `images/` directory) — original,
 deck-styled renderings of the standard Langevin function and Curie law,
-replacing the two-panel chapter figure `para.png`.
+replacing the two-panel chapter figure `para.png`. These have been
+implemented in the Essentials JupyterBook
+(`scripts/chapter3_para_figures.py` → `book/figures/chapter3/`), which now
+holds the canonical copy; keep the two scripts in sync if the figures are
+revised.
 
 ### Anisotropy energy surfaces (`anisotropy_*.html`)
 
