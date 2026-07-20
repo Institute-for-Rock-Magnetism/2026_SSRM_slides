@@ -97,6 +97,19 @@ class Plot2D {
     }
     ctx.restore();
   }
+  clipData() {
+    // clip subsequent drawing to the data rectangle, so curves that run past
+    // the axis range are cut at the frame edge rather than spilling into the
+    // margins. Pair with unclip().
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(this.x(this.xlim[0]), this.y(this.ylim[1]),
+             this.x(this.xlim[1]) - this.x(this.xlim[0]),
+             this.y(this.ylim[0]) - this.y(this.ylim[1]));
+    ctx.clip();
+  }
+  unclip() { this.ctx.restore(); }
   line(xs, ys, color, width = 2, dash = []) {
     const ctx = this.ctx;
     ctx.save();
@@ -483,15 +496,16 @@ class FerroWidget {
     this.MsMagnetite = 480e3;  // A/m, magnetite (as in the W3 notebook)
     this.q = 2.0;              // grain elongation a/b
     this.phi = 0;              // field direction: horizontal, +B to the right
-    // cycle to 3 B_K: every grain has switched by B_K, and the reversible
-    // rotation of hard-axis grains has closed the branches onto Ms
-    this.hmax = 3.0;
+    // saturation reference: by 3 B_K every grain has switched and the hard-axis
+    // grains have rotated onto Ms — this sets the fixed plot axis (at a/b = 3)
+    this.satReduced = 3.0;
     this.h = 0;                // reduced applied field B / B_K
     this.playing = false;      // start demagnetized; user launches the cycle
     this.phase = 0;
     this.trail = [];
     this.seed = 11;
 
+    this.updateHmax();         // cycle peak (mT) fixed beyond the axis for every a/b
     this.makeGrains();
     this.buildDOM();
     this.lastT = performance.now();
@@ -509,8 +523,20 @@ class FerroWidget {
   }
 
   blimMT() {
-    // plot/slider range: the cycle amplitude, rounded up to a clean tick
-    return Math.ceil(this.hmax * this.bK() * 1000 / 50) * 50;
+    // fixed plot range, set by the widest loop (max elongation a/b = 3) so
+    // that changing elongation narrows/widens the loop within a constant axis
+    // rather than rescaling it away
+    const { Na, Nb } = demagFactorsProlate(3);
+    const bkMax = MU0 * (Nb - Na) * this.MsMagnetite;
+    return Math.ceil(this.satReduced * bkMax * 1000 / 50) * 50;
+  }
+
+  updateHmax() {
+    // drive the cycle to the same peak field (mT) — just past the axis edge —
+    // for every elongation, so all loops run off the top of the plot rather
+    // than stopping short at different field levels
+    const peakMT = this.blimMT() * 1.12;
+    this.hmax = peakMT / 1000 / this.bK();
   }
 
   makeGrains() {
@@ -558,13 +584,13 @@ class FerroWidget {
   buildDOM() {
     this.root.innerHTML = `
       <div class="widget-controls">
-        <label class="wslider">B <input class="s-b" type="range" min="-${this.blimMT()}" max="${this.blimMT()}" step="1" value="0">
-          <span class="wval" data-ro="B">0 mT</span></label>
         <label class="wslider">elongation a/b
           <input class="s-q" type="range" min="1.2" max="3" step="0.05" value="${this.q}">
           <span class="wval" data-ro="q"></span></label>
+        <span class="wreadout">B = <span class="wval" data-ro="B">0 mT</span></span>
         <button class="wbtn wplay">▶ cycle field</button>
         <button class="wbtn wnew">↻ new grains</button>
+        <label class="wtoggle"><input class="s-preview" type="checkbox"> preview loop &amp; B<sub>c</sub>/M<sub>r</sub></label>
         <span class="wreadout">B<sub>K</sub> = <span data-ro="bk"></span> &nbsp; M/M<sub>s</sub> = <span data-ro="M"></span></span>
       </div>
       <div class="widget-canvases">
@@ -582,25 +608,23 @@ class FerroWidget {
     this.ro = {};
     this.root.querySelectorAll('[data-ro]').forEach(el => this.ro[el.dataset.ro] = el);
     this.playBtn = this.root.querySelector('.wplay');
-    this.sB = this.root.querySelector('.s-b');
     this.sQ = this.root.querySelector('.s-q');
-    this.sB.addEventListener('input', () => {
-      this.playing = false;
-      this.playBtn.textContent = '▶ cycle field';
-      this.h = parseFloat(this.sB.value) / 1000 / this.bK();
-    });
+    this.sPreview = this.root.querySelector('.s-preview');
+    this.showPreview = this.sPreview.checked;
+    this.sPreview.addEventListener('change', () => { this.showPreview = this.sPreview.checked; });
     this.sQ.addEventListener('input', () => {
-      // reduced-unit physics is unchanged; B_K (the mT scale) rescales,
-      // and the field axis/slider range rescales with it
+      // the plot axis is fixed; only B_K (the mT scale) changes, so the loop
+      // widens/narrows on a constant axis. Re-solve the peak field and the
+      // preview loop for the new elongation, and restart the trail.
       this.q = parseFloat(this.sQ.value);
-      const lim = this.blimMT();
-      this.sB.min = -lim; this.sB.max = lim;
+      this.updateHmax();
+      this.computeLoop();
       this.trail = [];
     });
     this.playBtn.addEventListener('click', () => {
       this.playing = !this.playing;
       if (this.playing) {
-        // resume the cycle smoothly from wherever the slider left B
+        // resume the cycle smoothly from wherever the field currently sits
         this.phase = Math.asin(Math.max(-1, Math.min(1, this.h / this.hmax)));
       }
       this.playBtn.textContent = this.playing ? '⏸ pause' : '▶ cycle field';
@@ -618,7 +642,6 @@ class FerroWidget {
     if (this.playing) {
       this.phase += dt * 0.45;
       this.h = this.hmax * Math.sin(this.phase);
-      this.sB.value = (this.h * bkMT).toFixed(0);
     }
 
     // viscous relaxation: each moment chases the minimum it occupies and
@@ -701,27 +724,40 @@ class FerroWidget {
       { xlabel: 'B, applied field (mT)', ylabel: 'M / Ms' });
     plot.frame(dark);
 
-    // major loop of this grain population (reduced units scaled by B_K)
-    const loopCol = dark ? 'rgba(160,160,170,0.75)' : 'rgba(90,90,100,0.55)';
-    plot.line(this.loopDesc.H.map(v => v * bkMT), this.loopDesc.M, loopCol, 2);
-    plot.line(this.loopAsc.H.map(v => v * bkMT), this.loopAsc.M, loopCol, 2);
+    const accent = dark ? '#7fd4ff' : '#0b6aa8';
 
-    // recent path trail (includes the initial magnetization curve)
+    // the field is swept past the axis edge, so clip the loop to the frame:
+    // its saturated branches run off the sides at the same (off-screen) peak
+    plot.clipData();
+
+    // optional preview: the quasi-static major loop plus its emergent Bc/Mr
+    // markers, drawn under the trail so the interactive run overlays it
+    if (this.showPreview) {
+      const loopCol = dark ? 'rgba(160,160,170,0.75)' : 'rgba(90,90,100,0.55)';
+      plot.line(this.loopDesc.H.map(v => v * bkMT), this.loopDesc.M, loopCol, 2);
+      plot.line(this.loopAsc.H.map(v => v * bkMT), this.loopAsc.M, loopCol, 2);
+    }
+
+    // recent path trail (includes the initial magnetization curve) —
+    // the loop emerges from the interactive cycle
     if (this.trail.length > 1) {
       const tcol = dark ? '#ffd166' : '#b8860b';
       plot.line(this.trail.map(p => p[0]), this.trail.map(p => p[1]), tcol, 3.5);
     }
     plot.dot(BmT, M, dark ? '#fff' : '#111');
+    plot.unclip();
 
-    // annotate Ms, Mr, Bc — all emergent, none dialed in
-    const accent = dark ? '#7fd4ff' : '#0b6aa8';
-    plot.dot(0, this.MrMs, accent, 5);
-    plot.label('Mr', -lim * 0.05, this.MrMs + 0.07, accent, 'right');
-    const BcMT = this.hc * bkMT;
-    plot.dot(BcMT, 0, accent, 5);
-    plot.label('Bc', BcMT + lim * 0.02, -0.14, accent, 'left');
+    // Ms reference is always shown; Mr and Bc are labeled only with the
+    // preview (Bc's live zero-crossing lags the quasi-static value by the sweep rate)
     plot.label('Ms', lim * 0.72, 1.09, accent, 'left');
     plot.line([lim * 0.5, lim], [1, 1], accent, 1.5, [5, 4]);
+    if (this.showPreview) {
+      plot.dot(0, this.MrMs, accent, 5);
+      plot.label('Mr', -lim * 0.05, this.MrMs + 0.07, accent, 'right');
+      const BcMT = this.hc * bkMT;
+      plot.dot(BcMT, 0, accent, 5);
+      plot.label('Bc', BcMT + lim * 0.02, -0.14, accent, 'left');
+    }
   }
 }
 

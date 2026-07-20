@@ -158,6 +158,8 @@ figcaption { font-size: 0.55em; color: var(--muted); margin-top: 0.4em; line-hei
 .widget .btn-group { display: flex; gap: 6px; }
 
 .widget .wslider { display: flex; align-items: center; gap: 8px; }
+.widget .wtoggle { display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink); }
+.widget .wtoggle input[type="checkbox"] { accent-color: var(--accent); cursor: pointer; }
 .widget .wslider input[type="range"] { width: 170px; accent-color: var(--accent); }
 .widget .wval { font-variant-numeric: tabular-nums; min-width: 4.5em; color: var(--ink); font-weight: 600; }
 .widget .wreadout { color: var(--muted); font-variant-numeric: tabular-nums; }
