@@ -167,6 +167,8 @@
       <figure>
         <img src="images/langevin.png" alt="The Langevin function rising from the origin with initial slope a over 3 and saturating toward M over Ms of 1, with the 90 percent saturation point at a of about 10 marked" style="max-height:56vh">
       </figure>
+      <p class="small" style="text-align:right; font-style:italic; margin-top:0.2em; opacity:0.8">
+      Classical approximation — exact quantum result for finite spin is the Brillouin function (Langevin = its \(J\to\infty\) limit).</p>
     </div>
   </div>
   <aside class="notes">
@@ -175,13 +177,32 @@
     answer depends only on the dimensionless ratio a. Walk the figure: the
     initial slope is a/3 (next slide runs with it); saturation needs a ~ 10-20,
     which is ~900 T at 300 K even for a 5-Bohr-magneton ion — hence no lab
-    saturates a paramagnet at room temperature. If a sharp student pushes:
-    the classical Langevin treatment is an approximation for atomic moments —
-    the exact quantum result for finite spin is the Brillouin function
-    (Langevin is its J → ∞ limit), and the weak-field response involves the
-    effective moment g√(S(S+1))μB rather than the saturation moment gSμB.
-    The classical picture is kept here because it becomes exact where we need
-    it most: superparamagnetic particle moments of thousands of μB. The
+    saturates a paramagnet at room temperature.
+
+    Quantum vs. classical caveat (the italic note lower-right): the Langevin
+    function is purely classical. It assumes the moment vector can rotate
+    continuously to any angle θ relative to the field (E_m = -mB cos θ), and
+    it integrates over that continuum. But atomic electron spins are spatially
+    quantized — for a single spin m_s = ±1/2, they cannot point at arbitrary
+    continuous angles. The exact result for isolated quantum spins (like the
+    3d transition-metal ions on the previous slide) is the Brillouin function
+    B_J(a), which sums over the discrete allowed orientations. Here J is the
+    total angular momentum quantum number of the ion (J = L + S, or just S when
+    the orbital moment is quenched, as it largely is for 3d ions); it fixes the
+    number of allowed orientations, 2J + 1, that the spin can take relative to
+    the field. Small J means few discrete states (strongly quantum, staircase
+    behavior); as J → ∞ the 2J + 1 states become a continuum and Brillouin
+    smoothly reduces to the classical Langevin function. Professors still teach Langevin here
+    because at high temperature and weak field (a ≪ 1) BOTH functions collapse
+    to the identical linear Curie's law (∝ a/3) — so for the Earth-field,
+    room-temperature regime we care about, the simpler classical function is
+    quantitatively indistinguishable from the exact quantum one. The weak-field
+    response is set by the effective moment g√(S(S+1))μB rather than the
+    saturation moment gSμB.
+
+    The classical picture is also kept here because it becomes exact where we
+    need it most: superparamagnetic particle moments of thousands of μB, where
+    J is enormous and the classical continuum limit genuinely applies. The
     Langevin function is today's recurring character: Weiss theory feeds it
     a molecular field to get ferromagnetism; superparamagnetism feeds it a
     whole particle moment instead of an atomic one.
@@ -230,6 +251,41 @@
     underestimates the Curie constant by ~30%. Fine for the conceptual 1/T
     story here. If asked about interacting moments:
     Curie-Weiss chi = C/(T - theta) is coming two slides ahead.
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: Curie's law in action</h2>
+  <div class="widget" data-widget="para"></div>
+  <p class="tiny" style="margin-top:0.4em">See the \(1/T\) from the last slide directly: drag the <strong>temperature</strong>
+  slider and watch κ climb as you cool — the same field aligns the moments more effectively, so the slope steepens.
+  Permanent moments jitter thermally and lean into the field — positive slope, ~100× steeper than a diamagnet.
+  Still a line through the origin: <strong>no remanence, no coercivity, no memory.</strong></p>
+  <p class="tiny" style="margin-top:0.3em"><em>Caveats: the alignment is greatly exaggerated for visibility
+  (even at the slider extremes of 1 T and 100 K, μB/k<sub>B</sub>T ≈ 0.03, so a faithful drawing would look
+  nearly random); the jitter is a schematic wobble, not Boltzmann statistics, such that the plotted M follows
+  the Curie law with the arrows illustrating the mechanism but not being summed for the result.</em></p>
+  <aside class="notes">
+    This is the interactive companion to the Curie's law slide — the point is to feel the 1/T. Start at
+    zero field: the moments exist but point randomly — zero net M. Drag B up: they lean in. Then hold B
+    fixed and drag temperature from 300 K down and back up, watching κ and M track κ ∝ 1/T. Cooling
+    steepens the line; heating flattens it. Key takeaway: when B returns to zero, M returns to zero — the
+    "hysteresis loop" collapses to a line. That sets up ferromagnetism.
+
+    How the visualization works: each orange arrow is the permanent moment of one atom —
+    fixed length, because |μ| never changes; only its orientation responds. The wobble is a
+    cartoon of thermal agitation (its amplitude and speed grow with T), and each moment is
+    leaned from its random thermal direction toward B by a Langevin-like factor that
+    saturates with B and falls as 1/T. The faint blue background arrows are the applied
+    field, scaled to its strength.
+
+    Simplifications to be upfront about: (1) the alignment is exaggerated ~10,000× — at
+    these fields and temperatures μB/k_BT ~ 10⁻⁴, so a faithful drawing would look completely
+    random; (2) the jitter is a smooth deterministic wobble, not a real Boltzmann-statistics
+    simulation — 24 moments in 2-D stand in for an ensemble average; (3) moments are
+    independent (ideal paramagnet, no interactions); and (4) the plotted M and κ readout come
+    from the exact Curie law κ = κ₃₀₀·(300/T), not from summing the drawn arrows — the arrows
+    illustrate the mechanism, the curve is the physics.
   </aside>
 </section>
 
@@ -380,18 +436,19 @@
           <strong>&theta; &lt; 0</strong> — antiferromagnetic interactions
         </span>
       </div>
+      <p class="small" style="margin:0.3em 0 0">\(C\) — Curie constant (moment count &times; strength) ·
+      \(\theta\) — Weiss (paramagnetic) temperature, set by the exchange interaction</p>
       <ul style="font-size:0.82em">
         <li>Near \(T_c\), the collapse of order is characterized by a quantum-mechanical power law:
         \(\;M_s(T)/M_s(T_0) = \left[(T_c - T)/(T_c - T_0)\right]^{\gamma}\)</li>
       </ul>
-      <p class="small">For magnetite, data (B. Moskowitz, in Banerjee 1991) are best fit with
-      \(\gamma \approx 0.36\text{–}0.39\) and \(T_c \approx 565\text{–}580°\mathrm{C}\).
-      The ordering temperature is <strong>diagnostic of mineralogy</strong> (more in Friday's high-T lecture).</p>
     </div>
     <div class="narrow">
       <figure>
         <img src="images/curie.png" alt="Normalized saturation magnetization of magnetite versus temperature with power-law fits" style="max-height:52vh">
-        <figcaption>M<sub>s</sub>(T) for magnetite with power-law fits.
+        <figcaption>M<sub>s</sub>(T) for magnetite with data and power law fits: best fit \(\gamma \approx 0.36\text{–}0.39\),
+        \(T_c \approx 565\text{–}580°\mathrm{C}\) — the ordering temperature is diagnostic of mineralogy
+        (Friday's high-T lecture).
         Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0);
         data of B. Moskowitz cited in Banerjee (1991).</figcaption>
       </figure>
@@ -423,7 +480,7 @@
     </div>
     <div class="card">
       <h3>Zeeman Energy (External Field) \(\epsilon_z = -\mathbf{M}\cdot\mathbf{B}_{\text{ext}}\)</h3>
-      <p>Pulls <b>M</b> toward an applied field — the energy that lets fields do work on the grain.
+      <p>Couples <b>M</b> to an applied field; minimized when <b>M</b> aligns with \(\mathbf{B}_{\text{ext}}\).
       Its self-field sibling — the <em>demagnetizing (self) energy</em> — appears under shape anisotropy.</p>
     </div>
     <div class="card">
@@ -956,6 +1013,16 @@
       </ul>
     </div>
   </div>
+</section>
+
+<section data-background-iframe="vsm_pickup_animation.html" data-background-interactive>
+  <aside class="notes">
+    Full-screen version of the pickup-coil physics: the sample vibrates, its dipole
+    field threads the balanced pickup coils, and the induced current follows −dΦ/dt.
+    Slow-motion so the Faraday signal is visible; the readouts track sample position,
+    coil flux, and induced current. Interactive — pause and change speed with the HUD
+    controls. This is what the lock-in amplifier turns into a moment measurement.
+  </aside>
 </section>
 
 <section>

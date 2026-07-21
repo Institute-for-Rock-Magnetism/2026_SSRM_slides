@@ -1,0 +1,1658 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S3 — Remanent Magnetization · IRM Summer School 2026</title>
+  <link rel="stylesheet" href="lib/reveal/reset.css">
+  <link rel="stylesheet" href="lib/reveal/reveal.css">
+  <link rel="stylesheet" href="lib/reveal/theme/white.css">
+  <link rel="stylesheet" href="lib/katex/katex.min.css">
+  <link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================ -->
+<!-- TITLE                                                            -->
+<!-- ================================================================ -->
+<section id="title">
+<section class="titleslide center-slide">
+  <h1>How rocks become — and stay — magnetized</h1>
+  <div class="titlebar"></div>
+  <p class="subtitle">remanent magnetization, from Néel theory to paleomagnetic directions</p>
+  <p class="meta">2026 IRM Summer School of Rock Magnetism · Wednesday, July 22<br>
+  Institute for Rock Magnetism · University of Minnesota</p>
+  <aside class="notes">
+    Session 3 (3 hours, breaks interspersed). Two arcs: (1) how remanence is
+    acquired and why it survives — Néel theory, then VRM, TRM, CRM as three
+    routes across the same blocking boundary; (2) how we read the record —
+    sampling, measurement, demagnetization, Zijderveld diagrams, PCA, field
+    tests. Sediments (DRM) are deliberately left out: Josh covers them on
+    Tuesday, July 28.
+  </aside>
+</section>
+
+<section>
+  <h2>Two questions for this session</h2>
+  <div class="cols" style="align-items:stretch; margin-top:0.8em">
+    <div>
+      <h3>1 · How does a rock record a field?</h3>
+      <ul style="font-size:0.85em">
+        <li>Why doesn't thermal agitation erase the magnetization in a
+        billion years? (<strong>Néel theory</strong>)</li>
+        <li>Three natural recorders: <strong>VRM</strong> (time),
+        <strong>TRM</strong> (temperature), <strong>CRM</strong> (grain growth)</li>
+        <li>…plus laboratory and accidental remanences: IRM, ARM, lightning</li>
+      </ul>
+    </div>
+    <div>
+      <h3>2 · How do we read the record?</h3>
+      <ul style="font-size:0.85em">
+        <li>From outcrop to oriented specimen to measured vector</li>
+        <li><strong>Demagnetization</strong>: taking a multicomponent NRM apart</li>
+        <li><strong>Zijderveld diagrams</strong> and principal component analysis</li>
+        <li>Field tests: do we believe the direction?</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:0.8em; font-size:0.9em">Your D-6A specimens carry a <strong>natural remanent
+  magnetization (NRM)</strong>. At the RAPID SRM station you are measuring it and
+  demagnetizing it — today is the physics behind that workflow.</p>
+  <aside class="notes">
+    Anchor to the project: every group has measured (or will measure) NRM and AF
+    demagnetization on the RAPID system. By the end of today they should know
+    what the NRM of a 1.1 Gyr-old troctolite is likely made of, and how the
+    demagnetization data separate the pieces. Sediments/DRM: Josh, Tuesday 7/28.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 1: NEEL THEORY                                              -->
+<!-- ================================================================ -->
+</section>
+<section id="neel">
+<section class="divider">
+  <p class="kicker">Part 1</p>
+  <h2>How remanence survives: Néel theory</h2>
+</section>
+
+<section>
+  <h2>A reminder: anisotropy makes a grain stable</h2>
+  <div class="cols">
+    <div>
+      <ul style="font-size:0.8em">
+        <li>Yesterday: <strong>Anisotropy</strong> (shape, crystal, stress) defines <strong>easy directions</strong> (energy minima).</li>
+        <li>For a <strong>single-domain grain with uniaxial anisotropy</strong>, the barrier is \(E = K_u v\) (anisotropy density \(\times\) volume).</li>
+        <li>Overcoming the barrier: An <strong>applied field</strong> switches the magnetization between easy axes (Stoner–Wohlfarth flipping).</li>
+        <li>Field off: The moment remains trapped in its well — this is <strong>remanence</strong>.</li>
+      </ul>
+      <p style="margin-top:0.6em; font-size:0.85em"><strong>But how long will it stay?</strong> 
+      The answer to this question involves <strong>temperature</strong> and <strong>time</strong>.</p>
+    </div>
+    <div class="wide" style="flex:1.2">
+      <figure>
+        <img src="images/uniaxial_energy.png" alt="Uniaxial shape-anisotropy energy density versus moment angle for a two-to-one prolate magnetite spheroid: minima along the long axis at 0 and 180 degrees, a 35 kilojoule per cubic meter barrier at 90 degrees, with cartoons of the elongate grain and its rotated moment" style="max-height:54vh">
+        <figcaption>Shape-anisotropy energy of a 2:1 prolate magnetite spheroid
+        (\(K_u = \frac{1}{2}\mu_0 \Delta N M_s^2 \approx 3.5\times10^4\) J/m³) as the moment
+        rotates from the long axis. Computed as in Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em>, ch. 5 (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    One-slide recap of yesterday's arc (energy minimization → anisotropy →
+    Stoner–Wohlfarth): anisotropy carves the energy landscape, and the barrier
+    between easy directions is what resists remagnetization. Yesterday's
+    question was "how big a FIELD does it take to push the moment over?" —
+    that gave the flipping field and hysteresis. Today's question is the quiet
+    one: with no field applied at all, how long does the moment actually stay
+    put? Answer on the next slide: thermal energy is always working on the
+    problem.
+  </aside>
+</section>
+
+<section>
+  <h2>Thermal Energy: The Néel Equation</h2>
+  
+  <p style="font-size:0.78em; margin-bottom:0.5em">
+    A magnetic field is not the only way over the energy barrier (\(Kv\)). In <strong>uniaxial single-domain grains</strong>, thermal fluctuation energy can also flip the magnetic moment—no external field required. The relaxation time (\(\tau\)) is defined by the <strong>Néel equation</strong>, with remanence decaying over time as \(M(t) = M_0\, e^{-t/\tau}\):
+  </p>
+  
+  <div style="display: flex; align-items: center; justify-content: space-between; margin: 0.4em 0 0.8em 0;">
+    <!-- The Equation (Left) -->
+    <div class="eqbox" style="font-size:1.15em; flex: 1; text-align: center; margin-right: 20px;">
+      \(\tau = \dfrac{1}{C}\exp\left(\dfrac{Kv}{k_B T}\right)\)
+    </div>
+    <!-- Overall Timing Variables (Right) -->
+    <div style="flex: 1.2; font-size: 0.7em; line-height: 1.4; background: rgba(0,0,0,0.02); padding: 10px 18px; border-radius: 4px; border-left: 3px solid #718096;">
+      • <strong>\(\tau\)</strong> : Relaxation time <strong>[s]</strong> — magnetic memory lifetime<br>
+      • <strong>\(1/C\)</strong> : Attempt time <strong>[s]</strong> — flip attempt frequency (typically \(10^{-9}\) to \(10^{-12}\) s)
+    </div>
+  </div>
+
+  <!-- The Tug-of-War Split Panel -->
+  <div style="display: flex; gap: 20px; margin: 0.8em 0;">
+    
+    <!-- Left Card: Team Stability -->
+    <div style="flex: 1; background: #ebf8ff; border-top: 4px solid #3182ce; border-radius: 5px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #2b6cb0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;">
+        🔵 Team Stability: \(Kv\) [J]
+      </h3>
+      <p style="font-size: 0.74em; margin: 0 0 0.6em 0; line-height: 1.3; color: #2d3748;">
+        The energy barrier keeping the magnetic moment locked in place.
+      </p>
+      <ul style="font-size: 0.72em; line-height: 1.4; margin: 0; padding-left: 18px;">
+        <li><strong>\(K\)</strong> : Anisotropy constant <strong>[J/m³]</strong></li>
+        <li><strong>\(v\)</strong> : Grain volume <strong>[m³]</strong></li>
+      </ul>
+    </div>
+    
+    <!-- Right Card: Team Chaos -->
+    <div style="flex: 1; background: #fffaf0; border-top: 4px solid #dd6b20; border-radius: 5px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #c05621; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;">
+        🔥 Team Chaos: \(k_B T\) [J]
+      </h3>
+      <p style="font-size: 0.74em; margin: 0 0 0.6em 0; line-height: 1.3; color: #2d3748;">
+        The thermal fluctuation energy driving spontaneous magnetic flips.
+      </p>
+      <ul style="font-size: 0.72em; line-height: 1.4; margin: 0; padding-left: 18px;">
+        <li><strong>\(k_B\)</strong> : Boltzmann constant <strong>[J/K]</strong></li>
+        <li><strong>\(T\)</strong> : Temperature <strong>[Kelvin, K]</strong></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    This slide introduces the Néel equation and credits Louis Néel. It structures magnetic relaxation as a dynamic physical balance specifically for uniaxial single-domain grains.
+    Remind the students that we are talking about individual magnetic moment "flips" here, not geomagnetic field polarity reversals!
+    Point out how the units in the exponent cancel completely: [J/m³] * [m³] on top leaves Joules, and [J/K] * [K] on the bottom leaves Joules. 
+    Explain the tug-of-war: Team Stability (the energy barrier, Kv) acts to keep the magnetic moment locked in place, while Team Chaos (thermal energy, k_B T) drives spontaneous magnetic flips.
+    This sets us up perfectly to play with these exact variables on the interactive widget next to see how they govern the relaxation time.
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: Magnetic Relaxation Time vs Grain Size</h2>
+
+  <!-- Interactive Widget -->
+  <div class="widget" data-widget="neel" style="margin-bottom: 0.5em;"></div>
+  
+  <!-- Prominent Equation Spanning the Bottom -->
+  <div class="eqbox" style="font-size: 1em; margin: 0.4em 0; text-align: center;">
+    \(\tau = \dfrac{1}{C}\exp\left(\dfrac{Kv}{k_B T}\right)\)
+  </div>
+  
+  <!-- Simplified Context Caption -->
+  <p class="tiny" style="margin-top: 0.4em; font-size: 0.55em; line-height: 1.3; color: #4a5568; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 0.5em;">
+    Magnetite with uniaxial shape anisotropy: 
+    \(K \propto M_s^2\), \(M_s(T) = M_s(0)\,(1-T/T_c)^{\gamma}\) with \(\gamma \approx 0.38\), 
+    \(T_c = 580\) °C, \(1/C = 10^{-9}\) s; volume calculated from the equivalent spherical diameter 
+    (\(K_0 = 30\) kJ/m³).
+  </p>
+
+  <aside class="notes">
+    Live demo script: 
+    (1) At 20 °C, slide the grain diameter from 20 to 30 nm. Notice how τ climbs from seconds past the age of the Earth within just about 8 nm! Point out how incredibly steep this exponential curve is in reality.
+    (2) Park the slider at 25 nm and raise the temperature. Watch the curve collapse as thermal energy increases, dropping the grain back below the 100 s threshold. This is the physical seed of thermal demagnetization (and TRM blocking in reverse).
+    (3) Emphasize the 100 s line: this is our operational lab boundary between superparamagnetic (unstable) and blocked (stable single-domain) states.
+  </aside>
+</section>
+
+<section>
+  <h2>The Néel diagram: grain populations in \(v\)–\(K\) space</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/neel_grain_population.png" alt="Néel diagram: grain volume versus anisotropy constant with contours of equal relaxation time, and a grain population ellipse straddling the superparamagnetic / stable single domain boundary" style="max-height:56vh">
+        <figcaption>Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li><strong>Rearranging the Néel equation</strong> to solve for volume (\(v\)) defines the contours of constant \(\tau\) shown on the plot:
+          <div style="margin: 0.3em 0; text-align: center; font-size: 1.1em;">
+            \(v = \dfrac{k_B T}{K}\ln(C\tau)\)
+          </div>
+        </li>
+        <li>Grains below the \(\tau \approx \text{100 s}\) lab boundary are <strong>superparamagnetic (SP)</strong> — thermal fluctuations easily overcome their energy barrier, making them unable to hold a stable remanence.</li>
+        <li>Grains above with long relaxation times <strong>stable single-domain (SSD)</strong> state — they are thermally stable and act as reliable recorders.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This diagram is our home base — the three widgets that follow all move either the contours or the grain population ellipse. 
+    Point out that the equation here is the exact same Néel relationship from the previous slide, just solved for volume. Note how the τ contours fan out. 
+    Below 100 seconds, thermal fluctuations dominate, resulting in superparamagnetic (SP) behavior. Above 100 seconds, the grains enter the stable single-domain (SSD) state. 
+    Because any natural sample has a grain size distribution (the ellipse) that straddles this boundary, every rock naturally contains both highly stable paleomagnetic recorders and unstable, viscous components.
+  </aside>
+</section>
+
+<section>
+  <h2>Three ways to block magnetization</h2>
+  <div class="classcards">
+    <div class="card para">
+      <h3>Time → VRM</h3>
+      <p>Wait. On longer observation times the effective boundary
+      (\(\tau = t\)) <strong>sweeps upward</strong> — more grains reach equilibrium
+      with today's field.</p>
+      <p><strong>viscous remanent magnetization</strong></p>
+    </div>
+    <div class="card ferro">
+      <h3>Temperature → TRM</h3>
+      <p>Cool. \(k_BT\) falls and \(K \propto M_s^2\) grows — grains cool through their blocking temperatures.</p>
+      <p><strong>thermoremanent magnetization</strong></p>
+    </div>
+    <div class="card dia">
+      <h3>Volume → CRM</h3>
+      <p>Grow. New crystals nucleate and grow through the blocking
+      volume at constant temperature.</p>
+      <p><strong>chemical remanent magnetization</strong></p>
+    </div>
+  </div>
+  <aside class="notes">
+    The organizing slide for the first half. All three remanences are "a grain
+    population crossing the τ = 100 s boundary" — what differs is which variable
+    moves: elapsed time t, temperature T, or volume v. The interactive widgets
+    from the Essentials JupyterBook (chapter 7) show exactly this.
+  </aside>
+</section>
+
+<section>
+  <h2>Dynamic equilibrium: sheep in a pasture</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/kates_sheep.jpg" alt="Cartoon of sheep jumping a fence between two fields, an analogy for magnetic moments crossing an anisotropy energy barrier" style="max-height:52vh">
+        <figcaption>Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em>
+        (CC BY 4.0); drawing by Kate Akin.</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Two fields separated by a fence = <strong>two easy directions</strong> separated by
+        an anisotropy energy barrier</li>
+        <li>Energetic sheep occasionally jump the fence: exchange without net change —
+        <strong>dynamic equilibrium</strong></li>
+        <li>If it rains on one side (an applied field), sheep favor the dry side —
+        a <strong>biased</strong> equilibrium: Boltzmann statistics,
+        \(P \propto e^{-E/k_BT}\)</li>
+        <li>Raise the fence (grow \(Kv\)) and the distribution is
+        <strong>locked in</strong> — blocked</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The sheep analogy carries the whole session: jump rate = 1/relaxation time;
+    rain = field bias (that's the equilibrium magnetization Me); raising the
+    fence = blocking, however it happens — cooling (TRM), grain growth (CRM) —
+    while just waiting with the fence low is VRM. Boltzmann: the probability of
+    finding a moment at energy E above the minimum goes as exp(-E/kBT).
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 2: VRM                                                      -->
+<!-- ================================================================ -->
+</section>
+<section id="vrm">
+<section class="divider">
+  <p class="kicker">Part 2</p>
+  <h2>Viscous remanent magnetization</h2>
+  <p class="kicker" style="margin-top:0.4em">the remanence of just sitting there</p>
+</section>
+
+<section class="figslide">
+  <div class="cols">
+    <div class="narrow" style="flex:0.8">
+      <h2>Watch VRM accumulate</h2>
+      <ul style="font-size:0.78em">
+        <li>Slide <strong>elapsed time</strong> from 1 s to 4.5 Gyr</li>
+        <li>The dashed boundary is \(\tau = t\): every grain below it has
+        re-equilibrated with the ambient field → <strong>VRM (blue)</strong></li>
+        <li>Grains above it still hold the <strong>original NRM (gold)</strong></li>
+        <li>The boundary moves with \(\ln t\): fast at first, then ever slower —
+        VRM grows roughly with <strong>log time</strong></li>
+      </ul>
+      <p class="tiny" style="margin-top:0.6em">Interactive from Tauxe &amp; Swanson-Hysell (2026),
+      <em>Essentials of Paleomagnetism</em>, ch. 7 (CC BY 4.0).</p>
+    </div>
+    <div class="wide" style="flex:1.3">
+      <figure>
+        <iframe class="plotframe fullheight" data-src="vrm_widget.html"
+                title="Interactive VRM widget: elapsed time slider sweeps the blocking boundary up through a grain population on the Néel diagram"></iframe>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Demo: press play and let it run — the first decades of the log-time slider
+    fly through seconds-to-days; by 1 Myr the boundary is visibly eating into the
+    population. Ask: which grains are immune? (top-right: large, high-anisotropy.)
+    Connect to the lab: the τ = 100 s boundary is where the population sits after
+    the specimen has been in the shielded room a few minutes.
+  </aside>
+</section>
+
+<section>
+  <h2>VRM: Grains with \(\tau \lesssim t\) Align with the Field</h2>
+  
+  <!-- Flex container for a clean 50/50 split -->
+  <div style="display: flex; gap: 2em; align-items: center; justify-content: space-between;">
+    
+    <!-- Left Column: Core Physical Concept (50% width) -->
+    <div style="flex: 1; font-size: 0.82em; line-height: 1.55;">
+      
+      <p style="margin-bottom: 0.8em;">
+        While individual single-domain grains are binary (they either flip or they don't), the net magnetization of a <strong>population of grains</strong> sharing a relaxation time (\(\tau\)) relaxes exponentially toward a new equilibrium (\(\mathbf{M}_e\)) over exposure time (\(t\)):
+      </p>
+
+      <!-- Clean math anchor -->
+      <div class="eqbox" style="font-size: 1.15em; margin: 0.6em 0; text-align: center; padding: 0.5em;">
+        \(\mathbf{M}(t) = \mathbf{M}_e + (\mathbf{M}_o - \mathbf{M}_e)\,\mathbf{e^{-t/\tau}}\)
+      </div>
+
+      <p style="margin-top: 0.8em; margin-bottom: 0.8em;">
+        The ratio \(t/\tau\) determines what fraction of the assemblage has flipped:
+      </p>
+
+      <!-- Color-coded contrast blocks matching the plot regions -->
+      <ul style="margin-left: 0; margin-bottom: 1em; list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 0.8em; padding-left: 1em; border-left: 3px solid #3182ce;">
+          <strong>\(\tau \gg t\) (Stable Cohort):</strong> 
+          Few grains in this population flip, allowing the assemblage collectively preserve a <strong>stable remanence (\(\mathbf{M}_o\))</strong>.
+        </li>
+        <li style="margin-bottom: 0.8em; padding-left: 1em; border-left: 3px solid #dd6b20;">
+          <strong>\(\tau \lesssim t\) (Viscous Cohort):</strong> 
+          Grains flip rapidly. By \(t \approx 2.5\tau\), over <strong>92% of the grains</strong> in this cohort have flipped to the modern field direction, resulting in a dominant <strong>viscous remanence (\(\mathbf{M}_e\))</strong>.
+        </li>
+      </ul>
+
+    </div>
+    
+    <!-- Right Column: Simplified Single Panel Figure (50% width) -->
+    <div style="flex: 1; text-align: center;">
+      <figure style="margin: 0;">
+        <img src="images/VRM_acquisition.png" alt="Single-panel plot showing normalized magnetization decaying exponentially from ancient Mo to modern Me, highlighting the stable and 92% overprinted viscous regions." style="width: 100%; max-height: 52vh; object-fit: contain;">
+      </figure>
+    </div>
+
+  </div>
+  
+  <aside class="notes">
+    Crucial physical distinction here: an individual single-domain grain doesn't have a '92% state.' It has two stable energy wells. It is either pointing one way or the other. 
+    The curve on the right tracks the statistical behavior of an entire *assemblage* of grains.
+    (1) Point to the y-axis: At t=0, the entire population of grains is aligned pointing along Mo (ancient direction).
+    (2) In the blue region (t << &tau;): The probability of any individual grain flipping is extremely low. The assemblage successfully preserves the stable remanence.
+    (3) We've dropped the transition line at t=&tau; because relaxation is a smooth continuum. Instead, focus on the end states.
+    (4) In the orange region (t &gt; 2.5&tau;): Over 92% of the grains in this cohort have now thermally flipped. The collective memory of this cohort is effectively wiped, replaced by today's modern field direction (Me). This is the unwanted viscous remanence overprint we must identify and strip away in the lab.
+  </aside>
+</section>
+
+<section>
+  <h2>VRM in the wild</h2>
+  <ul style="font-size:0.9em">
+    <li>Every ancient rock has spent the last <strong>~780 kyr in the Brunhes normal-polarity field</strong> —
+    so a present-field VRM overprint on top of any ancient remanence can be expected</li>
+    <li>VRM is carried by the <strong>lowest-stability grains</strong> — the same grains that are
+    easiest to demagnetize (this is why demagnetization works)</li>
+    <li>Higher temperature → shorter \(\tau\) → <strong>faster viscous acquisition</strong>:
+    burial at depth accelerates overprinting (thermoviscous remanence, next slide)</li>
+  </ul>
+  <div class="eqbox" style="margin-top:0.6em; font-size:0.95em">expected NRM of a Duluth Complex specimen:
+  ancient TRM (1.1 Ga) + Brunhes-age VRM (&lt; 0.78 Myr) — a two-component magnetization</div>
+  <aside class="notes">
+    The 0.78 Myr figure: the last reversal (Matuyama–Brunhes) — any VRM
+    acquired before it points the other way and has mostly been overwritten
+    since. This slide plants the two-component expectation that the Zijderveld
+    part of the session resolves. Lab point: VRM acquired sitting on the bench in
+    the Earth's field for a week is measurable in soft specimens.
+  </aside>
+</section>
+
+<section>
+  <h2>Thermoviscous remanence: time and temperature trade off</h2>
+  <div class="cols">
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>The same \(Kv/k_BT\) exponent can be reached by <em>long time at low T</em>
+        or <em>short time at high T</em></li>
+        <li>Burial to a few hundred °C for Myr can remagnetize what a lab oven
+        resets in minutes at higher T — read the nomogram along a curve</li>
+        <li>Conversely: a short lab heating <strong>cleans</strong> a long, low-T
+        thermoviscous overprint</li>
+      </ul>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/pullaiah_magnetite.png" alt="Pullaiah nomogram for magnetite: relaxation time versus temperature contours steepening toward the Curie temperature, with geological timescales from 100 seconds to a billion years on the right axis" style="max-height:56vh">
+        <figcaption>Time–temperature nomogram for magnetite
+        (\(T \ln C\tau / M_s^2(T)\) contours, after Pullaiah et al., 1975).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    How to read: pick a point (say 250 °C, 10 Myr) and follow its curve down to
+    the lab timescale (100 s, right axis) — a 10 Myr burial at 250 °C unblocks
+    in the oven within a few tens of degrees higher over lab times. If asked
+    about hematite: its Hc ∝ Ms³ gives an Ms⁴ scaling and much steeper curves —
+    hematite VRM is harder to acquire and to clean. This nomogram underlies
+    "unblocking temperature spectra date the overprint" arguments.
+    Regenerate the figure with images/pullaiah.py.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 3: TRM                                                      -->
+<!-- ================================================================ -->
+</section>
+<section id="trm">
+<section class="divider">
+  <p class="kicker">Part 3</p>
+  <h2>Thermoremanent magnetization</h2>
+  <p class="kicker" style="margin-top:0.4em">the igneous recorder</p>
+</section>
+
+<section>
+  <h2>Cooling lava: the classic recorder</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/lava.png" alt="Three panels: glowing lava flow, randomly oriented crystal moments above the Curie temperature, and field-biased moments below the blocking temperature" style="max-height:56vh">
+        <figcaption>Above \(T_c\): no spontaneous magnetization. Between \(T_c\) and
+        \(T_b\): moments flip freely, biased by the field. Below \(T_b\): remanent magnetization is blocked in.
+        Photo D. Staudigel. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Above \(T_c\) (580 °C for magnetite): grains are paramagnetic — no remanent magnetization</li>
+        <li>Just below \(T_c\): \(\tau\) is seconds — a
+        <strong>biased dynamic equilibrium</strong> with the field</li>
+        <li>At the <strong>blocking temperature</strong> \(T_b\): \(\tau\) shoots past
+        lab/geologic timescales — the biased distribution is <strong>locked in</strong></li>
+        <li>The result: a <strong>TRM parallel to the field</strong>, proportional
+        to it in weak fields</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Key subtlety: blocking happens tens to hundreds of degrees below the Curie
+    temperature, grain by grain — Tb is a property of each grain (its v and K),
+    not of the mineral. That's what makes partial TRM and thermal
+    demagnetization possible.
+  </aside>
+</section>
+
+<section>
+  <h2>Cooling changes both numerator and denominator</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/magnetite_ms_k_temperature.png" alt="Two panels: normalized saturation magnetization of magnetite versus temperature, and anisotropy constant versus temperature falling more steeply as Ms squared" style="max-height:50vh">
+        <figcaption>
+          Normalized \(M_s(T) = M_s(0)(1-\frac{T}{T_c})^{\gamma}\) (\(\gamma \approx 0.38\)) and 
+          \(K(T) \propto M_s^2\) for shape anisotropy (\(K = \frac{1}{2}\mu_0 \Delta N M_s^2\)). 
+          The energy barrier collapses much faster than \(M_s\). 
+          Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).
+        </figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <!-- Standardized Equation Box Container -->
+      <div class="eqbox" style="font-size:1em; flex: 1; text-align: center; margin-right: 20px; margin-bottom: 15px;">
+        \(\tau = \dfrac{1}{C}\exp\left(\dfrac{Kv}{k_B T}\right)\)
+      </div>
+      
+      <ul style="font-size:0.85em; list-style-type: square;">
+        <li>
+          <strong>Denominator ↓ (Thermal energy drops):</strong> 
+          As \(T\) falls, \(k_B T\) shrinks. Thermal agitation decreases, lowering capacity to cross energy barriers.
+        </li>
+        <li>
+          <strong>Numerator ↑ (Magnetic barrier grows):</strong> 
+          \(M_s\) is higher at lower \(T\). \(K \propto M_s^2\), such that energy barrier (\(Kv\)) amplifies quadratically.
+        </li>
+        <li>
+          During cooling, the relaxation time \(\tau\) skyrockets from seconds to geological timescales over a very narrow temperature interval, <strong>blocking</strong> the remanence.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This is the two-part mechanism the TRM widget animates: lowering T shrinks the denominator while simultaneously expanding the numerator quadratically. 
+    If asked why K ∝ Ms² for shape anisotropy: the demagnetizing energy is ½μ0ΔN Ms². For magnetocrystalline-dominated grains the exponent differs, but the qualitative story is identical.
+  </aside>
+</section>
+
+<section class="figslide">
+  <div class="cols">
+    <div class="narrow" style="flex:0.8">
+      <h2>Watch TRM block in</h2>
+      <ul style="font-size:0.78em">
+        <li>Drag the <strong>temperature slider</strong> (or press Cool) from 560 °C
+        down to room temperature</li>
+        <li>The \(\tau\) curves sweep <em>down</em> as \(k_BT\) shrinks; the grain
+        population slides <em>right</em> as \(K \propto M_s^2\) grows</li>
+        <li>Grains cross the \(\tau = 100\) s boundary and become
+        <strong>blocked TRM carriers (gold)</strong>, each freezing the field-biased
+        distribution at its own \(T_b\)</li>
+      </ul>
+      <p class="tiny" style="margin-top:0.6em">Interactive from Tauxe &amp; Swanson-Hysell (2026),
+      <em>Essentials of Paleomagnetism</em>, ch. 7 (CC BY 4.0).</p>
+    </div>
+    <div class="wide" style="flex:1.3">
+      <figure>
+        <iframe class="plotframe fullheight" data-src="trm_widget.html"
+                title="Interactive TRM widget: temperature slider cools a magnetite grain population through its blocking temperatures on the Néel diagram"></iframe>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Demo: cool in ~50° jumps and narrate which part of the ellipse blocks at
+    each step — big/elongate grains first (high Tb), small grains last (low Tb),
+    some never (SP at room T). Run it backwards: heating unblocks in reverse
+    order — that IS thermal demagnetization, four slides early.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 4: CRM                                                      -->
+<!-- ================================================================ -->
+</section>
+<section id="crm">
+<section class="divider">
+  <p class="kicker">Part 4</p>
+  <h2>Chemical remanent magnetization</h2>
+  <p class="kicker" style="margin-top:0.4em">blocking by growing</p>
+</section>
+
+<section>
+  <h2>Grow through the blocking volume</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/neel-crm.png" alt="Two Neel diagrams: small superparamagnetic grains at nucleation, then grown grains crossing the blocking volume into the stable single domain field" style="max-height:52vh">
+        <figcaption>Grains nucleate tiny (SP) and grow across the \(\tau\) contours at
+        constant temperature. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <p style="font-size:0.85em">Hold the Néel equation at room \(T\) and solve for the volume
+      where \(\tau\) reaches a target:</p>
+      <div class="eqbox" style="font-size:0.95em">\(v_b = \dfrac{k_B T \ln(C\tau)}{K_u}\)</div>
+      <ul style="font-size:0.8em">
+        <li>A crystal growing in the ambient field passes through \(v_b\):
+        its biased moment distribution is <strong>blocked in at that size</strong></li>
+        <li>No heat required — this happens during
+        <strong>weathering, diagenesis, and alteration</strong></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Same picture, third slider. Point out the tiny scale of blocking volumes:
+    tens of nm — a growing hematite or magnetite crystal acquires its CRM long
+    before it is visible petrographically.
+  </aside>
+</section>
+
+<section class="figslide">
+  <div class="cols">
+    <div class="narrow" style="flex:0.8">
+      <h2>Watch CRM block in</h2>
+      <ul style="font-size:0.78em">
+        <li>Drag the <strong>growth slider</strong> (or press Grow): hematite grains
+        nucleate small and grow at constant temperature</li>
+        <li>The \(\tau\) contours <strong>stay put</strong> — it's the population that
+        rises through them as volume grows</li>
+        <li>Grains crossing \(\tau = 100\) s become <strong>blocked CRM carriers</strong>,
+        recording the field at the time of <em>their</em> growth — not the rock's formation age</li>
+      </ul>
+      <p class="tiny" style="margin-top:0.6em">Interactive from Tauxe &amp; Swanson-Hysell (2026),
+      <em>Essentials of Paleomagnetism</em>, ch. 7 (CC BY 4.0).</p>
+    </div>
+    <div class="wide" style="flex:1.3">
+      <figure>
+        <iframe class="plotframe fullheight" data-src="crm_widget.html"
+                title="Interactive CRM widget: grain growth slider raises a hematite grain population through fixed relaxation-time contours on the Néel diagram"></iframe>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Contrast with the TRM widget: there the curves moved and the grains slid
+    sideways; here everything is at room temperature and only volume changes.
+    Two CRM flavors to name: grain-growth CRM (gCRM — precipitation of new
+    minerals) and alteration CRM (aCRM — one mineral replacing another, e.g.
+    magnetite oxidizing to maghemite, where the new phase can inherit a memory
+    of the old one's remanence).
+  </aside>
+</section>
+
+<section>
+  <h2>CRM in the wild — signal and menace</h2>
+  <figure>
+    <img src="images/chinji.png" alt="Red beds of the Chinji Formation in Pakistan with panels showing superparamagnetic pigment particles aligning with the ambient field as they grow" style="width:100%; max-height:none">
+    <figcaption>Red beds (Chinji Fm., Siwaliks, Pakistan): pigmentary hematite grows in
+    pore space, recording the field during early diagenesis. Tauxe &amp; Swanson-Hysell
+    (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+  </figure>
+  <div class="cols" style="align-items:flex-start; margin-top:0.5em">
+    <div>
+      <ul style="font-size:0.78em">
+        <li><strong>CRM leads to overprints</strong>: oxidation, hydrothermal fluids, and
+        <strong>serpentinization</strong> create new magnetic phases carrying the field
+        of alteration time</li>
+      </ul>
+    </div>
+    <div>
+      <ul style="font-size:0.78em">
+        <li><strong>Red beds</strong>: hematite CRM can be acquired
+        soon (but how soon?) after deposition</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The interpretive point: a CRM is a faithful field recorder — of the wrong
+    (or at least a different) time. Whether that is signal or noise depends on
+    the question. For the ultramafic D-6A units, serpentinite-hosted magnetite
+    would carry a Phanerozoic-to-recent CRM wildly discordant from the 1.1 Ga
+    TRM — a testable prediction for the group presentations.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 5: NRM & SAMPLING                                           -->
+<!-- ================================================================ -->
+</section>
+<section id="nrm">
+<section class="divider">
+  <p class="kicker">Part 5</p>
+  <h2>The NRM — and how we collect it</h2>
+</section>
+
+<section>
+  <h2>NRM: whatever nature left there</h2>
+  <div class="eqbox" style="font-size:1.0em">\(\mathrm{NRM} = \) vector sum of <em>every</em> remanence the rock has acquired
+  and retained: TRM + VRM + CRM (+ IRM + …)</div>
+  <div class="cols" style="margin-top:0.6em">
+    <div>
+      <h3 style="font-size:0.95em">A Duluth Complex troctolite likely carries:</h3>
+      <ul style="font-size:0.8em">
+        <li><strong>TRM</strong> from initial cooling at ca. 1096 Ma </li>
+        <li><strong>VRM</strong> from the Brunhes chron (steep, north, down)</li>
+        <li>possibly <strong>CRM</strong> where serpentinized or oxidized</li>
+        <li>possibly <strong>drilling-induced IRM</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:0.95em">The good news:</h3>
+      <ul style="font-size:0.8em">
+        <li>The components differ in <strong>stability</strong> (τ ↔ coercivity ↔ \(T_{ub}\))</li>
+        <li>Progressive demagnetization peels them apart, softest first</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Halfway summary slide — good place for the first long break. The second half
+    is the reading half: sampling and orientation, measurement, demagnetization,
+    Zijderveld analysis, and the field tests that establish the age of a
+    component. IRM and ARM in the sum get their formal definitions after the
+    demagnetization part; for now "lightning and lab fields" is enough.
+  </aside>
+</section>
+
+<section>
+  <h2>Getting oriented samples</h2>
+  <div class="cols" style="align-items:flex-start">
+    <div>
+      <figure>
+        <img src="images/drill.png" alt="Four panels showing drilling a core with a water-cooled portable drill, orienting it with a slotted tube and inclinometer, and marking it before extraction" style="max-height:46vh">
+        <figcaption>Field drilling: ~2.5 cm cores, oriented in place 
+        before breaking free. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div>
+      <figure>
+        <img src="images/hand.png" alt="Four panels showing hand sampling of soft sediment by digging, rasping a flat surface, orienting, and extracting a block" style="max-height:46vh">
+        <figcaption>Block/hand samples.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div style="flex:0.9">
+      <ul style="font-size:0.75em">
+        <li>Orientation on the outcrop: <strong>azimuth + plunge</strong> of the core axis
+        (magnetic and/or sun compass + inclinometer)</li>
+        <li>Sample <strong>fresh</strong> rock: weathering trades magnetite for
+        oxyhydroxides — a CRM factory</li>
+        <li>Check for <strong>lightning</strong> (compass sweep)</li>
+        <li>Precision improves as \(\sqrt{N}\): several samples per site,
+        sites spread over time (secular variation!)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Site design logic from ch. 9: a site = one instant of geologic time (a
+    cooling unit, one horizon). To average secular variation you need many
+    sites, not many samples in one site — rule of thumb from the GAD chapter:
+    tens of sites over >10⁵ yr. Sun compass matters on magnetite-rich outcrops
+    (like most of the Duluth Complex!) where local anomalies deflect a magnetic
+    compass; back-sighting is the quick check.
+  </aside>
+</section>
+
+<section>
+  <h2>Sample, specimen, site — and their arrows</h2>
+  <figure>
+    <img src="images/samples.png" alt="Field arrows, lab arrows and orientation conventions for drilled cores, block samples, and piston cores" style="max-height:62vh">
+    <figcaption>Orientation bookkeeping for the three sample types — field arrow vs lab arrow.
+    Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+  </figure>
+  <aside class="notes">
+    Terminology that saves grief: a sample is something you take; a specimen is
+    something you measure. Multiple specimens per sample, multiple samples per
+    site. Every lab has its own arrow convention — what matters is an unambiguous
+    chain from specimen x,y,z to geographic coordinates. This is exactly the
+    orient.txt / samples.txt bookkeeping in MagIC that the Part 8 data figure
+    uses.
+  </aside>
+</section>
+
+<section>
+  <h2>Measuring the vector — and putting it in coordinates</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.82em">
+        <li><strong>Spinner magnetometer</strong>: spin the specimen in a pickup coil; the induced
+        emf gives two components per spin axis</li>
+        <li><strong>Cryogenic (SQUID) magnetometer</strong>: superconducting pickup loops count flux
+        quanta — fast, sensitive to ~10⁻¹¹ Am²; the IRM's 2G systems (incl. the
+        <strong>RAPID</strong>) are this type</li>
+        <li>Either way you get specimen-coordinate components \((x, y, z)\):</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.9em">
+        \(x = M\cos I \cos D,\quad y = M\cos I \sin D,\quad z = M\sin I\)
+      </div>
+      <ul style="font-size:0.82em">
+        <li>Rotate by the sample's <strong>azimuth &amp; plunge</strong> → geographic
+        (\(x\) = north, \(y\) = east, \(z\) = down)</li>
+        <li>Untilt by <strong>strike &amp; dip</strong> when the question calls for
+        pre-tilt coordinates</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/digeo.png" alt="Diagram of specimen coordinates with the magnetic moment vector, and rotation into geographic coordinates using azimuth and plunge" style="max-height:50vh">
+        <figcaption>Specimen → geographic rotation. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Conventions: D measured clockwise from north, I positive down (northern
+    hemisphere normal field: D≈0, I>0). The tilt correction is three rotations
+    (rotate dip direction to north, untilt about horizontal, rotate back) or one
+    composite rotation — PmagPy's pmag.dogeo / pmag.dotilt do exactly this, and
+    the Part 8 interactive uses dogeo on the real MagIC tables. Mass/volume
+    normalization: moment (Am²) ÷ volume = A/m, as in S1.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 6: DEMAGNETIZATION                                          -->
+<!-- ================================================================ -->
+</section>
+<section id="demag">
+<section class="divider">
+  <p class="kicker">Part 6</p>
+  <h2>Taking the NRM apart: demagnetization</h2>
+</section>
+
+<section>
+  <h2>The logic: erase in order of stability</h2>
+  <ul style="font-size:0.9em">
+    <li>Secondary components (VRM, lightning IRM) live in <strong>low-stability grains</strong>:
+    short \(\tau\) ↔ low coercivity ↔ low unblocking temperature</li>
+    <li>Ancient components live in <strong>high-stability grains</strong> — that's <em>why</em>
+    they're still there</li>
+    <li>So: <strong>progressively randomize</strong> the low-stability fraction, measuring the
+    surviving vector after each step</li>
+  </ul>
+  <div class="cols" style="margin-top:0.6em; align-items:stretch">
+    <div>
+      <h3 style="font-size:0.95em">Thermal demag</h3>
+      <ul style="font-size:0.78em">
+        <li>Heat to \(T\), <strong>cool in zero field</strong></li>
+        <li>Randomizes all grains with \(T_{ub} < T\)</li>
+        <li>Selects on <strong>unblocking temperature</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:0.95em">Alternating-field (AF) demag</h3>
+      <ul style="font-size:0.78em">
+        <li>Oscillating field, smoothly decaying, in <strong>zero DC field</strong></li>
+        <li>Randomizes all grains with coercivity below the peak</li>
+        <li>Selects on <strong>coercivity</strong></li>
+      </ul>
+    </div>
+  </div>
+  <p class="small" style="margin-top:0.6em">Two different axes through the same Néel diagram —
+  which is why thermal and AF treatment of companion specimens can resolve components
+  that either alone cannot.</p>
+  <aside class="notes">
+    The FC1 site in Part 8 is a perfect illustration — same sample, one specimen
+    AF, one thermal, same ChRM recovered along different demag paths. Stability
+    ordering is a tendency, not a law: a CRM can be hard, young hematite pigment
+    can out-stubborn an old magnetite TRM in AF. Hence companion treatments.
+  </aside>
+</section>
+
+<section>
+  <h2>Thermal demagnetization: unblocking the Néel diagram</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/vrm_demag.png" alt="Neel diagrams at room temperature and 300 degrees C showing the superparamagnetic, VRM, and characteristic remanence regions and how heating unblocks the viscous grains" style="max-height:54vh">
+        <figcaption>Heating to 300 °C moves the blocking boundary past the entire VRM-carrying
+        region: cooling in zero field returns those grains randomized. Tauxe &amp;
+        Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Heat to \(T\): every grain with \(T_{ub} < T\) goes superparamagnetic</li>
+        <li><strong>Cool in zero field</strong>: they re-block randomized —
+        their remanence is erased</li>
+        <li>Reciprocity (SD): this removes exactly the pTRMs below \(T\)</li>
+        <li>A time–temperature trade (Pullaiah curves): minutes at 300 °C clean a VRM
+        acquired over ~1 Myr at ambient temperature</li>
+        <li>Caution: heating in air can <strong>create new minerals</strong> (aCRM in the
+        oven!) — monitor susceptibility between steps</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This figure is the Néel-diagram version of what the TRM widget showed in
+    reverse. If a stray field leaks into the cooling chamber, the specimen
+    acquires a pTRM each step — the double-demag protocols (heat and cool twice,
+    antiparallel positions) detect this. Alteration monitoring: kappa checks
+    between steps; a rising susceptibility above ~400 °C usually means new
+    magnetite from silicate/sulfide breakdown.
+  </aside>
+</section>
+
+<section class="figslide">
+  <div class="cols">
+    <div class="narrow" style="flex:0.8">
+      <h2>Run the cooling widget backwards: unblocking</h2>
+      <ul style="font-size:0.78em">
+        <li>Same interactive as the TRM part — now drag the
+        <strong>temperature slider up</strong>, as the oven does</li>
+        <li>The \(\tau\) curves sweep up and the grain population slides left:
+        grains drop below the \(\tau = 100\) s boundary and
+        <strong>unblock</strong>, lowest \(T_{ub}\) first</li>
+        <li>Cooled back in <strong>zero field</strong>, each unblocked grain re-freezes
+        with random polarity — its remanence is gone</li>
+        <li>Step to progressively higher \(T\) and you erase the blocking-temperature
+        spectrum from the bottom up</li>
+      </ul>
+      <p class="tiny" style="margin-top:0.6em">Interactive from Tauxe &amp; Swanson-Hysell (2026),
+      <em>Essentials of Paleomagnetism</em>, ch. 7 (CC BY 4.0).</p>
+    </div>
+    <div class="wide" style="flex:1.3">
+      <figure>
+        <iframe class="plotframe fullheight" data-src="trm_widget.html"
+                title="Interactive Néel diagram widget run in reverse: raising temperature unblocks grains, illustrating thermal demagnetization in the lab"></iframe>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Deliberate reprise of the TRM widget: acquisition and demagnetization are
+    the same physics traversed in opposite directions. Demo: start at 20 °C
+    (fully blocked), step the slider to ~300 °C and point out which part of the
+    ellipse has gone superparamagnetic — those are the grains a 300 °C oven step
+    wipes (in zero field). Keep stepping to 560 °C: everything unblocks below
+    the Curie point. Reciprocity caveat from the pTRM slide applies: for SD
+    grains T_ub = T_b; multidomain grains unblock over a smeared range.
+  </aside>
+</section>
+
+<section>
+  <h2>AF demagnetization: the waveform</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/AF_demag.png" alt="Alternating field demagnetization waveform: a sinusoid whose amplitude decays smoothly, with a zoom on successive opposing peaks" style="max-height:52vh">
+        <figcaption>The AF ramps up to the chosen peak, then decays smoothly through
+        thousands of oscillations. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>While the envelope exceeds a grain's coercivity, its moment <strong>flips with
+        every half-cycle</strong></li>
+        <li>As the envelope decays past that coercivity, the grain <strong>freezes</strong> —
+        half end up one way, half the other: <strong>net zero</strong></li>
+        <li>Applied along three orthogonal axes (or while tumbling) so all easy-axis
+        orientations are treated</li>
+        <li>Only grains with coercivity <strong>above the peak</strong> keep their memory</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Stress: zero ambient DC field is essential — any bias field turns the
+    procedure into ARM acquisition (formally defined in the next part). The smooth decay matters
+    too: an abrupt cutoff leaves grains coherently stuck. The RAPID does 3-axis
+    AF automatically; peak fields to 100–180 mT reach most magnetite, but not
+    hematite (coercivities to several T — thermal territory).
+  </aside>
+</section>
+
+<!--
+THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
+<section>
+  <h2>Explore: AF demagnetization of a two-component NRM</h2>
+  <div class="widget" data-widget="afdemag"></div>
+  <p class="tiny" style="margin-top:0.4em">A soft overprint (<span style="color:#D55E00">A</span>,
+  median coercivity 12 mT) over a hard ancient component (<span style="color:#0072B2">B</span>,
+  median 60 mT), both with log-normal coercivity spectra. During a step, grains whose coercivity
+  is below the decaying envelope flip with the field and freeze with random polarity — faded
+  arrows no longer contribute. The black curve is the vector magnitude of what survives; watch
+  the net <strong>M</strong> arrow swing from the NRM direction to the direction of B.</p>
+  <aside class="notes">
+    Demo script: (1) apply a 10 mT step — mostly A grains randomize, M rotates
+    toward B; (2) run the full sequence and watch the measured curve track the
+    theoretical remaining-fraction curves; (3) point out M's magnitude can decay
+    non-monotonically when components are not parallel — magnitude alone hides
+    the story, which is exactly why we need the vector plots of Part 8. Reset
+    re-magnetizes with a fresh grain population.
+  </aside>
+</section>
+-->
+
+<!-- ================================================================ -->
+<!-- PART 7: ZIJDERVELD & COMPONENTS                                  -->
+<!-- ================================================================ -->
+</section>
+<section id="zij">
+<section class="divider">
+  <p class="kicker">Part 7</p>
+  <h2>Seeing the components: Zijderveld diagrams</h2>
+</section>
+
+<section>
+  <h2>Progressive demagnetization, in 3-D</h2>
+  <figure>
+    <img src="images/zij_block.png" alt="Perspective diagram of the NRM vector during progressive demagnetization at levels 0 through 6, with geographic axes; a dashed arrow shows the low-stability component removed at levels 1 through 3" style="width:80%">
+    <figcaption>Solid arrows: the NRM vector at demagnetization levels 0–6.
+    Butler (1992), <em>Paleomagnetism: Magnetic Domains to Geologic Terranes</em>.</figcaption>
+  </figure>
+  <ul style="font-size:0.82em; margin-top:0.5em">
+    <li>Every demagnetization step leaves a full <strong>vector</strong> — direction
+    <em>and</em> intensity; an intensity-only plot throws most of that away</li>
+    <li>Levels 1–3: a <strong>low-stability component</strong> (dashed arrow) is stripped —
+    the vector changes <em>direction and length</em></li>
+    <li>Levels 4–6: the surviving <strong>high-stability component</strong> decays in
+    intensity but <strong>keeps its direction</strong> — heading straight for the origin</li>
+  </ul>
+  <aside class="notes">
+    Scenario slide — let it breathe. The two-component story is obvious in 3-D:
+    the vector swings while the overprint is stripped (1–3), then marches
+    straight at the origin (4–6). The problem: 3-D is unplottable on paper. The
+    next slide shows the solution — take its shadows.
+  </aside>
+</section>
+
+<section>
+  <h2>From 3-D to paper: project the endpoints</h2>
+  <div class="cols" style="align-items:center">
+    <div style="flex:0.85">
+      <figure>
+        <img src="images/zij_block.png" alt="Perspective diagram of the NRM vector during progressive demagnetization, repeated small for reference" style="width:100%">
+      </figure>
+      <ul style="font-size:0.74em; margin-top:0.6em">
+        <li><strong>(a)</strong> shadow of the endpoints on the <strong>horizontal
+        plane</strong> — the map view</li>
+        <li><strong>(b)</strong> shadow on a <strong>vertical (N–S) plane</strong></li>
+        <li><strong>(c)</strong> stack both shadows on shared axes → one plot:
+        the <strong>vector component (Zijderveld) diagram</strong></li>
+      </ul>
+    </div>
+    <div style="flex:1.1">
+      <figure>
+        <img src="images/zij_block_zij.png" alt="Construction of a vector component diagram: horizontal projection of the NRM vector, vertical projection onto a north-south plane, and the two projections combined into a single diagram with solid points for horizontal and open points for vertical endpoints" style="max-height:58vh">
+        <figcaption>Solid points: horizontal projection · open points: vertical projection ·
+        numbers: demag levels. Butler (1992), <em>Paleomagnetism: Magnetic Domains to
+        Geologic Terranes</em>.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Walk the construction slowly — this is the make-or-break slide for reading
+    every demag figure that follows. Panel (a): looking straight down, the
+    swing-then-straight path. Panel (b): looking sideways at the N–S plane, the
+    inclination story. Panel (c): the space-saving trick — both shadows on one
+    pair of shared axes, distinguished only by symbol fill. One pair of points
+    per demagnetization step.
+  </aside>
+</section>
+
+<section>
+  <h2>Reading a vector component diagram</h2>
+  <div class="cols" style="align-items:center">
+    <div style="flex:1.05">
+      <figure>
+        <img src="images/zij_block_zij.png" alt="Vector component diagram construction with horizontal and vertical projections combined on shared axes" style="max-height:58vh">
+        <figcaption>Butler (1992), <em>Paleomagnetism: Magnetic Domains to Geologic
+        Terranes</em>.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <ul style="font-size:0.82em">
+        <li><strong>Solid symbols</strong> — horizontal projection (\(x_1\) vs \(x_2\));
+        <strong>open symbols</strong> — vertical projection (\(x_1\) vs \(x_3\), down
+        positive): Zijderveld (1967)</li>
+        <li>Removing a <strong>single component</strong> of fixed direction moves the
+        endpoint along a <strong>straight line</strong></li>
+        <li>The last (characteristic) component, <strong>ChRM</strong>, decays
+        <strong>to the origin</strong></li>
+        <li><strong>Straight segments</strong> = separable components;
+        <strong>curvature</strong> = overlapping stability spectra</li>
+        <li>The <strong>direction of each segment</strong> = the direction of the component
+        being removed over those steps</li>
+      </ul>
+      <p class="small" style="margin-top:0.7em">Equal-area projections complement the
+      Zijderveld view: they show the <em>direction</em> of the surviving vector migrating
+      as components strip away.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Warn about the classic trap: plotting H = √(x1²+x2²) vs x3 ("component
+    plot") looks like a Zijderveld vertical projection but is NOT a linear
+    projection — the apparent coordinate system changes at every step. Also
+    worth mentioning once: some plots (PmagPy and this deck's interactives
+    among them) rotate the horizontal axes so x1 lies along the NRM declination
+    — it keeps both projections well spread out, and the vertical projection
+    then shows an apparent inclination. Solid = map view, open = section view
+    is the convention in the widget coming up.
+  </aside>
+</section>
+
+<section>
+  <h2>Explore: components, overlap, and PCA</h2>
+  <div class="widget" data-widget="zij"></div>
+  <p class="tiny" style="margin-top:0.3em">Synthetic two-component specimen (after the W8 course
+  notebook): overprint <span style="color:#D55E00">A (Dec 0°, Inc 60°, 30%)</span> +
+  primary <span style="color:#0072B2">B (Dec 290°, Inc 20°, 70%)</span>, log-normal coercivity
+  spectra. The green dashed line is a PCA best-fit (Kirschvink, 1980) through the steps at and
+  above the chosen start — its MAD and its angular error from the true B direction update live.</p>
+  <aside class="notes">
+    Demo script: (1) "no overlap" preset — two crisp line segments, second one
+    aimed at the origin; PCA from 30 mT nails B with MAD ~1° and Δ ~0°. (2)
+    "partial" — the elbow rounds; show that starting the fit too early biases the
+    direction (Δ climbs) even while MAD stays deceptively modest. (3) "strong" —
+    continuous curvature, no honest line; this is where great-circle analysis
+    takes over. Also worth showing: push the A and B medians apart and watch the
+    equal-area path hug a great circle between the two true directions.
+  </aside>
+</section>
+
+<section>
+  <div class="cols" style="align-items:center">
+    <div class="wide" style="flex:1.7">
+      <figure>
+        <img src="images/zij_overlap.png" alt="Three pairs of coercivity spectra and Zijderveld diagrams with no, small, and large overlap, showing straight segments becoming continuously curved" style="max-height:92vh">
+        <figcaption>Non-overlapping → straight segments; increasing spectral overlap →
+        increasingly curved trajectories (after Dunlop, 1979). Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <h2 style="text-align:left">How much overlap is too much?</h2>
+      <ul style="font-size:0.8em">
+        <li>The <strong>vector-addition</strong> view: at every step the plotted point is
+        origin→B plus B→NRM (the A part)</li>
+        <li>With overlap, both shrink at once — the path bows between the two directions</li>
+        <li>Strong overlap: <strong>no segment is pure</strong>; a line fit anywhere is biased</li>
+        <li>Remedies: the other demag method (different spectra!), great-circle fits,
+        or both</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This static figure is the same physics students just explored — good recap
+    anchor. Mention the vector difference sum (VDS): summing the step-to-step
+    vector differences "straightens out" the total magnetization and gives an
+    honest scalar decay for mdf purposes when components overlap.
+  </aside>
+</section>
+
+<section>
+  <h2>A field guide to demag behavior</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/zijd.png" alt="Four panel gallery of demagnetization behaviors: single component to origin, intensity decay with median destructive field, two components with a great circle fit, and gyroremanent growth with DANG marked" style="max-height:56vh">
+        <figcaption>(a) one component; (b) intensity decay &amp; median destructive field;
+        (c) overlapping components → best-fit great circle; (d) GRM growing at high AF.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li><strong>mdf</strong>: field that halves the NRM — a coarse stability index</li>
+        <li>Great circles: when only the <em>plane</em> containing two components is
+        constrained, fit the plane (pole = smallest eigenvector)</li>
+        <li><strong>GRM</strong>: magnetization <em>growing</em> perpendicular to the last AF
+        axis at high fields — greigite's calling card; use the triple-demag protocol</li>
+        <li><strong>DANG</strong>: deviation angle between the fitted line and the line to
+        the origin — is the last component really the last?</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Panel (d) teaches healthy paranoia: rising intensity at high AF steps is a
+    lab-induced remanence, not a recovered signal. Stephenson (1993) triple
+    demag: demagnetize along x then y then z, measuring after each, and average —
+    cancels the GRM. DANG together with MAD is the standard "is it going through
+    the origin" check — both are in the PmagPy output your groups will see.
+  </aside>
+</section>
+
+<section>
+  <h2>Best-fit lines: principal component analysis</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>Choose the steps that define a component; build the <strong>orientation
+        tensor</strong> of the (centered) endpoints</li>
+        <li>Eigenvectors \(\mathbf{V}_1, \mathbf{V}_2, \mathbf{V}_3\) with eigenvalues
+        \(\tau_1 \ge \tau_2 \ge \tau_3\)</li>
+        <li><strong>Best-fit line</strong> = \(\mathbf{V}_1\) (free, or anchored to the origin);
+        <strong>best-fit plane</strong> (great circle) = the plane ⊥ \(\mathbf{V}_3\)</li>
+        <li>Quality: the <strong>maximum angle of deviation</strong>,</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.95em">
+        \(\mathrm{MAD} = \tan^{-1}\!\left(\sqrt{(\tau_2^2 + \tau_3^2)/\tau_1}\right), \qquad
+        \mathrm{MAD}_{\mathrm{plane}} = \tan^{-1}\!\sqrt{\tau_3/\tau_2 + \tau_3/\tau_1}\)
+      </div>
+      <ul style="font-size:0.85em">
+        <li>Plus <strong>DANG</strong>, the angle between the line and the origin direction</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Kirschvink (1980) — the universal standard (PmagPy: <code>pmag.domean</code>,
+        Demag GUI, <code>zeq</code>)</li>
+        <li>Rules of thumb: fit ≥ 4 steps; MAD ≲ 5–10° for a line you'd defend;
+        inspect DANG before calling it ChRM</li>
+        <li>Component directions → Fisher site means → poles (tomorrow's statistics)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The widget two slides back computes exactly this (free line) — students have
+    already seen MAD respond to overlap. Equation form as in Essentials ch. 9.
+    Anchored vs free fits: anchor only when the segment demonstrably heads to the
+    origin (small DANG); otherwise you bias the direction. Great-circle-plus-
+    line combined site means: McFadden & McElhinny approach, mentioned for the
+    curious.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>The real thing: 1.1 Ga Duluth Complex gabbros</h2>
+  <figure>
+    <iframe class="plotframe" data-src="FC_zijderveld.html"
+            title="Interactive Zijderveld, equal-area, and intensity decay panels for AF and thermally demagnetized Duluth Complex gabbro specimens with published PCA fits"></iframe>
+    <figcaption>AF and thermal demagnetization of ~1096 Ma gabbros (sites FC1, FC4, HCT1;
+    geographic coordinates), measured on the IRM 2G systems — with the published PCA component
+    fits. Buttons switch specimens · hover for step, direction &amp; moment · drag to zoom.
+    Data: Swanson-Hysell et al. (2021, <em>Geology</em>), MagIC-format tables
+    (measurements by Y. Zhang); figure built with PmagPy + Plotly.</figcaption>
+  </figure>
+  <aside class="notes">
+    Walk through FC1-3a (AF): soft steep-east lc component gone by ~5 mT (their
+    Brunhes VRM), then a clean WNW-and-down line to the origin — the 1096 Ma
+    ChRM (site mean ~301/40). Then FC1-3b: the SAME sample, thermal — the same
+    ChRM emerges, unblocking mostly within ~60° of Tc, classic for nearly pure
+    magnetite. FC4-6a shows three components — worth asking the room to
+    interpret. HCT1-6b: a big soft overprint and a tight 833–873 K ChRM fit.
+    These data are exactly what the groups' D-6A specimens will produce on the
+    RAPID.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 9: FIELD TESTS + CLOSE                                      -->
+<!-- ================================================================ -->
+</section>
+<section id="tests">
+<section class="divider">
+  <p class="kicker">Part 9</p>
+  <h2>Do we believe it? Field tests</h2>
+</section>
+
+<section>
+  <h2>The fold test</h2>
+  <div class="cols">
+    <div class="narrow">
+      <figure>
+        <img src="images/foldtesta.png" alt="Folded red sedimentary beds in outcrop" style="max-height:46vh">
+        <figcaption>Folded beds: sample both limbs.</figcaption>
+      </figure>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/foldtestb.png" alt="Equal-area plots of directions from two fold limbs before and after tilt correction, grouping together after correction for a pre-fold magnetization" style="max-height:46vh">
+        <figcaption>Directions group <em>after</em> tilt correction → magnetization predates
+        folding; group <em>before</em> → postdates. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.75em">
+        <li>Demagnetization orders components by <em>stability</em> — field tests bound
+        their <strong>age</strong></li>
+        <li>The fold (tilt) test: does untilting the beds improve the grouping?</li>
+        <li>Positive → remanence acquired <strong>before folding</strong></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Statistics of "improves the grouping" (parameter comparisons, bootstrap fold
+    tests) belong to the statistics sessions — here it's the logic that matters.
+    Synfolding magnetizations show best grouping at partial untilting; that
+    result is real and diagnostic, not a failure of the test.
+  </aside>
+</section>
+
+<section>
+  <h2>Conglomerate &amp; baked-contact tests</h2>
+  <div class="cols" style="align-items:flex-start">
+    <div>
+      <figure>
+        <img src="images/congloma.png" alt="Conglomerate outcrop with rounded clasts" style="max-height:26vh">
+        <figcaption>Sample individual clasts…</figcaption>
+      </figure>
+      <figure style="margin-top:0.2em">
+        <img src="images/conglomb.png" alt="Equal-area plots showing random clast directions for a positive conglomerate test and clustered directions for a remagnetized one" style="max-height:22vh">
+        <figcaption>…random directions → the remanence predates the conglomerate.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <figure>
+        <img src="images/baked.png" alt="A dike cutting host rock with baked contact zones adjacent to it" style="max-height:42vh">
+        <figcaption>Baked contact: host rock adjacent to an intrusion is thermally reset —
+        matching directions that grade back to the host direction with distance.
+        Figures: Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em>
+        (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div style="flex:0.85">
+      <ul style="font-size:0.75em">
+        <li><strong>Conglomerate test</strong>: clasts scrambled at deposition — if their
+        directions are random, the clast lithology's remanence predates deposition</li>
+        <li><strong>Baked-contact test</strong>: a match in the baked zone that decays with
+        distance argues the region wasn't wholesale remagnetized after intrusion</li>
+        <li>Passing tests turn "a stable component" into "<strong>a component of known
+        relative age</strong>"</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Baked contacts are the aristocrat of the tests for Precambrian work — the
+    Midcontinent Rift literature leans on them. For D-6A: the Archean Giants
+    Range Batholith footwall at the bottom of the hole is a natural
+    baked-contact conversation — does the granite adjacent to the South
+    Kawishiwi intrusion carry the 1.1 Ga direction? A nice stretch question for
+    the felsic group.
+  </aside>
+</section>
+
+<section>
+  <h2>Back to D-6A: your demagnetization workflow</h2>
+  <table class="goldstripe-rows" style="font-size:0.72em">
+    <tr><th>Step</th><th>What you do</th><th>What today gave you</th></tr>
+    <tr><td>Measure NRM</td><td>RAPID SRM, specimen coords → geographic</td>
+        <td>NRM = TRM + VRM (+ CRM? + IRM?)</td></tr>
+    <tr><td>AF demag sequence</td><td>stepwise to ~100+ mT, 3-axis</td>
+        <td>randomize low-coercivity grains, softest first</td></tr>
+    <tr><td>Zijderveld + equal area</td><td>plot every step (PmagPy)</td>
+        <td>straight segments = components; curvature = overlap</td></tr>
+    <tr><td>PCA fits</td><td>choose steps; free vs anchored</td>
+        <td>directions with MAD &amp; DANG quality checks</td></tr>
+    <tr><td>Interpret</td><td>compare units; Koenigsberger ratios</td>
+        <td>which component is the 1.1 Ga TRM — and what else is in there?</td></tr>
+  </table>
+  <p style="margin-top:0.8em; font-size:0.85em">Expectations: a steep, north-down <strong>Brunhes VRM</strong>
+  removed in the first few steps, and a <strong>WNW, moderately-down ChRM</strong> — like the FC-site
+  gabbros — heading for the origin. Departures from that expectation are where it gets interesting.</p>
+  <aside class="notes">
+    Wrap-up: tie every row back to its part of the session. Also preview
+    tomorrow: mineralogy (Josh) explains WHICH minerals set the coercivity and
+    unblocking spectra seen today; statistics later in the week turns specimen
+    directions into site means and poles. Remind groups the RAPID exports to the
+    IRM database → MagIC, same tables as the FC1 figure they just saw.
+  </aside>
+</section>
+
+<!-- ================================================================ -->
+<!-- PART 8: IRM & ARM                                                -->
+<!-- ================================================================ -->
+</section>
+<section id="irm">
+<section class="divider">
+  <p class="kicker">Part 8</p>
+  <h2>IRM and ARM: remanence from applied fields</h2>
+</section>
+
+<section>
+  <h2>Isothermal remanent magnetization</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/irm.png" alt="IRM acquisition curve to saturation remanence and back-field demagnetization curve defining the coercivity of remanence" style="max-height:52vh">
+        <figcaption>IRM acquisition to \(sIRM\) (\(M_r\)) and back-field demagnetization;
+        \(H_{cr}\) where the back-field curve crosses zero. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Expose a grain to a field <strong>larger than its coercivity</strong> at constant
+        temperature: its moment flips and stays — an <strong>IRM</strong>, no Boltzmann
+        statistics needed</li>
+        <li>Ramp the field up: grains flip in order of coercivity → the
+        <strong>IRM acquisition curve</strong> maps the coercivity spectrum</li>
+        <li>Saturation IRM (\(sIRM\), \(M_r\)): every grain aligned as far as anisotropy allows</li>
+        <li>Reverse field to walk back through zero: <strong>coercivity of remanence</strong>
+        \(H_{cr}\)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    IRM is the remanence of the hysteresis loop they measured on the VSM — the
+    zero-field intercept after saturation. In the lab it's a workhorse
+    (coercivity spectra, S-ratios, unmixing — later in the school). In nature
+    it means one thing above all: lightning.
+  </aside>
+</section>
+
+<section>
+  <h2>Natural IRM: lightning</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/lightning.png" alt="Outcrop with a charred tree stump struck by lightning and a plot of the impulse field versus distance from a 300 kiloampere line current" style="max-height:54vh">
+        <figcaption>A lightning strike is a ~10⁵ A current pulse: the induced field within a
+        few meters exceeds most coercivities. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>A strike delivers an <strong>intense, brief field</strong> (line current
+        ~3 × 10⁵ A) that IRM-overprints everything within meters</li>
+        <li>Lightning-struck outcrops: <strong>erratic, strong NRMs</strong> —
+        often soft (removed by modest AF), but they can obliterate the record</li>
+        <li>Field practice: <strong>walk the outcrop with a compass</strong> — deflections
+        of &gt; 5° at ~15 cm flag struck patches; sample elsewhere</li>
+      </ul>
+      <p class="small" style="margin-top:0.5em">Drilling itself can impart a (weak) IRM —
+      another reason the drill-string is kept demagnetized for core studies like D-6A.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Fun demo if time: the compass-deflection trick is a genuinely useful field
+    skill — high-standing knobs and ridge crests are the usual victims. Note
+    that lightning IRM is usually carried by low-coercivity grains, so AF
+    demagnetization often recovers the underlying TRM — the stability-ordering logic of the
+    demagnetization part in action.
+  </aside>
+</section>
+
+<section>
+  <h2>Anhysteretic remanent magnetization</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/ARM.png" alt="Decaying alternating field with a small DC bias field producing an ARM, and a partial ARM from applying the bias over a limited field window" style="max-height:52vh">
+        <figcaption>ARM: a decaying AF with a small DC bias; pARM: bias applied over a chosen
+        coercivity window only. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Decaying AF <em>plus</em> a small DC bias (≈ 50–100 μT): as each grain's
+        coercivity is passed, it freezes <strong>biased by the DC field</strong> instead
+        of randomly — an <strong>ARM</strong></li>
+        <li>An analog of TRM with the AF playing the role of temperature — without the
+        chemistry-altering heat</li>
+        <li>\(\chi_{ARM}\) (ARM per unit bias field) — a fine-grain concentration proxy,
+        assuming linearity</li>
+        <li><strong>pARM</strong>: bias only over a coercivity window — the AF analog of pTRM</li>
+      </ul>
+      <p class="tiny" style="margin-top:0.5em">Also in this family: GRM — a gyroscopic remanence
+      picked up during AF treatment of some anisotropic/greigite-bearing specimens; it shows up
+      in Part 8's diagnostics.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    ARM matters here for two reasons: (1) it is the physics of the AF demag
+    widget from the previous part — demagnetization is ARM acquisition with zero bias field;
+    any stray DC field in the demag coil imparts an unwanted ARM; (2) χARM is a
+    staple of environmental magnetism and relative paleointensity. GRM
+    (Stephenson, 1981): acquired perpendicular to the last AF axis — the triple
+    demag protocol corrects for it.
+  </aside>
+</section>
+
+<section>
+  <h2>Sources &amp; further reading</h2>
+  <ul class="small">
+    <li>Tauxe, L. &amp; Swanson-Hysell, N. L. (2026). <a href="https://pmagpy.github.io/Essentials-JupyterBook/"><em>Essentials of Paleomagnetism</em>, interactive JupyterBook edition</a> (CC BY 4.0) — chapters 7 &amp; 9 are this session's backbone; the VRM/TRM/CRM widgets are embedded from chapter 7</li>
+    <li>Néel, L. (1949). Théorie du traînage magnétique des ferromagnétiques en grains fins. <em>Ann. Géophys.</em>, 5, 99–136; Néel, L. (1955). Some theoretical aspects of rock-magnetism. <em>Adv. Phys.</em>, 4, 191–243</li>
+    <li>Zijderveld, J. D. A. (1967). A.C. demagnetization of rocks: analysis of results. In <em>Methods in Palaeomagnetism</em>, Elsevier, 254–286</li>
+    <li>Kirschvink, J. L. (1980). <a href="https://doi.org/10.1111/j.1365-246X.1980.tb02601.x">The least-squares line and plane and the analysis of palaeomagnetic data</a>. <em>Geophys. J. R. Astr. Soc.</em>, 62, 699–718</li>
+    <li>Pullaiah, G., Irving, E., Buchan, K. L., &amp; Dunlop, D. J. (1975). Magnetization changes caused by burial and uplift. <em>Earth Planet. Sci. Lett.</em>, 28, 133–143</li>
+    <li>Dunlop, D. J. &amp; Özdemir, Ö. (1997). <em>Rock Magnetism: Fundamentals and Frontiers</em>. Cambridge Univ. Press — ch. 8, 10, 11, 13</li>
+    <li>Swanson-Hysell, N. L. et al. (2021). <a href="https://doi.org/10.1130/G47873.1">Rapid emplacement of massive Duluth Complex intrusions within the North American Midcontinent rift</a>. <em>Geology</em>, 49, 185–189 — source of the FC/HCT demagnetization data (MagIC tables; measurements by Y. Zhang)</li>
+    <li>Course notebooks: <a href="https://github.com/Institute-for-Rock-Magnetism/2026_ESCI_pmag_course">2026 ESCI pmag course repository</a> — <code>W5_VRM_TRM_CRM</code> (Néel diagrams) and <code>W8_getting_directions</code> (Zijderveld tutorial behind the explorer widget)</li>
+    <li>Analysis software: <a href="https://github.com/PmagPy/PmagPy">PmagPy</a> and the <a href="https://www2.earthref.org/MagIC">MagIC database</a></li>
+  </ul>
+  <p class="small" style="margin-top:0.8em">Slides + interactive widgets:
+  <code>S3_remanent_magnetization/</code> — reveal.js, self-contained, works offline.</p>
+</section>
+
+<section>
+  <h2>How strong is a TRM? (Theory)</h2>
+  <div style="margin-top: 1em;">
+    <p style="font-size:0.9em; margin-bottom:0.6em">
+      At the blocking temperature ($T_b$), a single domain's easy axes are populated according to 
+      <strong>Boltzmann statistics</strong>. For an individual grain oriented at an angle \(\theta\) to an applied magnetic field:
+    </p>
+    
+    <div class="eqbox" style="font-size:1.15em; text-align: center; margin-bottom: 1.5em;">
+      \(\dfrac{M(T_b)}{M_s} = \tanh\left(\dfrac{m B\cos\theta}{k_B T_b}\right)\)
+    </div>
+    
+    <p style="font-size:0.9em; margin-bottom:0.6em">
+      To calculate the net remanence of a bulk rock sample, we integrate this response over a completely 
+      randomly oriented spatial assemblage of grains:
+    </p>
+    
+    <div class="eqbox" style="font-size:1.15em; text-align: center; margin-bottom: 1em;">
+      \(\dfrac{M_{TRM}}{M_s} = \int_0^{90^\circ} \tanh\left(\dfrac{m_o B\cos\theta}{k_B T_b}\right)\cos\theta\,\sin\theta \, d\theta\)
+    </div>
+  </div>
+  
+  <aside class="notes">
+    The tanh comes from the same Langevin-flavored competition between magnetic energy and thermal chaos seen in paramagnetism. Crucially, it is evaluated at Tb using the full grain moment (m = Ms·v), which is massive compared to a single atomic moment. This enormous volume multiplier is why TRM is incredibly efficient at locking in a signal, whereas equilibrium in-field magnetization at room temperature is comparatively feeble.
+  </aside>
+</section>
+
+<section>
+  <h2>TRM Linearity &amp; Paleointensity</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em; margin-top:0.5em; list-style-type: square;">
+        <li style="margin-bottom: 1em;">
+          <strong>The Weak-Field Linear Approximation:</strong> 
+          Within Earth's ambient field ranges (measured in microtesla, \(\mu\)T), the argument inside our hyperbolic tangent is close to zero. Because:
+          <div style="text-align: center; margin: 0.5em 0; font-weight: bold; font-size: 1.1em; color: #922222;">
+            \(\tanh x \approx x \quad \rightarrow \quad \mathbf{TRM \propto B}\)
+          </div>
+          The complex integral collapses into a direct linear scaling. This clean proportionality is the absolute structural foundation of all <strong>paleointensity</strong> experiments.
+        </li>
+        <li>
+          <strong>High-Field Saturation:</strong> 
+          As fields increase toward \(\sim0.2\) T and beyond, the \(\tanh\) function flattens out as every available grain aligns. Natural lava flows record weak fields beautifully and linearly, but larger or non-ideal grain sizes will deviate from this linearity even under common laboratory fields.
+        </li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/trm.png" alt="TRM versus applied field: theoretical curves for magnetite ellipsoids and experimental data from natural specimens showing linearity in weak fields" style="max-height:52vh">
+        <figcaption>Theory (single domain) and experiment (natural specimens;
+        Selkin et al., 2007). Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    Paleointensity methods lean entirely on this weak-field linearity to extrapolate ancient field metrics. The plots on the right elegantly demonstrate this: Panel (a) shows the ideal single-domain theoretical curves flattening out at high fields, while Panel (b) shows actual experimental sample points matching this behavior perfectly in weak fields before tapering off.
+  </aside>
+</section>
+
+<section>
+  <h2>How strong is a TRM?</h2>
+  <div class="cols">
+    <div class="wide">
+      <p style="font-size:0.85em; margin-bottom:0.3em">At the blocking temperature, the two easy directions are
+      populated by Boltzmann statistics; for a grain at angle \(\theta\) to the field:</p>
+      <div class="eqbox" style="font-size:0.95em">\(\dfrac{M(T_b)}{M_s} = \tanh\dfrac{m B\cos\theta}{k_B T_b}\)</div>
+      <p style="font-size:0.85em; margin:0.4em 0 0.3em">Integrated over a randomly oriented assemblage:</p>
+      <div class="eqbox" style="font-size:0.95em">\(\dfrac{M_{TRM}}{M_s} = \int_0^{90^\circ} \tanh\left(\dfrac{m_o B\cos\theta}{k_B T_b}\right)\cos\theta\,\sin\theta \, d\theta\)</div>
+      <ul style="font-size:0.8em; margin-top:0.4em">
+        <li>For small grains in <strong>weak fields</strong> (μT): \(\tanh x \approx x\) →
+        <strong>TRM ∝ B</strong> — the basis of paleointensity</li>
+        <li>Saturation sets in at ~0.2 T and above — lava flows record linearly, but larger
+        grains deviate from linearity even in strong lab fields</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <figure>
+        <img src="images/trm.png" alt="TRM versus applied field: theoretical curves for magnetite ellipsoids and experimental data from natural specimens showing linearity in weak fields" style="max-height:52vh">
+        <figcaption>Theory (single domain) and experiment (natural specimens;
+        Selkin et al., 2007). Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    The tanh is the same Langevin-flavored competition from S1's paramagnetism
+    slide — but evaluated at Tb with the full grain moment m = Ms·v, which is
+    enormous compared to a single atomic moment: that's why TRM is efficient
+    while equilibrium in-field magnetization at room T is feeble. Paleointensity
+    (Maxwell, Wed 7/29) leans entirely on the weak-field linearity.
+  </aside>
+</section>
+
+<section>
+  <h2>Partial TRM: the spectrum is additive</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/pTRM.png" alt="Blocking temperature spectrum of a basalt: stepwise decay of TRM with temperature and colored partial TRM blocks per temperature interval" style="max-height:54vh">
+        <figcaption>Blocking-temperature spectrum of a basalt: each interval contributes a pTRM.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>A field applied only while cooling through \([T_1, T_2]\) magnetizes only the
+        grains with \(T_b\) in that window: a <strong>pTRM</strong></li>
+        <li><strong>Additivity:</strong> \(\mathrm{TRM} = \sum_i \mathrm{pTRM}(T_{b_i})\)</li>
+        <li><strong>Reciprocity:</strong> for SD grains, blocking and unblocking temperatures
+        coincide (\(T_b = T_{ub}\)) — heat to \(T\) in zero field and you erase exactly the
+        pTRMs below \(T\)</li>
+        <li>These two laws are the foundation of <strong>thermal demagnetization</strong>
+        and of <strong>Thellier paleointensity</strong></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Flag the SD caveat: reciprocity fails for multidomain and vortex-state
+    grains (unblocking spreads below the blocking interval), which is the chief
+    headache of paleointensity work. A rock that cooled slowly can also have pTRMs
+    reset by later reheating events — that's the TVRM story from Part 2 in
+    pTRM language.
+  </aside>
+</section>
+
+<section>
+  <h2>TRM depends (strongly) on grain size</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/TRM-d.png" alt="Log-log plot of TRM intensity versus magnetite grain diameter, high for fine single domain grains and low for grains of one to ten microns" style="max-height:52vh">
+        <figcaption>TRM (in 100 μT) vs magnetite grain size — compiled data.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0),
+        after Dunlop &amp; Özdemir (1997).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Fine SD grains (tens of nm): <strong>efficient recorders</strong></li>
+        <li>1–10 μm grains: TRM an order of magnitude weaker (vortex/multidomain
+        states) — yet still measurable and often stable</li>
+        <li>Typical basalt: TRM ≈ <strong>1 A/m</strong> — strong; your Duluth Complex
+        troctolites and gabbros carry NRMs in this ballpark</li>
+      </ul>
+      <p class="small" style="margin-top:0.5em">Domain states and their remanence:
+      Maxwell's session (Tue) and the QDM station show <em>which</em> grains carry it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Connect to D-6A: FC-site gabbros from the same magmatic system have NRMs of
+    several A/m (the interactive data figure in Part 8). Oxide-rich units will be
+    stronger still — but strength ≠ stability; the demag data will tell.
+  </aside>
+</section>
+
+</section>
+</div>
+</div>
+
+<script src="lib/reveal/reveal.js"></script>
+<script src="lib/reveal/notes/notes.js"></script>
+<script src="lib/katex/katex.min.js"></script>
+<script src="lib/katex/auto-render.min.js"></script>
+<script src="js/widgets.js"></script>
+<script>
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: '$$', right: '$$', display: true },
+      { left: '\\(', right: '\\)', display: false },
+    ],
+    throwOnError: false,
+  });
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.03,
+    hash: true,
+    slideNumber: 'c/t',
+    navigationMode: 'linear',
+    transition: 'fade',
+    plugins: [RevealNotes],
+  });
+</script>
+</body>
+</html>

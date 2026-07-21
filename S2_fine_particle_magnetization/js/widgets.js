@@ -1407,10 +1407,219 @@ class DomainStateWidget {
 }
 
 /* ------------------------------------------------------------------ */
+/* Paramagnetic linear response (ported from the S1 dia/para deck)      */
+/* ------------------------------------------------------------------ */
+
+class LinearResponseWidget {
+  constructor(root, mode) {
+    this.root = root;
+    this.mode = mode;                // 'dia' | 'para', fixed per instance
+    this.B = 0;                      // applied field (T) — starts at zero
+    this.T = 300;                    // temperature (K), para mode only
+    this.playing = false;            // no autoplay; user starts the cycle
+    this.phase = 0;
+    this.kappaDia = -1.5e-5;         // quartz
+    this.kappaPara300 = 1.6e-3;      // typical mantle olivine at 300 K
+    this.Bmax = 1.0;
+
+    // persistent thermal state for the paramagnetic moments
+    const rand = rng(42);
+    this.moments = [];
+    for (let i = 0; i < 24; i++) {
+      this.moments.push({
+        theta: rand() * 2 * Math.PI,
+        omega: 0,
+        seed: rand() * 2 * Math.PI,
+        speed: 0.5 + rand(),
+      });
+    }
+
+    this.buildDOM();
+    this.lastT = performance.now();
+    const step = (t) => {
+      if (this.rootVisible()) this.tick(t);
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  rootVisible() {
+    return this.root.offsetParent !== null;
+  }
+
+  kappa() {
+    if (this.mode === 'dia') return this.kappaDia;
+    return this.kappaPara300 * 300 / this.T; // Curie law κ ∝ 1/T
+  }
+
+  buildDOM() {
+    const material = this.mode === 'dia'
+      ? 'quartz &nbsp;κ = −1.5×10⁻⁵ (SI)'
+      : 'olivine &nbsp;κ = 1.6×10⁻³ (SI) at 300 K';
+    const tempSlider = this.mode === 'para'
+      ? `<label class="wslider wtemp">T <input type="range" min="100" max="900" step="10" value="300">
+          <span class="wval" data-ro="T">300 K</span></label>`
+      : '';
+    this.root.innerHTML = `
+      <div class="widget-controls">
+        <span class="wreadout"><strong>${material}</strong></span>
+        <label class="wslider">B <input type="range" min="-1" max="1" step="0.01" value="0">
+          <span class="wval" data-ro="B">0.00 T</span></label>
+        ${tempSlider}
+        <button class="wbtn wplay">▶ cycle field</button>
+        <span class="wreadout">κ = <span data-ro="kappa"></span> &nbsp; M = <span data-ro="M"></span></span>
+      </div>
+      <div class="widget-canvases">
+        <div class="wpane">
+          <canvas class="c-moments"></canvas>
+          <div class="wcaption">atomic moments <em>(alignment exaggerated)</em></div>
+        </div>
+        <div class="wpane">
+          <canvas class="c-plot"></canvas>
+          <div class="wcaption">measured response — a line through the origin, no memory</div>
+        </div>
+      </div>`;
+    this.cMoments = this.root.querySelector('.c-moments');
+    this.cPlot = this.root.querySelector('.c-plot');
+    this.bSlider = this.root.querySelector('.wslider input');
+    this.tSlider = this.root.querySelector('.wtemp input');
+    this.playBtn = this.root.querySelector('.wplay');
+    this.ro = {};
+    this.root.querySelectorAll('[data-ro]').forEach(el => this.ro[el.dataset.ro] = el);
+
+    this.bSlider.addEventListener('input', () => {
+      this.playing = false;
+      this.playBtn.textContent = '▶ cycle field';
+      this.B = parseFloat(this.bSlider.value);
+    });
+    if (this.tSlider) {
+      this.tSlider.addEventListener('input', () => { this.T = parseFloat(this.tSlider.value); });
+    }
+    this.playBtn.addEventListener('click', () => {
+      this.playing = !this.playing;
+      if (this.playing) {
+        // resume the cycle smoothly from wherever the slider left B
+        this.phase = Math.asin(Math.max(-1, Math.min(1, this.B / this.Bmax)));
+      }
+      this.playBtn.textContent = this.playing ? '⏸ pause' : '▶ cycle field';
+    });
+  }
+
+  tick(tNow) {
+    const dt = Math.max(0, Math.min(0.05, (tNow - this.lastT) / 1000));
+    this.lastT = tNow;
+    if (this.playing) {
+      this.phase += dt * 0.7;
+      this.B = this.Bmax * Math.sin(this.phase);
+      this.bSlider.value = this.B.toFixed(2);
+    }
+    const kappa = this.kappa();
+    const M = kappa * this.B / MU0;
+    this.ro.B.textContent = `${this.B.toFixed(2)} T`;
+    if (this.ro.T) this.ro.T.textContent = `${this.T.toFixed(0)} K`;
+    this.ro.kappa.textContent = kappa.toExponential(1) + ' (SI)';
+    this.ro.M.textContent = `${M.toFixed(M > 100 ? 0 : 1)} A/m`;
+    this.drawMoments(dt);
+    this.drawPlot(M, kappa);
+  }
+
+  drawMoments(dt) {
+    const { ctx, w, h } = setupCanvas(this.cMoments);
+    const dark = isDark();
+    ctx.clearRect(0, 0, w, h);
+
+    // applied-field arrows in the background
+    const fieldFrac = this.B / this.Bmax;
+    const fcolor = dark ? 'rgba(120,170,255,0.45)' : 'rgba(60,110,220,0.35)';
+    if (Math.abs(fieldFrac) > 0.02) {
+      for (let i = 0; i < 5; i++) {
+        const x = (i + 0.5) * w / 5;
+        const len = 0.42 * h * fieldFrac;
+        drawArrow(ctx, x, h / 2 + len / 2, x, h / 2 - len / 2, fcolor, 5, 12);
+      }
+      ctx.fillStyle = fcolor;
+      ctx.font = 'bold 17px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('B', 8, 22);
+    }
+
+    const cols = 6, rows = 4;
+    const dx = w / cols, dy = h / rows;
+    const armax = Math.min(dx, dy) * 0.38;
+    const up = -1; // canvas y grows downward; "up" = negative y
+
+    this.moments.forEach((m, i) => {
+      const cx = (i % cols + 0.5) * dx;
+      const cy = (Math.floor(i / cols) + 0.5) * dy;
+      if (this.mode === 'dia') {
+        // induced moment: opposes B, length proportional to |B|
+        const len = armax * Math.abs(fieldFrac);
+        if (len < 2) { // no field: draw the bare atom
+          this.atomDot(ctx, cx, cy, dark);
+          return;
+        }
+        const dir = -Math.sign(fieldFrac); // opposite to applied field
+        this.atomDot(ctx, cx, cy, dark);
+        drawArrow(ctx, cx, cy - up * dir * len, cx, cy + up * dir * len,
+                  dark ? '#7fd4a8' : '#0a7d44', 3.5, 9);
+      } else {
+        // permanent moment: jitters thermally, biased toward B.
+        // Exaggerated Langevin-like alignment for visibility.
+        const align = Math.tanh(3.0 * fieldFrac * (300 / this.T)); // -1..1
+        const jitterAmp = 0.5 + 1.6 * (this.T / 900);
+        m.seed += dt * m.speed * (1 + this.T / 300);
+        const noise = Math.sin(m.seed * 2.1 + i) + Math.sin(m.seed * 3.7);
+        // canvas angle (y down): -π/2 points toward +B (up), +π/2 toward -B
+        const randomAngle = m.theta + noise * jitterAmp;
+        const targetAngle = align >= 0 ? -Math.PI / 2 : Math.PI / 2;
+        let dAng = ((targetAngle - randomAngle) % (2 * Math.PI) + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+        const a = randomAngle + dAng * Math.abs(align);
+        const len = armax;
+        this.atomDot(ctx, cx, cy, dark);
+        drawArrow(ctx, cx - Math.cos(a) * len, cy - Math.sin(a) * len,
+                  cx + Math.cos(a) * len, cy + Math.sin(a) * len,
+                  dark ? '#ffb26b' : '#c25400', 3.5, 9);
+      }
+    });
+  }
+
+  atomDot(ctx, cx, cy, dark) {
+    ctx.save();
+    ctx.fillStyle = dark ? 'rgba(200,200,210,0.35)' : 'rgba(60,60,70,0.18)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  drawPlot(M, kappa) {
+    const { ctx, w, h } = setupCanvas(this.cPlot);
+    const dark = isDark();
+    ctx.clearRect(0, 0, w, h);
+    const Mfull = Math.abs(this.mode === 'dia' ? this.kappaDia : this.kappaPara300 * 3) / MU0 * this.Bmax;
+    const plot = new Plot2D(ctx, w, h, [-this.Bmax, this.Bmax], [-Mfull * 1.1, Mfull * 1.1],
+      { xlabel: 'B = μ₀H, applied field (T)', ylabel: 'M, magnetization (A/m)' });
+    plot.frame(dark);
+    const xs = [-this.Bmax, this.Bmax];
+    const ys = xs.map(b => kappa * b / MU0);
+    plot.line(xs, ys, this.mode === 'dia' ? (dark ? '#7fd4a8' : '#0a7d44')
+                                          : (dark ? '#ffb26b' : '#c25400'), 3);
+    plot.dot(this.B, M, dark ? '#fff' : '#111');
+    // annotate in the corner the line doesn't pass through
+    if (this.mode === 'dia') {
+      plot.label('slope κ < 0', this.Bmax * 0.95, Mfull * 0.9, dark ? '#ddd' : '#333', 'right');
+    } else {
+      plot.label('slope κ > 0 (κ ∝ 1/T)', -this.Bmax * 0.95, Mfull * 0.9, dark ? '#ddd' : '#333');
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* bootstrapping                                                       */
 /* ------------------------------------------------------------------ */
 
 window.addEventListener('load', () => {
+  document.querySelectorAll('[data-widget="para"]').forEach(el => { el._widget = new LinearResponseWidget(el, 'para'); });
   document.querySelectorAll('[data-widget="swsingle"]').forEach(el => { el._widget = new SWSingleWidget(el); });
   document.querySelectorAll('[data-widget="sdloop"]').forEach(el => { el._widget = new SDLoopFigure(el); });
   document.querySelectorAll('[data-widget="backfield"]').forEach(el => { el._widget = new BackfieldWidget(el); });

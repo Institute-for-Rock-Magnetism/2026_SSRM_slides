@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VSM Pickup Coil Animation</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a10;
+      --panel: rgba(10, 14, 22, 0.74);
+      --text: #e6edf7;
+      --muted: #9aa7b7;
+      --blue: #4da3ff;
+      --coil: #20d0b2;
+      --sample: #ff8a2a;
+      --current: #ffd15c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 42%, #121926 0%, var(--bg) 66%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hud {
+      position: fixed;
+      left: clamp(14px, 3vw, 32px);
+      top: clamp(14px, 3vw, 32px);
+      width: min(360px, calc(100vw - 28px));
+      padding: 16px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.36);
+      backdrop-filter: blur(16px);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 680;
+      letter-spacing: 0;
+    }
+
+    .readouts {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .readout {
+      display: grid;
+      grid-template-columns: 96px 1fr 58px;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .meter {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+    }
+
+    .bar {
+      width: 50%;
+      height: 100%;
+      border-radius: 999px;
+      transform-origin: left center;
+      background: linear-gradient(90deg, var(--blue), var(--current));
+    }
+
+    .value {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    button {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(148, 163, 184, 0.34);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .caption {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--current);
+      box-shadow: 0 0 18px var(--current);
+    }
+
+    @media (max-width: 720px) {
+      .hud {
+        padding: 12px 13px;
+      }
+
+      h1 {
+        font-size: 15px;
+      }
+
+      .caption {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <section class="hud" aria-label="VSM animation readouts">
+    <h1>VSM pickup induction</h1>
+    <span class="badge"><span class="dot"></span>slow-motion Faraday signal</span>
+    <div class="readouts">
+      <div class="readout">
+        <span>sample z</span>
+        <div class="meter"><div id="zBar" class="bar"></div></div>
+        <span id="zValue" class="value">0.00</span>
+      </div>
+      <div class="readout">
+        <span>coil flux</span>
+        <div class="meter"><div id="fluxBar" class="bar"></div></div>
+        <span id="fluxValue" class="value">0.00</span>
+      </div>
+      <div class="readout">
+        <span>I ind</span>
+        <div class="meter"><div id="currentBar" class="bar"></div></div>
+        <span id="currentValue" class="value">0.00</span>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="pauseButton" type="button" aria-label="Pause animation">||</button>
+      <input id="speedSlider" type="range" min="0.25" max="1.8" step="0.05" value="0.72" aria-label="Animation speed">
+    </div>
+    <p class="caption">Field lines come from a point dipole aligned with H app. Coil current follows -dPhi/dt for the balanced pickup.</p>
+  </section>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const canvas = document.querySelector("#scene");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x070a10, 0.035);
+
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 120);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.minDistance = 4.8;
+    controls.maxDistance = 12;
+    controls.target.set(0, 0.15, 0);
+
+    function frameSceneForViewport() {
+      const aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = aspect;
+      if (aspect < 0.72) {
+        camera.fov = 56;
+        camera.position.set(6.8, 3.7, 10.4);
+      } else {
+        camera.fov = 42;
+        camera.position.set(5.2, 3.0, 7.2);
+      }
+      camera.updateProjectionMatrix();
+      controls.target.set(0, 0.15, 0);
+      controls.update();
+    }
+
+    frameSceneForViewport();
+
+    scene.add(new THREE.HemisphereLight(0x9fc7ff, 0x111827, 1.4));
+    const key = new THREE.DirectionalLight(0xffffff, 2.4);
+    key.position.set(2.6, 5.4, 3.7);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0x4da3ff, 1.0);
+    rim.position.set(-5, 1.2, -3);
+    scene.add(rim);
+
+    const root = new THREE.Group();
+    scene.add(root);
+
+    const materials = {
+      magnet: new THREE.MeshStandardMaterial({ color: 0x98a1ad, roughness: 0.48, metalness: 0.34 }),
+      poleFace: new THREE.MeshStandardMaterial({ color: 0xc8ced7, roughness: 0.38, metalness: 0.25 }),
+      sample: new THREE.MeshStandardMaterial({
+        color: 0xff8726,
+        emissive: 0x7a2700,
+        emissiveIntensity: 0.25,
+        roughness: 0.36,
+        metalness: 0.18
+      }),
+      rod: new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.55, metalness: 0.65 }),
+      coil: new THREE.MeshStandardMaterial({
+        color: 0x12bfa5,
+        emissive: 0x065f58,
+        emissiveIntensity: 0.25,
+        roughness: 0.3,
+        metalness: 0.1
+      }),
+      glass: new THREE.MeshPhysicalMaterial({
+        color: 0x86f2e5,
+        transparent: true,
+        opacity: 0.12,
+        roughness: 0.22,
+        transmission: 0.15
+      }),
+      field: new THREE.LineBasicMaterial({
+        color: 0x61b6ff,
+        transparent: true,
+        opacity: 0.54,
+        blending: THREE.AdditiveBlending
+      })
+    };
+
+    function makeBlock(x) {
+      const group = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.0, 3.6, 2.7), materials.magnet);
+      body.position.x = x;
+      const face = new THREE.Mesh(new THREE.BoxGeometry(0.14, 2.35, 2.0), materials.poleFace);
+      face.position.x = x > 0 ? x - 0.57 : x + 0.57;
+      group.add(body, face);
+      return group;
+    }
+
+    root.add(makeBlock(-3.18), makeBlock(3.18));
+
+    const coilGroups = [];
+    function makeCoil(x, handedness) {
+      const group = new THREE.Group();
+      group.position.x = x;
+      group.userData.handedness = handedness;
+
+      const backing = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.18, 1.78), materials.glass);
+      group.add(backing);
+
+      for (const r of [0.88, 0.66, 0.44]) {
+        const torus = new THREE.Mesh(new THREE.TorusGeometry(r, 0.025, 12, 96), materials.coil.clone());
+        torus.scale.z = 1.18;
+        torus.rotation.y = Math.PI / 2;
+        group.add(torus);
+      }
+
+      const dots = [];
+      const dotMaterial = new THREE.MeshBasicMaterial({ color: 0xffd15c });
+      for (let i = 0; i < 12; i += 1) {
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.045, 14, 10), dotMaterial);
+        dot.userData.phase = (i / 12) * Math.PI * 2;
+        dot.userData.radius = i % 2 === 0 ? 0.88 : 0.66;
+        dot.userData.zScale = 1.18;
+        group.add(dot);
+        dots.push(dot);
+      }
+
+      group.userData.dots = dots;
+      coilGroups.push(group);
+      root.add(group);
+    }
+
+    makeCoil(-2.08, 1);
+    makeCoil(2.08, -1);
+
+    const sampleGroup = new THREE.Group();
+    const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 4.0, 12), materials.rod);
+    rod.position.y = 0;
+    const sample = new THREE.Mesh(new THREE.SphereGeometry(0.32, 48, 32), materials.sample);
+    sampleGroup.add(rod, sample);
+    root.add(sampleGroup);
+
+    const arrowGroup = new THREE.Group();
+    const arrowMat = new THREE.MeshBasicMaterial({ color: 0x4da3ff });
+    const arrowLine = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 3.65, 16), arrowMat);
+    arrowLine.rotation.z = Math.PI / 2;
+    arrowLine.position.y = 2.38;
+    const arrowHead = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.28, 24), arrowMat);
+    arrowHead.rotation.z = -Math.PI / 2;
+    arrowHead.position.set(1.96, 2.38, 0);
+    arrowGroup.add(arrowLine, arrowHead);
+    root.add(arrowGroup);
+
+    const floor = new THREE.GridHelper(8.2, 18, 0x1f8a7d, 0x1a2636);
+    floor.position.y = -2.05;
+    floor.material.opacity = 0.28;
+    floor.material.transparent = true;
+    root.add(floor);
+
+    const fieldLines = [];
+    const dipoleMoment = new THREE.Vector3(1, 0, 0);
+    const eps = 0.12;
+
+    function dipoleFieldAt(point, source, out = new THREE.Vector3()) {
+      const r = out.copy(point).sub(source);
+      const r2 = Math.max(r.lengthSq(), eps * eps);
+      const rLen = Math.sqrt(r2);
+      const mdotr = dipoleMoment.dot(r);
+      const a = 3 * mdotr / Math.pow(rLen, 5);
+      const b = 1 / Math.pow(rLen, 3);
+      return out.set(
+        a * r.x - b * dipoleMoment.x,
+        a * r.y - b * dipoleMoment.y,
+        a * r.z - b * dipoleMoment.z
+      );
+    }
+
+    function traceLine(seedLocal, direction) {
+      const points = [];
+      const p = seedLocal.clone();
+      const b = new THREE.Vector3();
+      for (let i = 0; i < 90; i += 1) {
+        points.push(p.clone());
+        dipoleFieldAt(p, new THREE.Vector3(0, 0, 0), b);
+        const length = b.length();
+        if (length < 0.0001 || p.length() > 4.1) break;
+        b.multiplyScalar(direction / length);
+        p.addScaledVector(b, 0.052);
+      }
+      return points;
+    }
+
+    function makeFieldLine(seed) {
+      const backward = traceLine(seed, -1).reverse();
+      const forward = traceLine(seed, 1);
+      const points = backward.concat(forward.slice(1));
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const line = new THREE.Line(geometry, materials.field.clone());
+      line.userData.localPoints = points;
+      fieldLines.push(line);
+      root.add(line);
+    }
+
+    const seedAngles = [];
+    for (let i = 0; i < 18; i += 1) seedAngles.push((i / 18) * Math.PI * 2);
+    for (const phi of seedAngles) {
+      for (const theta of [0.52, 0.86, 1.24, 1.82, 2.28, 2.62]) {
+        const r = 0.43;
+        const seed = new THREE.Vector3(
+          r * Math.cos(theta),
+          r * Math.sin(theta) * Math.cos(phi),
+          r * Math.sin(theta) * Math.sin(phi)
+        );
+        makeFieldLine(seed);
+      }
+    }
+
+    function makeLabel(text, position, color) {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const scale = 2;
+      canvas.width = 360 * scale;
+      canvas.height = 72 * scale;
+      ctx.scale(scale, scale);
+      ctx.font = "600 25px Inter, system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = color;
+      ctx.shadowColor = "rgba(0,0,0,0.5)";
+      ctx.shadowBlur = 8;
+      ctx.fillText(text, 180, 36);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+      const sprite = new THREE.Sprite(material);
+      sprite.position.copy(position);
+      sprite.scale.set(1.85, 0.37, 1);
+      root.add(sprite);
+      return sprite;
+    }
+
+    makeLabel("H app", new THREE.Vector3(0, 2.72, 0), "#75b9ff");
+    makeLabel("pickup coils", new THREE.Vector3(0, -1.55, 0), "#7ef4df");
+
+    const zBar = document.querySelector("#zBar");
+    const fluxBar = document.querySelector("#fluxBar");
+    const currentBar = document.querySelector("#currentBar");
+    const zValue = document.querySelector("#zValue");
+    const fluxValue = document.querySelector("#fluxValue");
+    const currentValue = document.querySelector("#currentValue");
+    const pauseButton = document.querySelector("#pauseButton");
+    const speedSlider = document.querySelector("#speedSlider");
+
+    let paused = false;
+    let simTime = 0;
+    let lastFlux = null;
+    let filteredCurrent = 0;
+    const amplitude = 0.74;
+    const omegaBase = 0.72;
+    const coilAreaTurns = 4.6;
+    const leftCoilCenter = new THREE.Vector3(-2.08, 0, 0);
+    const rightCoilCenter = new THREE.Vector3(2.08, 0, 0);
+    const source = new THREE.Vector3();
+    const tmp = new THREE.Vector3();
+    const clock = new THREE.Clock();
+
+    function signedMeter(element, value) {
+      const clamped = THREE.MathUtils.clamp(value, -1, 1);
+      const width = Math.abs(clamped) * 50;
+      const left = clamped >= 0 ? 50 : 50 - width;
+      element.style.width = `${width}%`;
+      element.style.marginLeft = `${left}%`;
+      element.style.background = clamped >= 0
+        ? "linear-gradient(90deg, #4da3ff, #ffd15c)"
+        : "linear-gradient(90deg, #ff6b6b, #4da3ff)";
+    }
+
+    function fluxAtCoils(sampleY) {
+      source.set(0, sampleY, 0);
+      const leftBx = dipoleFieldAt(leftCoilCenter, source, tmp).x;
+      const rightBx = dipoleFieldAt(rightCoilCenter, source, tmp).x;
+      return coilAreaTurns * 0.5 * (leftBx + rightBx);
+    }
+
+    pauseButton.addEventListener("click", () => {
+      paused = !paused;
+      pauseButton.textContent = paused ? ">" : "||";
+    });
+
+    window.addEventListener("resize", () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      frameSceneForViewport();
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = Math.min(clock.getDelta(), 0.04);
+      if (!paused) simTime += dt * Number(speedSlider.value);
+
+      const omega = omegaBase;
+      const sampleY = amplitude * Math.sin(simTime * omega);
+      source.set(0, sampleY, 0);
+      sampleGroup.position.y = sampleY;
+
+      const flux = fluxAtCoils(sampleY);
+      const rawCurrent = lastFlux == null ? 0 : -(flux - lastFlux) / Math.max(dt, 0.001);
+      lastFlux = flux;
+      filteredCurrent += (rawCurrent - filteredCurrent) * 0.12;
+
+      const normalizedFlux = THREE.MathUtils.clamp(flux / 1.4, -1, 1);
+      const normalizedCurrent = THREE.MathUtils.clamp(filteredCurrent / 1.3, -1, 1);
+      const normalizedZ = sampleY / amplitude;
+
+      sample.material.emissiveIntensity = 0.25 + 0.14 * Math.abs(normalizedCurrent);
+
+      for (const line of fieldLines) {
+        line.position.copy(source);
+        line.material.opacity = 0.28 + 0.26 * (0.5 + 0.5 * Math.sin(simTime * 1.4 + line.id));
+      }
+
+      for (const group of coilGroups) {
+        const intensity = Math.abs(normalizedCurrent);
+        for (const child of group.children) {
+          if (child.isMesh && child.geometry.type === "TorusGeometry") {
+            child.material.emissiveIntensity = 0.16 + intensity * 1.25;
+          }
+        }
+        for (const dot of group.userData.dots) {
+          const sign = Math.sign(normalizedCurrent || 1) * group.userData.handedness;
+          const phase = dot.userData.phase + simTime * (1.3 + 4.7 * intensity) * sign;
+          const r = dot.userData.radius;
+          dot.position.set(
+            0.055 * sign,
+            Math.cos(phase) * r,
+            Math.sin(phase) * r * dot.userData.zScale
+          );
+          dot.visible = intensity > 0.045 || Math.sin(dot.userData.phase * 3) > 0.25;
+          dot.scale.setScalar(0.72 + intensity * 1.45);
+        }
+      }
+
+      signedMeter(zBar, normalizedZ);
+      signedMeter(fluxBar, normalizedFlux);
+      signedMeter(currentBar, normalizedCurrent);
+      zValue.textContent = normalizedZ.toFixed(2);
+      fluxValue.textContent = normalizedFlux.toFixed(2);
+      currentValue.textContent = normalizedCurrent.toFixed(2);
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
