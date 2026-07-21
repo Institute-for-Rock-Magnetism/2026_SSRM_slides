@@ -14,7 +14,7 @@ in which we work with drill core D-6A through the week.
 | Date | Time | Topic | Instructor |
 |---|---|---|---|
 | **Mon July 20** · Rm 401-20 | 9:00–9:15 | Welcome, introduction to the IRM and the summer school | Josh Feinberg |
-| | 9:15–10:00 | Rock magnetism overview | Maxwell Brown |
+| | 9:15–10:00 | [Rock magnetism overview](https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/SSRM2026_introduction_to_rock_magnetism.pdf) | Maxwell Brown |
 | | 10:15–11:30 | [Project introduction](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S1_Duluth_dia_para_ferro/) | Nick Swanson-Hysell |
 | **Tue July 21** · Rm 401-20 | 8:30–9:30 | [Fine particle magnetism I](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S2_fine_particle_magnetization/) | Nick Swanson-Hysell |
 | | 9:45–10:45 | [Fine particle magnetism II](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S2_fine_particle_magnetization/) | Nick Swanson-Hysell |
