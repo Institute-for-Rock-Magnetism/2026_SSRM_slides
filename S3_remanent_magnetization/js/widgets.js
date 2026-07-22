@@ -753,8 +753,8 @@ class AFDemagWidget {
 /* ------------------------------------------------------------------ */
 
 /* Synthetic two-component specimen, as in the W8 course notebook:
- *   component A — overprint:  Dec 0°,  Inc 60°, intensity 0.3
- *   component B — primary:    Dec 290°, Inc 20°, intensity 0.7
+ *   component A — overprint:  Dec 0°,  Inc 60°, intensity 0.5
+ *   component B — primary:    Dec 290°, Inc 20°, intensity 0.5
  * Each component's coercivity spectrum is log-normal (median, DP
  * adjustable). At every AF step the remaining vector sum is "measured";
  * the four panels show the spectra, the Zijderveld diagram (projected
@@ -769,9 +769,9 @@ const ZIJ_STEPS = [0, 3, 6, 9, 12, 15, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150
 class ZijWidget {
   constructor(root) {
     this.root = root;
-    this.A = { dec: 0, inc: 60, m: 0.3, median: 12, dp: 0.4,
+    this.A = { dec: 0, inc: 60, m: 0.5, median: 12, dp: 0.4,
                color: '#D55E00', colorDark: '#ffb26b' };
-    this.B = { dec: 290, inc: 20, m: 0.7, median: 100, dp: 0.3,
+    this.B = { dec: 290, inc: 20, m: 0.5, median: 100, dp: 0.3,
                color: '#0072B2', colorDark: '#8fb7ff' };
     this.fitFrom = 8;              // index into ZIJ_STEPS
     this.buildDOM();
@@ -814,7 +814,8 @@ class ZijWidget {
           <div class="wcaption">Zijderveld — ● horizontal (N′–E′) · □ vertical (N′–Down) ·
             <span style="color:#0a7d44">PCA fit</span></div></div>
         <div class="wpane"><canvas class="c-eq"></canvas>
-          <div class="wcaption">equal-area — ★ true A, B</div></div>
+          <div class="wcaption">equal-area — ★ true A, B ·
+            <span style="color:#0a7d44">● PCA fit</span></div></div>
         <div class="wpane"><canvas class="c-dec"></canvas>
           <div class="wcaption">intensity decay</div></div>
       </div>`;
@@ -929,11 +930,13 @@ class ZijWidget {
     this.ro.bd.textContent = this.B.dp.toFixed(2);
     this.ro.fit.textContent = `${ZIJ_STEPS[this.fitFrom]} mT`;
 
+    let fitDir = null;             // geographic [dec, inc] of the PCA fit
     if (fit) {
       // rotate fitted vector back to geographic for the readout
       const gx = fit.v[0] * Math.cos(rot) - fit.v[1] * Math.sin(rot);
       const gy = fit.v[0] * Math.sin(rot) + fit.v[1] * Math.cos(rot);
       const [fdec, finc] = cart2dir(gx, gy, fit.v[2]);
+      fitDir = [fdec, finc];
       const bU = dir2cart(this.B.dec, this.B.inc, 1);
       const dot = Math.max(-1, Math.min(1, gx * bU[0] + gy * bU[1] + fit.v[2] * bU[2]));
       const dang = Math.acos(dot) * 180 / Math.PI;
@@ -945,7 +948,7 @@ class ZijWidget {
 
     this.drawSpectra(dark);
     this.drawZij(dark, rp, fit);
-    this.drawEq(dark, pts);
+    this.drawEq(dark, pts, fitDir);
     this.drawDecay(dark, pts);
   }
 
@@ -1000,7 +1003,7 @@ class ZijWidget {
       for (const idx of [1, 2]) {          // horizontal (y=E'), vertical (y=Down)
         plot.line([fit.mean[0] + tmin * fit.v[0], fit.mean[0] + tmax * fit.v[0]],
                   [fit.mean[idx] + tmin * fit.v[idx], fit.mean[idx] + tmax * fit.v[idx]],
-                  gcol, 2.5, [7, 5]);
+                  gcol, 3.5, [7, 5]);
       }
     }
 
@@ -1009,11 +1012,25 @@ class ZijWidget {
       plot.dot(p[0], p[1], ch, fitted ? 5.5 : 4, false);
       plot.square(p[0], p[2], cv, fitted ? 5 : 3.5, true);
     });
+
+    // first and last steps included in the PCA fit — same half-transparent
+    // green circle as the fit direction on the equal-area plot
+    if (fit) {
+      const gcol = dark ? '#7fd4a8' : '#0a7d44';
+      ctx.save();
+      ctx.globalAlpha = 0.5;
+      for (const p of [rp[this.fitFrom], rp[rp.length - 1]]) {
+        plot.dot(p[0], p[1], gcol, 7.5);
+        plot.dot(p[0], p[2], gcol, 7.5);
+      }
+      ctx.restore();
+    }
+
     // mark NRM
     plot.label('NRM', rp[0][0], rp[0][1] - amax * 0.06, dark ? '#ddd' : '#333', 'center', '12px sans-serif');
   }
 
-  drawEq(dark, pts) {
+  drawEq(dark, pts, fitDir) {
     const { ctx, w, h } = setupCanvas(this.root.querySelector('.c-eq'));
     ctx.clearRect(0, 0, w, h);
     const R = Math.min(w, h) / 2 - 16;
@@ -1073,6 +1090,17 @@ class ZijWidget {
     const [bx, by] = toXY(this.B.dec, this.B.inc);
     star(ax, ay, dark ? this.A.colorDark : this.A.color);
     star(bx, by, dark ? this.B.colorDark : this.B.color);
+
+    // PCA best-fit direction — half-transparent green circle, drawn last so
+    // the B star reads through it when the fit is good
+    if (fitDir) {
+      const [fx, fy] = toXY(fitDir[0], fitDir[1]);
+      ctx.save();
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = dark ? '#7fd4a8' : '#0a7d44';
+      ctx.beginPath(); ctx.arc(fx, fy, 9, 0, 2 * Math.PI); ctx.fill();
+      ctx.restore();
+    }
   }
 
   drawDecay(dark, pts) {

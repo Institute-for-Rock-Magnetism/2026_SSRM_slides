@@ -34,14 +34,16 @@ DATA_DIR = (Path(__file__).resolve().parents[2]
             / "2020_Duluth_Complex" / "data" / "pmag_new")
 OUT_FILE = Path(__file__).resolve().parent / "FC_zijderveld.html"
 
-# specimen, label — chosen to show: a clean two-component AF result, its
-# thermal companion from the same sample, a three-component AF result,
-# and a thermal result with a large low-T overprint
+# specimen, label — two samples shown as AF/thermal pairs, chosen because
+# the published ChRM fits from the two methods agree closely (FC1-3: 8.1°
+# apart, MAD 2.2°/1.9°; HCT1-2: 11.5° apart, MAD 1.3°/2.8°), plus one AF
+# specimen with three components and a very large overprint
 SPECIMENS = [
     ("FC1-3a", "AF demag"),
     ("FC1-3b", "thermal demag"),
+    ("HCT1-2a", "AF demag"),
+    ("HCT1-2b", "thermal demag"),
     ("FC4-6a", "AF · 3 components"),
-    ("HCT1-6b", "thermal · big overprint"),
 ]
 
 # deck palette (matches css/slides.css and js/widgets.js)
@@ -142,20 +144,21 @@ def eqarea_xy(dec, inc):
     return r * np.sin(dec), r * np.cos(dec)
 
 
-def fit_segment(data, fit, rot):
-    """PCA line segment through the fitted steps, in rotated cartesian coords.
+def fit_segment(data, fit):
+    """PCA line segment through the fitted steps, in geographic cartesian coords.
 
     The best-fit line passes through the centroid of the steps inside the
     fitted range, along the fitted direction; its extent is set by
-    projecting those steps onto the direction.
+    projecting those steps onto the direction. Returns two endpoints as
+    [N, E, Down].
     """
     sel = (data["step"] >= fit["lo"] - 1e-9) & (data["step"] <= fit["hi"] + 1e-9)
     if sel.sum() < 2:
         return None
-    x, y, z = dir2cart(data["dec"] - rot, data["inc"], data["moment"])
+    x, y, z = dir2cart(data["dec"], data["inc"], data["moment"])
     pts = np.column_stack([x[sel], y[sel], z[sel]])
     centroid = pts.mean(axis=0)
-    u = np.array(dir2cart(fit["dec"] - rot, fit["inc"]))
+    u = np.array(dir2cart(fit["dec"], fit["inc"]))
     t = (pts - centroid) @ u
     pad = 0.06 * (t.max() - t.min())
     ends = np.array([centroid + (t.min() - pad) * u,
@@ -165,8 +168,11 @@ def fit_segment(data, fit, rot):
 
 def specimen_traces(data, fits, visible):
     """All traces for one specimen; returns the trace list and their panel columns."""
-    rot = data["dec"][0]                     # project along the NRM declination
-    x, y, z = dir2cart(data["dec"] - rot, data["inc"], data["moment"])
+    # geographic components; Zijderveld drawn in the standard N,Up vs E
+    # frame: solid circles are the horizontal projection (E, N) — a map
+    # view with north up — and open squares the vertical projection onto
+    # the E–W plane (E, Up), so a downward remanence plots below the axis.
+    n, e, d = dir2cart(data["dec"], data["inc"], data["moment"])
     unit = "mT" if data["type"] == "AF" else "°C"
     hover = [f"{lab}<br>Dec {d:.1f}° · Inc {i:.1f}° (geographic)<br>"
              f"moment = {m:.2e} Am²"
@@ -176,13 +182,13 @@ def specimen_traces(data, fits, visible):
     traces, cols = [], []
 
     traces.append(go.Scatter(
-        x=x, y=y, mode="lines+markers", name="horizontal (N′ vs E′)",
+        x=e, y=n, mode="lines+markers", name="horizontal (E vs N)",
         marker=dict(symbol="circle", size=7, color=C_HORIZ),
         line=dict(color=C_HORIZ, width=1.5),
         text=hover, hoverinfo="text", visible=visible, showlegend=visible))
     cols.append(1)
     traces.append(go.Scatter(
-        x=x, y=z, mode="lines+markers", name="vertical (N′ vs Down)",
+        x=e, y=-d, mode="lines+markers", name="vertical (E vs Up)",
         marker=dict(symbol="square-open", size=7,
                     color=C_VERT, line=dict(color=C_VERT, width=1.5)),
         line=dict(color=C_VERT, width=1.5),
@@ -191,20 +197,20 @@ def specimen_traces(data, fits, visible):
 
     # published PCA fits over their step ranges, on both projections
     for k, fit in enumerate(fits):
-        seg = fit_segment(data, fit, rot)
+        seg = fit_segment(data, fit)
         if seg is None:
             continue
         color = FIT_COLORS[k % len(FIT_COLORS)]
         label = (f"{fit['comp']}: {fit['dec']:.0f}°/{fit['inc']:.0f}° · "
                  f"MAD {fit['mad']:.1f}° · {fit['lo']:g}–{fit['hi']:g} {unit}")
         traces.append(go.Scatter(
-            x=seg[:, 0], y=seg[:, 1], mode="lines", name=label,
+            x=seg[:, 1], y=seg[:, 0], mode="lines", name=label,
             line=dict(color=color, width=3, dash="dash"),
             hoverinfo="name", visible=visible, showlegend=visible,
             legendgroup=f"fit{k}"))
         cols.append(1)
         traces.append(go.Scatter(
-            x=seg[:, 0], y=seg[:, 2], mode="lines", name=label,
+            x=seg[:, 1], y=-seg[:, 2], mode="lines", name=label,
             line=dict(color=color, width=3, dash="dot"),
             hoverinfo="name", visible=visible, showlegend=False,
             legendgroup=f"fit{k}"))
@@ -282,8 +288,8 @@ def main():
         f"dogeo rotation check failed: got {chk['dec'][0]:.1f}/{chk['inc'][0]:.1f}"
 
     fig = make_subplots(
-        rows=1, cols=3, column_widths=[0.40, 0.32, 0.28],
-        horizontal_spacing=0.07,
+        rows=1, cols=3, column_widths=[0.35, 0.42, 0.23],
+        horizontal_spacing=0.06,
         subplot_titles=("Zijderveld diagram", "Equal-area projection",
                         "Intensity decay"))
 
@@ -327,23 +333,25 @@ def main():
             pad=dict(l=2, r=2, t=1, b=1), font=dict(size=11))],
         legend=dict(orientation="h", x=0.0, y=-0.14, font=dict(size=11)),
         margin=dict(l=55, r=15, t=95, b=60),
-        height=520, plot_bgcolor="white", paper_bgcolor="white",
+        height=560, plot_bgcolor="white", paper_bgcolor="white",
         shapes=eqarea_net(),
         font=dict(family="'Source Sans Pro', 'Helvetica Neue', sans-serif"))
 
-    # Zijderveld panel: equal aspect; y reversed so that on the horizontal
-    # projection W is up when x is the rotated N component (Zijderveld
-    # convention as in pmagplotlib.plot_zij), and Down plots downward on
-    # the vertical projection
-    fig.update_xaxes(row=1, col=1, title_text="N′ (rotated to NRM dec) — Am²",
+    # Zijderveld panel: equal aspect, geographic coordinates. Vertical axis
+    # is N (circles) and Up (squares), horizontal axis is E — the standard
+    # "N,Up vs E" convention, so the solid points read as a map view with
+    # north up and a downward remanence plots below the axis.
+    fig.update_xaxes(row=1, col=1, title_text="E (Am²)",
                      zeroline=True, zerolinecolor="#888", zerolinewidth=1.2,
                      showgrid=True, gridcolor="#eee")
-    fig.update_yaxes(row=1, col=1, title_text="circles: E′ · squares: Down (Am²)",
+    fig.update_yaxes(row=1, col=1, title_text="circles: N · squares: Up (Am²)",
                      zeroline=True, zerolinecolor="#888", zerolinewidth=1.2,
                      showgrid=True, gridcolor="#eee",
-                     scaleanchor="x", scaleratio=1, autorange="reversed")
-    fig.update_xaxes(row=1, col=2, visible=False, range=[-1.18, 1.18])
-    fig.update_yaxes(row=1, col=2, visible=False, range=[-1.18, 1.18],
+                     scaleanchor="x", scaleratio=1)
+    # tight range: the net has radius 1, cardinal ticks reach 1.05 and the
+    # N label sits at 1.12, so 1.14 is all the padding the panel needs
+    fig.update_xaxes(row=1, col=2, visible=False, range=[-1.14, 1.14])
+    fig.update_yaxes(row=1, col=2, visible=False, range=[-1.14, 1.14],
                      scaleanchor="x2", scaleratio=1)
     fig.update_xaxes(row=1, col=3, title_text="peak AF (mT)",
                      showgrid=True, gridcolor="#eee", zeroline=False)

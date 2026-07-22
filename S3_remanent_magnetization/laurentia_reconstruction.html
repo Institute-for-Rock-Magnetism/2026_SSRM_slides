@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reconstructing Laurentia from the Duluth Complex pole</title>
+<script src="laurentia_outline.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Source Sans Pro','Helvetica Neue',sans-serif;
+    background:#f8f7f4; color:#1e293b;
+    padding:10px 14px 14px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  .controls{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    margin-bottom:8px;padding:8px 12px;
+    background:#fff;border:1px solid #d6d3cd;border-radius:8px;
+  }
+  .controls label{font-size:0.86rem;font-weight:600;white-space:nowrap}
+  .slider-wrap{flex:1;min-width:200px;display:flex;align-items:center;gap:10px}
+  input[type=range]{
+    flex:1;height:6px;-webkit-appearance:none;appearance:none;
+    background:#d6d3cd;border-radius:3px;outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:17px;height:17px;
+    background:#0a7d44;border:2px solid #fff;border-radius:50%;
+    box-shadow:0 1px 4px rgba(0,0,0,0.25);cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:17px;height:17px;background:#0a7d44;border:2px solid #fff;
+    border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.25);cursor:pointer;
+  }
+  button{
+    font:inherit;font-size:0.84rem;font-weight:600;
+    padding:5px 13px;border:1px solid #b9b4ab;border-radius:6px;
+    background:#fff;cursor:pointer;color:#1e293b;
+  }
+  button:hover{background:#f1efea}
+  button.primary{background:#0a7d44;border-color:#0a7d44;color:#fff}
+  button.primary:hover{background:#0c9152}
+  .readout{
+    font-size:0.82rem;color:#475569;
+    display:flex;gap:18px;flex-wrap:wrap;margin-top:7px;
+  }
+  .readout b{color:#1e293b;font-variant-numeric:tabular-nums}
+  .panels{display:flex;gap:16px;align-items:center}
+  .panel{flex:1.35;min-width:0}
+  .panel canvas{width:100%;height:auto;display:block;cursor:grab}
+  .panel canvas:active{cursor:grabbing}
+  .side{flex:1;min-width:0;font-size:0.82rem;color:#475569}
+  .side h3{font-size:0.9rem;color:#1e293b;margin-bottom:5px}
+  .side p{line-height:1.45;margin-bottom:9px}
+  .side b{color:#1e293b}
+  .stat{
+    background:#fff;border:1px solid #d6d3cd;border-radius:7px;
+    padding:7px 11px;margin-bottom:7px;
+  }
+  .stat .lab{font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.04em}
+  .stat .val{font-size:1.02rem;font-weight:700;color:#1e293b;font-variant-numeric:tabular-nums}
+  .hint{font-size:0.72rem;color:#8a8f98;margin-top:7px;line-height:1.4}
+  .legend{
+    display:flex;gap:12px;flex-wrap:wrap;
+    font-size:0.75rem;color:#475569;margin-top:6px;
+  }
+  .key{display:inline-flex;align-items:center;gap:5px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="controls">
+    <button id="play" class="primary">▶ Reconstruct</button>
+    <div class="slider-wrap">
+      <label for="t">rotation</label>
+      <input id="t" type="range" min="0" max="1" step="0.002" value="0">
+      <span id="tval" style="font-size:0.82rem;min-width:6.5em;text-align:right">0° of 54.4°</span>
+    </div>
+    <button id="reset">reset</button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <canvas id="globe" width="760" height="620"></canvas>
+    </div>
+    <div class="side">
+      <h3 id="stage">Present-day position</h3>
+      <p>The Duluth Complex pole sits in the north Pacific — <b>where the spin
+      axis was, relative to Laurentia, at 1096 Ma</b>. Rotating that pole onto the
+      geographic north pole carries the continent to its ancient latitude.</p>
+      <div class="stat">
+        <div class="lab">paleomagnetic pole</div>
+        <div class="val" id="polepos">35.6°N, 188.7°E</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Duluth paleolatitude</div>
+        <div class="val" id="pallat">46.8°N</div>
+      </div>
+      <div class="legend">
+        <span class="key"><span class="sw" style="background:#cdb891;border:1px solid #6b5b45"></span> Laurentia</span>
+        <span class="key"><span class="sw" style="background:#2b52c2"></span> pole</span>
+        <span class="key"><span class="sw" style="background:#c22b2b;border-radius:50%"></span> Duluth</span>
+        <span class="key"><span class="sw" style="background:none;border:2px dashed #0a7d44"></span> equator</span>
+      </div>
+      <div class="hint">Drag the globe to spin the view. The pole is fixed to the
+      plate, so it rides along with Laurentia. Paleolongitude is not constrained
+      by paleomagnetism — only latitude and orientation are meaningful.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ------------------------------------------------------------------ *
+ * Reconstructing Laurentia from the Duluth Complex paleomagnetic pole.
+ *
+ * The pole (35.6 N, 188.7 E; Swanson-Hysell et al., 2021, Geology) is
+ * carried to the north pole by a single Euler rotation about an axis on
+ * the equator at longitude (pole_lon - 90), through an angle of
+ * (90 - pole_lat) = 54.4 degrees. Laurentia is rigidly attached, so the
+ * same rotation gives its ca. 1096 Ma latitude and orientation.
+ *
+ * Paleomagnetism does not constrain paleolongitude: the reconstruction is
+ * free to slide east-west, so only latitude and azimuthal orientation
+ * are meaningful.
+ * ------------------------------------------------------------------ */
+
+const POLE_LAT = 35.6, POLE_LON = 188.7, POLE_A95 = 3.1;
+const SITE_LAT = 46.8, SITE_LON = -92.1;          // Duluth, Minnesota
+
+/* ---- where the globe is centred (change these to reframe the view) ----
+ * VIEW_LAT0 / VIEW_LON0 are the latitude and east longitude at the centre
+ * of the orthographic projection. Dragging the globe changes viewLat /
+ * viewLon from here; the "reset" button restores these values. */
+const VIEW_LAT0 = 30, VIEW_LON0 = 270;
+const TOTAL_ANGLE = 90 - POLE_LAT;                // 54.4 degrees
+const EULER_LON = ((POLE_LON - 90) % 360 + 360) % 360;   // 98.7 E, on the equator
+
+const D2R = Math.PI / 180, R2D = 180 / Math.PI;
+
+function toXYZ(lat, lon) {
+  const la = lat * D2R, lo = lon * D2R;
+  return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)];
+}
+function toLatLon(v) {
+  return [Math.asin(Math.max(-1, Math.min(1, v[2]))) * R2D,
+          Math.atan2(v[1], v[0]) * R2D];
+}
+/* Rodrigues rotation of v about unit axis k by angle degrees */
+function rotate(v, k, deg) {
+  const a = deg * D2R, c = Math.cos(a), s = Math.sin(a);
+  const kv = k[0] * v[0] + k[1] * v[1] + k[2] * v[2];
+  const cr = [k[1] * v[2] - k[2] * v[1], k[2] * v[0] - k[0] * v[2], k[0] * v[1] - k[1] * v[0]];
+  return [v[0] * c + cr[0] * s + k[0] * kv * (1 - c),
+          v[1] * c + cr[1] * s + k[1] * kv * (1 - c),
+          v[2] * c + cr[2] * s + k[2] * kv * (1 - c)];
+}
+const EULER_AXIS = toXYZ(0, EULER_LON);
+
+/* ---------------- orthographic projection ---------------- */
+let viewLat = VIEW_LAT0, viewLon = VIEW_LON0;
+
+function project(v, cx, cy, R) {
+  // rotate the globe so (viewLat, viewLon) faces the viewer
+  const lo = -viewLon * D2R, la = -viewLat * D2R;
+  let x = v[0] * Math.cos(lo) - v[1] * Math.sin(lo);
+  let y = v[0] * Math.sin(lo) + v[1] * Math.cos(lo);
+  let z = v[2];
+  const x2 = x * Math.cos(la) - z * Math.sin(la);
+  const z2 = x * Math.sin(la) + z * Math.cos(la);
+  // x2 is toward the viewer; y is east on screen; z2 is north on screen
+  return { x: cx + R * y, y: cy - R * z2, visible: x2 >= 0, depth: x2 };
+}
+
+/* ---------------- drawing ---------------- */
+const cvs = document.getElementById('globe');
+const ctx = cvs.getContext('2d');
+
+function drawSphere(cx, cy, R) {
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+  ctx.fillStyle = '#eef3f8'; ctx.fill();
+  ctx.strokeStyle = '#5c6673'; ctx.lineWidth = 1.4; ctx.stroke();
+}
+
+function drawParallel(lat, cx, cy, R, style, width, dash) {
+  ctx.save(); ctx.setLineDash(dash || []);
+  ctx.strokeStyle = style; ctx.lineWidth = width;
+  ctx.beginPath();
+  let pen = false;
+  for (let lon = 0; lon <= 360; lon += 2) {
+    const p = project(toXYZ(lat, lon), cx, cy, R);
+    if (!p.visible) { pen = false; continue; }
+    if (!pen) { ctx.moveTo(p.x, p.y); pen = true; } else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke(); ctx.restore();
+}
+
+function drawMeridian(lon, cx, cy, R, style, width) {
+  ctx.save(); ctx.strokeStyle = style; ctx.lineWidth = width;
+  ctx.beginPath();
+  let pen = false;
+  for (let lat = -90; lat <= 90; lat += 2) {
+    const p = project(toXYZ(lat, lon), cx, cy, R);
+    if (!p.visible) { pen = false; continue; }
+    if (!pen) { ctx.moveTo(p.x, p.y); pen = true; } else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke(); ctx.restore();
+}
+
+function drawGraticule(cx, cy, R) {
+  for (let lat = -60; lat <= 60; lat += 30) drawParallel(lat, cx, cy, R, '#c3ccd6', 1);
+  for (let lon = 0; lon < 360; lon += 30) drawMeridian(lon, cx, cy, R, '#c3ccd6', 1);
+  drawParallel(0, cx, cy, R, '#0a7d44', 2, [7, 5]);      // equator
+}
+
+/* draw one ring of the outline, rotated by `deg` about the Euler axis */
+function drawRings(deg, cx, cy, R, fill, stroke, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = fill; ctx.strokeStyle = stroke; ctx.lineWidth = 1;
+  for (const ring of LAURENTIA_OUTLINE) {
+    // split the ring wherever it crosses the limb so we never draw across it
+    let segs = [], cur = [];
+    for (const [lon, lat] of ring) {
+      let v = toXYZ(lat, lon);
+      if (deg !== 0) v = rotate(v, EULER_AXIS, deg);
+      const p = project(v, cx, cy, R);
+      if (p.visible) cur.push(p);
+      else if (cur.length) { segs.push(cur); cur = []; }
+    }
+    if (cur.length) segs.push(cur);
+    for (const seg of segs) {
+      if (seg.length < 3) continue;
+      ctx.beginPath();
+      ctx.moveTo(seg[0].x, seg[0].y);
+      for (let i = 1; i < seg.length; i++) ctx.lineTo(seg[i].x, seg[i].y);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+/* small circle of angular radius `rad` around a direction, for A95 */
+function drawSmallCircle(v, rad, cx, cy, R, style, width) {
+  // build an orthonormal frame around v
+  const ref = Math.abs(v[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
+  let e1 = [v[1] * ref[2] - v[2] * ref[1], v[2] * ref[0] - v[0] * ref[2], v[0] * ref[1] - v[1] * ref[0]];
+  const n1 = Math.hypot(e1[0], e1[1], e1[2]); e1 = e1.map(c => c / n1);
+  const e2 = [v[1] * e1[2] - v[2] * e1[1], v[2] * e1[0] - v[0] * e1[2], v[0] * e1[1] - v[1] * e1[0]];
+  ctx.save(); ctx.strokeStyle = style; ctx.lineWidth = width;
+  ctx.beginPath();
+  let pen = false;
+  const cr = Math.cos(rad * D2R), sr = Math.sin(rad * D2R);
+  for (let a = 0; a <= 360; a += 4) {
+    const t = a * D2R;
+    const w = [cr * v[0] + sr * (Math.cos(t) * e1[0] + Math.sin(t) * e2[0]),
+               cr * v[1] + sr * (Math.cos(t) * e1[1] + Math.sin(t) * e2[1]),
+               cr * v[2] + sr * (Math.cos(t) * e1[2] + Math.sin(t) * e2[2])];
+    const p = project(w, cx, cy, R);
+    if (!p.visible) { pen = false; continue; }
+    if (!pen) { ctx.moveTo(p.x, p.y); pen = true; } else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke(); ctx.restore();
+}
+
+function marker(v, cx, cy, R, kind, color, size) {
+  const p = project(v, cx, cy, R);
+  if (!p.visible) return null;
+  ctx.save();
+  ctx.fillStyle = color; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.6;
+  if (kind === 'square') {
+    ctx.beginPath();
+    ctx.rect(p.x - size, p.y - size, 2 * size, 2 * size);
+    ctx.fill(); ctx.stroke();
+  } else if (kind === 'star') {
+    ctx.beginPath();
+    for (let k = 0; k < 10; k++) {
+      const rr = k % 2 === 0 ? size * 1.5 : size * 0.62;
+      const a = -Math.PI / 2 + k * Math.PI / 5;
+      const px = p.x + rr * Math.cos(a), py = p.y + rr * Math.sin(a);
+      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  } else {
+    ctx.beginPath(); ctx.arc(p.x, p.y, size, 0, 2 * Math.PI);
+    ctx.fill(); ctx.stroke();
+  }
+  ctx.restore();
+  return p;
+}
+
+function label(p, text, color, dy) {
+  if (!p) return;
+  ctx.save();
+  ctx.font = '600 13px "Source Sans Pro", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.lineWidth = 3.2; ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+  ctx.strokeText(text, p.x, p.y + dy);
+  ctx.fillStyle = color; ctx.fillText(text, p.x, p.y + dy);
+  ctx.restore();
+}
+
+/* optional deep link, e.g. laurentia_reconstruction.html#t=1 */
+const hashT = parseFloat(((location.hash || '').match(/t=([\d.]+)/) || [])[1]);
+let frac = isFinite(hashT) ? Math.max(0, Math.min(1, hashT)) : 0;
+
+function draw() {
+  const W = cvs.width, H = cvs.height;
+  ctx.clearRect(0, 0, W, H);
+  const cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 26;
+  const deg = frac * TOTAL_ANGLE;
+
+  drawSphere(cx, cy, R);
+  drawGraticule(cx, cy, R);
+
+  // ghost of the present-day position, once the reconstruction has started
+  if (frac > 0.01) drawRings(0, cx, cy, R, '#d8d3ca', '#b3aca0', 0.45);
+  drawRings(deg, cx, cy, R, '#cdb891', '#6b5b45', 1);
+
+  // geographic north pole, for reference
+  const npP = marker(toXYZ(90, 0), cx, cy, R, 'star', '#333', 7);
+  label(npP, 'N', '#333', -13);
+
+  // the paleomagnetic pole, rotating with the plate
+  const poleV = rotate(toXYZ(POLE_LAT, POLE_LON), EULER_AXIS, deg);
+  drawSmallCircle(poleV, POLE_A95, cx, cy, R, '#2b52c2', 1.8);
+  const pP = marker(poleV, cx, cy, R, 'square', '#2b52c2', 7);
+  label(pP, 'pole', '#2b52c2', -14);
+
+  // the Duluth site, rotating with the plate
+  const siteV = rotate(toXYZ(SITE_LAT, SITE_LON), EULER_AXIS, deg);
+  const sP = marker(siteV, cx, cy, R, 'dot', '#c22b2b', 5.5);
+  label(sP, 'Duluth', '#c22b2b', 18);
+
+  // readouts
+  const [plat, plon] = toLatLon(poleV);
+  const [slat] = toLatLon(siteV);
+  const plonE = ((plon % 360) + 360) % 360;
+  // at the pole the longitude is degenerate, so don't report a meaningless value
+  document.getElementById('polepos').textContent = plat > 89.5
+    ? `${plat.toFixed(1)}°N — at the spin axis`
+    : `${plat.toFixed(1)}°N, ${plonE.toFixed(1)}°E`;
+  document.getElementById('pallat').textContent = `${slat.toFixed(1)}°N`;
+  document.getElementById('tval').textContent = `${deg.toFixed(1)}° of ${TOTAL_ANGLE.toFixed(1)}°`;
+  document.getElementById('stage').textContent =
+    frac < 0.01 ? 'Present-day position'
+    : frac > 0.99 ? 'Reconstructed: ca. 1096 Ma'
+    : 'Rotating…';
+}
+
+/* ---------------- interaction ---------------- */
+const slider = document.getElementById('t');
+slider.value = frac;
+slider.addEventListener('input', () => { frac = +slider.value; stop(); draw(); });
+
+let timer = null;
+function stop() {
+  if (timer) { cancelAnimationFrame(timer); timer = null; }
+  document.getElementById('play').textContent = '▶ Reconstruct';
+}
+document.getElementById('play').addEventListener('click', () => {
+  if (timer) { stop(); return; }
+  if (frac >= 0.999) frac = 0;
+  document.getElementById('play').textContent = '❚❚ pause';
+  const step = () => {
+    frac = Math.min(1, frac + 0.006);
+    slider.value = frac;
+    draw();
+    if (frac < 1) timer = requestAnimationFrame(step); else stop();
+  };
+  timer = requestAnimationFrame(step);
+});
+document.getElementById('reset').addEventListener('click', () => {
+  stop(); frac = 0; slider.value = 0; viewLat = VIEW_LAT0; viewLon = VIEW_LON0; draw();
+});
+
+/* drag to spin the view */
+let dragging = false, lastX = 0, lastY = 0;
+cvs.addEventListener('pointerdown', e => {
+  dragging = true; lastX = e.clientX; lastY = e.clientY; cvs.setPointerCapture(e.pointerId);
+});
+cvs.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  const scale = 260 / cvs.getBoundingClientRect().width;
+  viewLon -= (e.clientX - lastX) * scale;
+  viewLat = Math.max(-89, Math.min(89, viewLat + (e.clientY - lastY) * scale));
+  lastX = e.clientX; lastY = e.clientY;
+  draw();
+});
+cvs.addEventListener('pointerup', e => { dragging = false; cvs.releasePointerCapture(e.pointerId); });
+
+draw();
+</script>
+</body>
+</html>

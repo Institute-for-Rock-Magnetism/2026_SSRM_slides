@@ -53,13 +53,13 @@
         <li>From outcrop to oriented specimen to measured vector</li>
         <li><strong>Demagnetization</strong>: taking a multicomponent NRM apart</li>
         <li><strong>Zijderveld diagrams</strong> and principal component analysis</li>
-        <li>Field tests: do we believe the direction?</li>
+        <li>What we expect D-6A to record — and whether we believe it</li>
       </ul>
     </div>
   </div>
   <p style="margin-top:0.8em; font-size:0.9em">Your D-6A specimens carry a <strong>natural remanent
   magnetization (NRM)</strong>. At the RAPID SRM station you are measuring it and
-  demagnetizing it — today is the physics behind that workflow.</p>
+  demagnetizing it.</p>
   <aside class="notes">
     Anchor to the project: every group has measured (or will measure) NRM and AF
     demagnetization on the RAPID system. By the end of today they should know
@@ -137,7 +137,7 @@
     
     <!-- Left Card: Team Stability -->
     <div style="flex: 1; background: #ebf8ff; border-top: 4px solid #3182ce; border-radius: 5px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #2b6cb0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;">
+      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #2b6cb0; letter-spacing: 0.5px; font-weight: bold;">
         🔵 Team Stability: \(Kv\) [J]
       </h3>
       <p style="font-size: 0.74em; margin: 0 0 0.6em 0; line-height: 1.3; color: #2d3748;">
@@ -151,7 +151,7 @@
     
     <!-- Right Card: Team Chaos -->
     <div style="flex: 1; background: #fffaf0; border-top: 4px solid #dd6b20; border-radius: 5px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #c05621; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;">
+      <h3 style="margin: 0 0 0.5em 0; font-size: 0.82em; color: #c05621; letter-spacing: 0.5px; font-weight: bold;">
         🔥 Team Chaos: \(k_B T\) [J]
       </h3>
       <p style="font-size: 0.74em; margin: 0 0 0.6em 0; line-height: 1.3; color: #2d3748;">
@@ -217,7 +217,7 @@
             \(v = \dfrac{k_B T}{K}\ln(C\tau)\)
           </div>
         </li>
-        <li>Grains below the \(\tau \approx \text{100 s}\) lab boundary are <strong>superparamagnetic (SP)</strong> — thermal fluctuations easily overcome their energy barrier, making them unable to hold a stable remanence.</li>
+        <li>Grains below \(\tau \approx \text{100 s}\) are <strong>superparamagnetic (SP)</strong> — thermal fluctuations easily overcome their energy barrier, making them unable to hold a stable remanence.</li>
         <li>Grains above with long relaxation times <strong>stable single-domain (SSD)</strong> state — they are thermally stable and act as reliable recorders.</li>
       </ul>
     </div>
@@ -231,24 +231,24 @@
 </section>
 
 <section>
-  <h2>Three ways to block magnetization</h2>
+  <h2>Three ways to block (lock in) magnetization</h2>
   <div class="classcards">
     <div class="card para">
       <h3>Time → VRM</h3>
-      <p>Wait. On longer observation times the effective boundary
-      (\(\tau = t\)) <strong>sweeps upward</strong> — more grains reach equilibrium
-      with today's field.</p>
+      <p>Wait. As time progresses, the effective boundary
+      (\(\tau = t\)) sweeps upward — more grains reach equilibrium
+      with the field they are experiencing.</p>
       <p><strong>viscous remanent magnetization</strong></p>
     </div>
     <div class="card ferro">
       <h3>Temperature → TRM</h3>
-      <p>Cool. \(k_BT\) falls and \(K \propto M_s^2\) grows — grains cool through their blocking temperatures.</p>
+      <p>Cool. Thermal energy (\(k_BT\)) falls and anisotropy energy (\(K \propto M_s^2\)) grows — grains cool through their blocking temperatures.</p>
       <p><strong>thermoremanent magnetization</strong></p>
     </div>
     <div class="card dia">
       <h3>Volume → CRM</h3>
-      <p>Grow. New crystals nucleate and grow through the blocking
-      volume at constant temperature.</p>
+      <p>Grow. New crystals nucleate and grow through their blocking
+      volume at constant temperature. \(Kv\) and \(\tau\) increase. </p>
       <p><strong>chemical remanent magnetization</strong></p>
     </div>
   </div>
@@ -345,17 +345,13 @@
     <div style="flex: 1; font-size: 0.82em; line-height: 1.55;">
       
       <p style="margin-bottom: 0.8em;">
-        While individual single-domain grains are binary (they either flip or they don't), the net magnetization of a <strong>population of grains</strong> sharing a relaxation time (\(\tau\)) relaxes exponentially toward a new equilibrium (\(\mathbf{M}_e\)) over exposure time (\(t\)):
+        While individual single-domain grains are binary (they either flip or don't), the net magnetization of a <strong>population of grains</strong> sharing a relaxation time (\(\tau\)) relaxes exponentially toward a new equilibrium (\(\mathbf{M}_e\)) over time (\(t\)):
       </p>
 
       <!-- Clean math anchor -->
       <div class="eqbox" style="font-size: 1.15em; margin: 0.6em 0; text-align: center; padding: 0.5em;">
         \(\mathbf{M}(t) = \mathbf{M}_e + (\mathbf{M}_o - \mathbf{M}_e)\,\mathbf{e^{-t/\tau}}\)
       </div>
-
-      <p style="margin-top: 0.8em; margin-bottom: 0.8em;">
-        The ratio \(t/\tau\) determines what fraction of the assemblage has flipped:
-      </p>
 
       <!-- Color-coded contrast blocks matching the plot regions -->
       <ul style="margin-left: 0; margin-bottom: 1em; list-style-type: none; padding-left: 0;">
@@ -396,7 +392,7 @@
     <li>Every ancient rock has spent the last <strong>~780 kyr in the Brunhes normal-polarity field</strong> —
     so a present-field VRM overprint on top of any ancient remanence can be expected</li>
     <li>VRM is carried by the <strong>lowest-stability grains</strong> — the same grains that are
-    easiest to demagnetize (this is why demagnetization works)</li>
+    easiest to demagnetize (this is why thermal and AF demagnetization works to remove VRM)</li>
     <li>Higher temperature → shorter \(\tau\) → <strong>faster viscous acquisition</strong>:
     burial at depth accelerates overprinting (thermoviscous remanence, next slide)</li>
   </ul>
@@ -451,11 +447,10 @@
 <section class="divider">
   <p class="kicker">Part 3</p>
   <h2>Thermoremanent magnetization</h2>
-  <p class="kicker" style="margin-top:0.4em">the igneous recorder</p>
 </section>
 
 <section>
-  <h2>Cooling lava: the classic recorder</h2>
+  <h2>Cooling lava</h2>
   <div class="cols">
     <div class="wide">
       <figure>
@@ -473,8 +468,8 @@
         <strong>biased dynamic equilibrium</strong> with the field</li>
         <li>At the <strong>blocking temperature</strong> \(T_b\): \(\tau\) shoots past
         lab/geologic timescales — the biased distribution is <strong>locked in</strong></li>
-        <li>The result: a <strong>TRM parallel to the field</strong>, proportional
-        to it in weak fields</li>
+        <li>The result: a <strong>TRM parallel to the field</strong>,<br> (and proportional
+        to it in weak fields)</li>
       </ul>
     </div>
   </div>
@@ -483,6 +478,46 @@
     temperature, grain by grain — Tb is a property of each grain (its v and K),
     not of the mineral. That's what makes partial TRM and thermal
     demagnetization possible.
+  </aside>
+</section>
+
+<section>
+  <h2>Cooling changes both numerator and denominator</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/lava.png" alt="Three panels: glowing lava flow, randomly oriented crystal moments above the Curie temperature, and field-biased moments below the blocking temperature" style="max-height:50vh">
+        <figcaption>Above \(T_c\): no spontaneous magnetization. Between \(T_c\) and
+        \(T_b\): moments flip freely, biased by the field. Below \(T_b\): remanent magnetization is blocked in.
+        Photo D. Staudigel. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <!-- Standardized Equation Box Container -->
+      <div class="eqbox" style="font-size:1em; flex: 1; text-align: center; margin-right: 20px; margin-bottom: 15px;">
+        \(\tau = \dfrac{1}{C}\exp\left(\dfrac{Kv}{k_B T}\right)\)
+      </div>
+
+      <ul style="font-size:0.85em; list-style-type: square;">
+        <li>
+          <strong>Denominator ↓ (Thermal energy drops):</strong>
+          As \(T\) falls, \(k_B T\) shrinks. Thermal agitation decreases, lowering capacity to cross energy barriers.
+        </li>
+        <li style="color:#fff">
+          Numerator ↑ (Magnetic barrier grows):
+          \(M_s\) is higher at lower \(T\). \(K \propto M_s^2\), such that energy barrier (\(Kv\)) amplifies quadratically.
+        </li>
+        <li style="color:#fff">
+          During cooling, the relaxation time \(\tau\) skyrockets from seconds to geological timescales over a very narrow temperature interval, blocking the remanence.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    First establish the denominator: as T falls, k_B T shrinks, so thermal
+    agitation loses the capacity to hop the barrier. Next slide adds the
+    numerator growing quadratically via K ∝ Ms².
   </aside>
 </section>
 
@@ -691,15 +726,16 @@
       <h3 style="font-size:0.95em">The good news:</h3>
       <ul style="font-size:0.8em">
         <li>The components differ in <strong>stability</strong> (τ ↔ coercivity ↔ \(T_{ub}\))</li>
-        <li>Progressive demagnetization peels them apart, softest first</li>
+        <li>Progressive demagnetization peels them apart, least stable first</li>
       </ul>
     </div>
   </div>
   <aside class="notes">
     Halfway summary slide — good place for the first long break. The second half
     is the reading half: sampling and orientation, measurement, demagnetization,
-    Zijderveld analysis, and the field tests that establish the age of a
-    component. IRM and ARM in the sum get their formal definitions after the
+    Zijderveld analysis, and what direction we expect the D-6A core to carry.
+    The field tests that establish a component's relative age are in the extras
+    at the end. IRM and ARM in the sum get their formal definitions after the
     demagnetization part; for now "lightning and lab fields" is enough.
   </aside>
 </section>
@@ -796,8 +832,11 @@
     hemisphere normal field: D≈0, I>0). The tilt correction is three rotations
     (rotate dip direction to north, untilt about horizontal, rotate back) or one
     composite rotation — PmagPy's pmag.dogeo / pmag.dotilt do exactly this, and
-    the Part 8 interactive uses dogeo on the real MagIC tables. Mass/volume
-    normalization: moment (Am²) ÷ volume = A/m, as in S1.
+    the Part 7 Duluth Complex interactive uses dogeo on the real MagIC tables.
+    Mass/volume normalization: moment (Am²) ÷ volume = A/m, as in S1.
+    If the room wants to know how a SQUID actually works, the instrumentation
+    deep-dive — flux quantization, shielding, sensor offsets — is in the extras
+    at the end.
   </aside>
 </section>
 
@@ -935,8 +974,10 @@
       <ul style="font-size:0.8em">
         <li>While the envelope exceeds a grain's coercivity, its moment <strong>flips with
         every half-cycle</strong></li>
-        <li>As the envelope decays past that coercivity, the grain <strong>freezes</strong> —
-        half end up one way, half the other: <strong>net zero</strong></li>
+        <li>Once the envelope decays below that coercivity, the field can <strong>no longer
+        switch the moment</strong> — it is left in the state set by the last half-cycle that
+        could. That phase differs grain to grain, so half end up one way, half the other:
+        <strong>net zero</strong></li>
         <li>Applied along three orthogonal axes (or while tumbling) so all easy-axis
         orientations are treated</li>
         <li>Only grains with coercivity <strong>above the peak</strong> keep their memory</li>
@@ -993,7 +1034,7 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   </figure>
   <ul style="font-size:0.82em; margin-top:0.5em">
     <li>Every demagnetization step leaves a full <strong>vector</strong> — direction
-    <em>and</em> intensity; an intensity-only plot throws most of that away</li>
+    <em>and</em> intensity</li>
     <li>Levels 1–3: a <strong>low-stability component</strong> (dashed arrow) is stripped —
     the vector changes <em>direction and length</em></li>
     <li>Levels 4–6: the surviving <strong>high-stability component</strong> decays in
@@ -1003,7 +1044,7 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     Scenario slide — let it breathe. The two-component story is obvious in 3-D:
     the vector swings while the overprint is stripped (1–3), then marches
     straight at the origin (4–6). The problem: 3-D is unplottable on paper. The
-    next slide shows the solution — take its shadows.
+    next slide shows the solution — project it onto two orthogonal planes.
   </aside>
 </section>
 
@@ -1015,10 +1056,10 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         <img src="images/zij_block.png" alt="Perspective diagram of the NRM vector during progressive demagnetization, repeated small for reference" style="width:100%">
       </figure>
       <ul style="font-size:0.74em; margin-top:0.6em">
-        <li><strong>(a)</strong> shadow of the endpoints on the <strong>horizontal
-        plane</strong> — the map view</li>
-        <li><strong>(b)</strong> shadow on a <strong>vertical (N–S) plane</strong></li>
-        <li><strong>(c)</strong> stack both shadows on shared axes → one plot:
+        <li><strong>(a)</strong> orthogonal projection of the endpoints onto the
+        <strong>horizontal plane</strong> — the map view</li>
+        <li><strong>(b)</strong> projection onto a <strong>vertical (N–S) plane</strong></li>
+        <li><strong>(c)</strong> stack both projections on shared axes → one plot:
         the <strong>vector component (Zijderveld) diagram</strong></li>
       </ul>
     </div>
@@ -1035,7 +1076,7 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     Walk the construction slowly — this is the make-or-break slide for reading
     every demag figure that follows. Panel (a): looking straight down, the
     swing-then-straight path. Panel (b): looking sideways at the N–S plane, the
-    inclination story. Panel (c): the space-saving trick — both shadows on one
+    inclination story. Panel (c): the space-saving trick — both projections on one
     pair of shared axes, distinguished only by symbol fill. One pair of points
     per demagnetization step.
   </aside>
@@ -1086,8 +1127,8 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   <h2>Explore: components, overlap, and PCA</h2>
   <div class="widget" data-widget="zij"></div>
   <p class="tiny" style="margin-top:0.3em">Synthetic two-component specimen (after the W8 course
-  notebook): overprint <span style="color:#D55E00">A (Dec 0°, Inc 60°, 30%)</span> +
-  primary <span style="color:#0072B2">B (Dec 290°, Inc 20°, 70%)</span>, log-normal coercivity
+  notebook): overprint <span style="color:#D55E00">A (Dec 0°, Inc 60°, 50%)</span> +
+  primary <span style="color:#0072B2">B (Dec 290°, Inc 20°, 50%)</span>, log-normal coercivity
   spectra. The green dashed line is a PCA best-fit (Kirschvink, 1980) through the steps at and
   above the chosen start — its MAD and its angular error from the true B direction update live.</p>
   <aside class="notes">
@@ -1112,7 +1153,7 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
       </figure>
     </div>
     <div class="narrow">
-      <h2 style="text-align:left">How much overlap is too much?</h2>
+      <h2 style="text-align:left">The effect of overlapping spectra</h2>
       <ul style="font-size:0.8em">
         <li>The <strong>vector-addition</strong> view: at every step the plotted point is
         origin→B plus B→NRM (the A part)</li>
@@ -1131,186 +1172,187 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   </aside>
 </section>
 
-<section>
-  <h2>A field guide to demag behavior</h2>
+<section class="figslide">
   <div class="cols">
-    <div class="wide">
+    <div class="narrow" style="flex:0.52">
+      <h2>Pairing thermal and AF demag for insight</h2>
+      <ul style="font-size:0.72em">
+        <li>Same core sample, one specimen AF, one thermal</li>
+        <li><span style="color:#c9527a"><strong>Low</strong></span> — &lt;10 mT, &lt;150 °C:
+        small <strong>VRM</strong></li>
+        <li><span style="color:#2b7fb8"><strong>Medium</strong></span> — 10–60 mT,
+        515–565 °C: primary <strong>TRM in magnetite</strong> → the pole</li>
+        <li><span style="color:#b8860b"><strong>High</strong></span> — past 130 mT, but
+        250–350 °C: <strong>CRM in pyrrhotite</strong></li>
+        <li><strong>Higher coercivity, lower unblocking temperature.</strong></li>
+      </ul>
+    </div>
+    <div class="wide" style="flex:2">
       <figure>
-        <img src="images/zijd.png" alt="Four panel gallery of demagnetization behaviors: single component to origin, intensity decay with median destructive field, two components with a great circle fit, and gyroremanent growth with DANG marked" style="max-height:56vh">
-        <figcaption>(a) one component; (b) intensity decay &amp; median destructive field;
-        (c) overlapping components → best-fit great circle; (d) GRM growing at high AF.
-        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+        <img src="images/ECMB_NED2-8_AF_thermal.png" alt="Paired demagnetization of sister specimens NED2-8b and NED2-8a: vector component plots, equal-area projections and magnetization decay curves for alternating field and thermal treatment of the same core sample, with low-, medium- and high-coercivity components colored pink, blue and yellow" style="max-height:76vh">
+        <figcaption>Sister specimens of sample NED2-8, a ca. 1780 Ma East-Central Minnesota
+        Batholith diabase dike (geographic coordinates; PmagPy). Pink = low-, blue = medium-,
+        yellow = high-coercivity fits. Swanson-Hysell et al. (2021),
+        <em>Tectonics</em> <strong>40</strong>, e2021TC006751, part of Fig. 3.</figcaption>
       </figure>
     </div>
-    <div class="narrow">
-      <ul style="font-size:0.78em">
-        <li><strong>mdf</strong>: field that halves the NRM — a coarse stability index</li>
-        <li>Great circles: when only the <em>plane</em> containing two components is
-        constrained, fit the plane (pole = smallest eigenvector)</li>
-        <li><strong>GRM</strong>: magnetization <em>growing</em> perpendicular to the last AF
-        axis at high fields — greigite's calling card; use the triple-demag protocol</li>
-        <li><strong>DANG</strong>: deviation angle between the fitted line and the line to
-        the origin — is the last component really the last?</li>
-      </ul>
-    </div>
   </div>
   <aside class="notes">
-    Panel (d) teaches healthy paranoia: rising intensity at high AF steps is a
-    lab-induced remanence, not a recovered signal. Stephenson (1993) triple
-    demag: demagnetize along x then y then z, measuring after each, and average —
-    cancels the GRM. DANG together with MAD is the standard "is it going through
-    the origin" check — both are in the PmagPy output your groups will see.
-  </aside>
-</section>
-
-<section>
-  <h2>Best-fit lines: principal component analysis</h2>
-  <div class="cols">
-    <div class="wide">
-      <ul style="font-size:0.85em">
-        <li>Choose the steps that define a component; build the <strong>orientation
-        tensor</strong> of the (centered) endpoints</li>
-        <li>Eigenvectors \(\mathbf{V}_1, \mathbf{V}_2, \mathbf{V}_3\) with eigenvalues
-        \(\tau_1 \ge \tau_2 \ge \tau_3\)</li>
-        <li><strong>Best-fit line</strong> = \(\mathbf{V}_1\) (free, or anchored to the origin);
-        <strong>best-fit plane</strong> (great circle) = the plane ⊥ \(\mathbf{V}_3\)</li>
-        <li>Quality: the <strong>maximum angle of deviation</strong>,</li>
-      </ul>
-      <div class="eqbox" style="font-size:0.95em">
-        \(\mathrm{MAD} = \tan^{-1}\!\left(\sqrt{(\tau_2^2 + \tau_3^2)/\tau_1}\right), \qquad
-        \mathrm{MAD}_{\mathrm{plane}} = \tan^{-1}\!\sqrt{\tau_3/\tau_2 + \tau_3/\tau_1}\)
-      </div>
-      <ul style="font-size:0.85em">
-        <li>Plus <strong>DANG</strong>, the angle between the line and the origin direction</li>
-      </ul>
-    </div>
-    <div class="narrow">
-      <ul style="font-size:0.8em">
-        <li>Kirschvink (1980) — the universal standard (PmagPy: <code>pmag.domean</code>,
-        Demag GUI, <code>zeq</code>)</li>
-        <li>Rules of thumb: fit ≥ 4 steps; MAD ≲ 5–10° for a line you'd defend;
-        inspect DANG before calling it ChRM</li>
-        <li>Component directions → Fisher site means → poles (tomorrow's statistics)</li>
-      </ul>
-    </div>
-  </div>
-  <aside class="notes">
-    The widget two slides back computes exactly this (free line) — students have
-    already seen MAD respond to overlap. Equation form as in Essentials ch. 9.
-    Anchored vs free fits: anchor only when the segment demonstrably heads to the
-    origin (small DANG); otherwise you bias the direction. Great-circle-plus-
-    line combined site means: McFadden & McElhinny approach, mentioned for the
-    curious.
+    The point of the slide: a single demagnetization experiment gives you
+    components, but a PAIR of experiments on sister specimens gives you
+    carriers. Walk the AF panel left to right first — three segments, three
+    colors — then the thermal panel and ask the room to predict the unblocking
+    order before revealing it. The surprise is that the high-coercivity
+    (AF-hard) component dies at 250–350 °C, which is pyrrhotite's Curie
+    temperature, while the medium-coercivity component survives to 515–565 °C,
+    which is magnetite. Coercivity is about the energy barrier's height at room
+    temperature; unblocking temperature is about how fast that barrier collapses
+    on heating — different physics, so the orderings need not match. The AF decay
+    panel is also where to define the mdf, the median destructive field that
+    halves the NRM (~30 mT here) — a coarse stability index.
+    Interpretation from the paper: the magnetite TRM is primary at ca. 1780 Ma
+    and carries the pole; the pyrrhotite CRM formed during hydrothermal
+    alteration associated with ca. 1096 Ma Midcontinent Rift magmatism, and its
+    direction matches a Rift-age dike in the same area — a secondary
+    magnetization you can date by its direction. Note this is our own data, so
+    it is exactly the workflow the groups will run on the RAPID.
   </aside>
 </section>
 
 <section class="figslide">
-  <h2>The real thing: 1.1 Ga Duluth Complex gabbros</h2>
+  <h2>1.1 Ga Duluth Complex paleomagnetic data</h2>
   <figure>
     <iframe class="plotframe" data-src="FC_zijderveld.html"
             title="Interactive Zijderveld, equal-area, and intensity decay panels for AF and thermally demagnetized Duluth Complex gabbro specimens with published PCA fits"></iframe>
-    <figcaption>AF and thermal demagnetization of ~1096 Ma gabbros (sites FC1, FC4, HCT1;
-    geographic coordinates), measured on the IRM 2G systems — with the published PCA component
-    fits. Buttons switch specimens · hover for step, direction &amp; moment · drag to zoom.
+    <figcaption>AF and thermal demagnetization of ~1096 Ma gabbros (sites FC1, HCT1, FC4;
+    geographic coordinates, north up), measured on the IRM 2G systems — with the published PCA
+    component fits. Two samples are shown as AF/thermal pairs.
+    Buttons switch specimens · hover for step, direction &amp; moment · drag to zoom.
     Data: Swanson-Hysell et al. (2021, <em>Geology</em>), MagIC-format tables
     (measurements by Y. Zhang); figure built with PmagPy + Plotly.</figcaption>
   </figure>
   <aside class="notes">
-    Walk through FC1-3a (AF): soft steep-east lc component gone by ~5 mT (their
-    Brunhes VRM), then a clean WNW-and-down line to the origin — the 1096 Ma
-    ChRM (site mean ~301/40). Then FC1-3b: the SAME sample, thermal — the same
-    ChRM emerges, unblocking mostly within ~60° of Tc, classic for nearly pure
-    magnetite. FC4-6a shows three components — worth asking the room to
-    interpret. HCT1-6b: a big soft overprint and a tight 833–873 K ChRM fit.
-    These data are exactly what the groups' D-6A specimens will produce on the
-    RAPID.
+    The plot is in geographic coordinates with north up: solid circles are the
+    horizontal projection (E vs N), open squares the vertical projection
+    (E vs Up), so the 1096 Ma ChRM heads up-and-left (NW) and below the axis
+    (downward). Walk through FC1-3a (AF): soft east-and-down lc component
+    (97/49) gone by 3 mT — their Brunhes VRM — then a clean WNW-and-down line
+    to the origin, mc = 301/40, MAD 2.2°, fit 10–44 mT. Then FC1-3b: the SAME
+    sample, thermal — mt = 294/34, MAD 1.9°, unblocking almost entirely in the
+    last 40° below Tc, classic for nearly pure magnetite. The two methods agree
+    to 8°, which is the whole point: independent demagnetization paths, same
+    answer. HCT1-2a/b repeats the trick at another site (297/31 AF vs 287/38
+    thermal, 11.5° apart) with a southeast-directed overprint instead. Close
+    with FC4-6a: three components (55/7, then 105/7, then mc 294/30) and 96% of
+    the NRM stripped before the ChRM fit even starts — worth asking the room to
+    interpret. These data are exactly what the groups' D-6A specimens will
+    produce on the RAPID.
   </aside>
 </section>
 
-<!-- ================================================================ -->
-<!-- PART 9: FIELD TESTS + CLOSE                                      -->
-<!-- ================================================================ -->
-</section>
-<section id="tests">
-<section class="divider">
-  <p class="kicker">Part 9</p>
-  <h2>Do we believe it? Field tests</h2>
-</section>
-
-<section>
-  <h2>The fold test</h2>
+<section class="figslide">
   <div class="cols">
-    <div class="narrow">
-      <figure>
-        <img src="images/foldtesta.png" alt="Folded red sedimentary beds in outcrop" style="max-height:46vh">
-        <figcaption>Folded beds: sample both limbs.</figcaption>
-      </figure>
-    </div>
-    <div class="wide">
-      <figure>
-        <img src="images/foldtestb.png" alt="Equal-area plots of directions from two fold limbs before and after tilt correction, grouping together after correction for a pre-fold magnetization" style="max-height:46vh">
-        <figcaption>Directions group <em>after</em> tilt correction → magnetization predates
-        folding; group <em>before</em> → postdates. Tauxe &amp; Swanson-Hysell (2026),
-        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
-      </figure>
-    </div>
-    <div class="narrow">
-      <ul style="font-size:0.75em">
-        <li>Demagnetization orders components by <em>stability</em> — field tests bound
-        their <strong>age</strong></li>
-        <li>The fold (tilt) test: does untilting the beds improve the grouping?</li>
-        <li>Positive → remanence acquired <strong>before folding</strong></li>
+    <div class="narrow" style="flex:0.5">
+      <h2>What should D-6A record?</h2>
+      <ul style="font-size:0.72em">
+        <li>Paleomagnetic data from the Duluth Complex: Beck (1970) sites plus our FC/HCT sites</li>
+        <li>Restore each with local tilt gives mean: \(291°/51°\), \(\alpha_{95}\) 2.4°</li>
+        <li>Apply D-6A's approximate tilt (15° toward 135°): that
+        <strong>shallows</strong> the expectation to \(I \approx 37°\)</li>
+        <li>The core is <strong>azimuthally unoriented</strong> — declination is
+        arbitrary, so the prediction is a <strong>small circle of constant
+        inclination</strong></li>
       </ul>
+    </div>
+    <div class="wide" style="flex:2">
+      <figure>
+        <img src="images/duluth_complex_expectation.png" alt="Three equal-area projections: compiled Duluth Complex site directions in geographic coordinates, the same directions restored to paleohorizontal with location-specific tilt corrections converging on a steeper primary direction, and constant-inclination small circles showing the shallower inclination expected in the unoriented D-6A core" style="max-height:62vh">
+        <figcaption>Beck (1970) anorthositic and layered series sites with the new FC/HCT
+        sites (MagIC contribution 17073), tilt-corrected using published igneous-layering
+        orientations. Built with PmagPy from
+        <code>duluth_complex_paleomagnetism.ipynb</code>; compilation and tilt corrections
+        after Swanson-Hysell et al. (2021), <em>Geology</em>.</figcaption>
+      </figure>
     </div>
   </div>
   <aside class="notes">
-    Statistics of "improves the grouping" (parameter comparisons, bootstrap fold
-    tests) belong to the statistics sessions — here it's the logic that matters.
-    Synfolding magnetizations show best grouping at partial untilting; that
-    result is real and diagnostic, not a failure of the test.
+    This is the bridge from the demo data to what the groups will actually do
+    tomorrow. Two ideas do the work. (1) Tilt correction is LOCAL: the Duluth
+    Complex is not one rigid block, so the Beck Duluth-area sites get the West
+    Duluth/Duluth Heights layering (85°/18°) and the FC/HCT sites get the
+    Houghtaling Creek layering (139°/13°). Applying each area's own tilt is what
+    collapses panel (a)'s spread into panel (b)'s single primary direction —
+    that is a fold test passing, in effect. (2) An unoriented core cannot give
+    you declination. Each piece can spin freely about the core axis, so a single
+    predicted direction becomes a small circle at constant inclination. Panel (c)
+    is the target: I ≈ 37°, shallower than the 51° primary because D-6A's own
+    tilt is oblique to the remanence. Tell them what to do with it: directions
+    landing near that circle are candidate primary Keweenawan remanence;
+    steep near-vertical directions are present-field viscous overprints or
+    lightning. Ask the room why the inclination shallows rather than steepens —
+    it depends on the geometry between the tilt axis and the remanence vector,
+    and it is worth having them reason it out rather than take the number.
   </aside>
 </section>
 
-<section>
-  <h2>Conglomerate &amp; baked-contact tests</h2>
-  <div class="cols" style="align-items:flex-start">
-    <div>
-      <figure>
-        <img src="images/congloma.png" alt="Conglomerate outcrop with rounded clasts" style="max-height:26vh">
-        <figcaption>Sample individual clasts…</figcaption>
-      </figure>
-      <figure style="margin-top:0.2em">
-        <img src="images/conglomb.png" alt="Equal-area plots showing random clast directions for a positive conglomerate test and clustered directions for a remagnetized one" style="max-height:22vh">
-        <figcaption>…random directions → the remanence predates the conglomerate.</figcaption>
-      </figure>
-    </div>
-    <div>
-      <figure>
-        <img src="images/baked.png" alt="A dike cutting host rock with baked contact zones adjacent to it" style="max-height:42vh">
-        <figcaption>Baked contact: host rock adjacent to an intrusion is thermally reset —
-        matching directions that grade back to the host direction with distance.
-        Figures: Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em>
-        (CC BY 4.0).</figcaption>
-      </figure>
-    </div>
-    <div style="flex:0.85">
-      <ul style="font-size:0.75em">
-        <li><strong>Conglomerate test</strong>: clasts scrambled at deposition — if their
-        directions are random, the clast lithology's remanence predates deposition</li>
-        <li><strong>Baked-contact test</strong>: a match in the baked zone that decays with
-        distance argues the region wasn't wholesale remagnetized after intrusion</li>
-        <li>Passing tests turn "a stable component" into "<strong>a component of known
-        relative age</strong>"</li>
-      </ul>
-    </div>
-  </div>
+<section class="figslide">
+  <h2>From directions to a paleomagnetic pole</h2>
+  <figure>
+    <img src="images/duluth_complex_pole.png" alt="Three panels: equal-area plot of tilt-corrected site mean directions from the Duluth Complex, virtual geomagnetic poles for those sites on a globe with the Duluth Complex mean pole, and the mean pole compared with a synthesized Midcontinent Rift pole path from 1110 to 1080 Ma" style="max-height:52vh">
+    <figcaption>Left: tilt-corrected site mean directions. Centre: each site's
+    <strong>virtual geomagnetic pole</strong> (VGP) and their Fisher mean — the
+    <strong>Duluth Complex pole, 35.6°N, 188.7°E, N = 24, A95 = 3.1°, k = 92</strong>
+    (sites with α₉₅ &lt; 15°). Right: that pole against the Midcontinent Rift pole path.
+    Swanson-Hysell et al. (2021), <em>Geology</em> <strong>49</strong>, 185–189, Fig. 3.</figcaption>
+  </figure>
+  <ul style="font-size:0.72em; margin-top:0.3em">
+    <li>A direction is <em>local</em>. Convert each site's direction + location into the
+    pole position it implies under a <strong>geocentric axial dipole</strong> — its VGP —
+    and the result is comparable between continents</li>
+    <li>Averaging VGPs averages away <strong>secular variation</strong>; the scatter that
+    remains sets \(A_{95}\)</li>
+    <li>The pole falls <strong>between the 1100 and 1095 Ma</strong> positions on the Rift
+    path — an independent check that the complex is ca. 1096 Ma</li>
+  </ul>
   <aside class="notes">
-    Baked contacts are the aristocrat of the tests for Precambrian work — the
-    Midcontinent Rift literature leans on them. For D-6A: the Archean Giants
-    Range Batholith footwall at the bottom of the hole is a natural
-    baked-contact conversation — does the granite adjacent to the South
-    Kawishiwi intrusion carry the 1.1 Ga direction? A nice stretch question for
-    the felsic group.
+    The conceptual jump of the session: directions are local, poles are global.
+    Two sites on the same continent recording the same field give different
+    declinations and inclinations but the SAME VGP — that is the whole point of
+    the transformation, and it rests entirely on the GAD assumption. Averaging
+    VGPs rather than directions is the convention because the VGP distribution is
+    closer to Fisherian. Note the filter in the caption: only sites with α95 <
+    15°, and only one of the AF/thermal pair per sample, so N = 24 rather than
+    every site. Right panel is the payoff — the pole lands between the 1100 and
+    1095 Ma positions of the independently dated volcanic pole path, which is how
+    a paleomagnetic pole becomes a dating tool.
+  </aside>
+</section>
+
+<section class="figslide">
+  <h2>Reconstructing Laurentia from that pole</h2>
+  <figure>
+    <iframe class="plotframe" data-src="laurentia_reconstruction.html"
+            title="Interactive orthographic globe: rotating the Duluth Complex paleomagnetic pole onto the geographic north pole carries Laurentia to its ca. 1096 Ma latitude and orientation"></iframe>
+    <figcaption>Press <strong>Reconstruct</strong> (or drag the slider) to rotate the pole
+    onto the spin axis; Laurentia is rigidly attached and comes along. Outline from
+    Whitmeyer &amp; Karlstrom (2007) with Greenland closed to its pre-rift fit
+    (Euler pole 67.5°N, 118.5°W, −13.8°). Drag the globe to spin the view.</figcaption>
+  </figure>
+  <aside class="notes">
+    The logic in one sentence: a paleomagnetic pole is where the spin axis was
+    *relative to the plate*, so putting the pole back on the spin axis puts the
+    plate back where it was. It is a single Euler rotation — about an axis on the
+    equator at (pole longitude − 90°) = 98.7°E, through (90° − pole latitude) =
+    54.4°. Watch Duluth: 46.8°N today, 31.9°N at 1096 Ma, matching the ~32°N the
+    paper quotes. That is the tropical Midcontinent Rift.
+    Two caveats worth saying out loud. (1) Paleolongitude is NOT constrained —
+    the reconstruction can slide freely east-west, so only latitude and the
+    continent's azimuthal orientation mean anything; the longitude you see is a
+    display convention. (2) The polarity ambiguity: a pole and its antipode fit
+    the data equally well, so choosing northern over southern hemisphere is an
+    interpretation informed by other poles. Ask the room what a second pole of a
+    different age would add — that is the apparent polar wander path, and the
+    right panel of the previous slide is exactly that path.
   </aside>
 </section>
 
@@ -1325,13 +1367,13 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     <tr><td>Zijderveld + equal area</td><td>plot every step (PmagPy)</td>
         <td>straight segments = components; curvature = overlap</td></tr>
     <tr><td>PCA fits</td><td>choose steps; free vs anchored</td>
-        <td>directions with MAD &amp; DANG quality checks</td></tr>
+        <td>directions with MAD &amp; DANG statistics</td></tr>
     <tr><td>Interpret</td><td>compare units; Koenigsberger ratios</td>
-        <td>which component is the 1.1 Ga TRM — and what else is in there?</td></tr>
+        <td>which component could be a 1.1 Ga TRM — and what else is in there?</td></tr>
   </table>
-  <p style="margin-top:0.8em; font-size:0.85em">Expectations: a steep, north-down <strong>Brunhes VRM</strong>
+  <p style="margin-top:0.8em; font-size:0.85em">Expectations if simple TRM with CRM: a steep down <strong>Brunhes VRM</strong>
   removed in the first few steps, and a <strong>WNW, moderately-down ChRM</strong> — like the FC-site
-  gabbros — heading for the origin. Departures from that expectation are where it gets interesting.</p>
+  gabbros — heading for the origin.</p>
   <aside class="notes">
     Wrap-up: tie every row back to its part of the session. Also preview
     tomorrow: mineralogy (Josh) explains WHICH minerals set the coercivity and
@@ -1438,9 +1480,10 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         assuming linearity</li>
         <li><strong>pARM</strong>: bias only over a coercivity window — the AF analog of pTRM</li>
       </ul>
-      <p class="tiny" style="margin-top:0.5em">Also in this family: GRM — a gyroscopic remanence
-      picked up during AF treatment of some anisotropic/greigite-bearing specimens; it shows up
-      in Part 8's diagnostics.</p>
+      <p class="tiny" style="margin-top:0.5em">Also in this family: <strong>GRM</strong> — a
+      gyroscopic remanence picked up during AF treatment of some anisotropic/greigite-bearing
+      specimens, growing perpendicular to the last AF axis. Its signature is intensity
+      <em>rising</em> at high AF steps; the triple-demag protocol cancels it.</p>
     </div>
   </div>
   <aside class="notes">
@@ -1468,6 +1511,338 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   </ul>
   <p class="small" style="margin-top:0.8em">Slides + interactive widgets:
   <code>S3_remanent_magnetization/</code> — reveal.js, self-contained, works offline.</p>
+</section>
+
+<!-- ================================================================ -->
+<!-- EXTRAS                                                           -->
+<!-- ================================================================ -->
+</section>
+<section id="extras">
+<section class="divider">
+  <p class="kicker">Extras</p>
+  <h2>Additional material</h2>
+</section>
+
+<section>
+  <h2>Best-fit lines: principal component analysis</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.85em">
+        <li>Choose the steps that define a component; build the <strong>orientation
+        tensor</strong> of the (centered) endpoints</li>
+        <li>Eigenvectors \(\mathbf{V}_1, \mathbf{V}_2, \mathbf{V}_3\) with eigenvalues
+        \(\tau_1 \ge \tau_2 \ge \tau_3\)</li>
+        <li><strong>Best-fit line</strong> = \(\mathbf{V}_1\) (free, or anchored to the origin);
+        <strong>best-fit plane</strong> (great circle) = the plane ⊥ \(\mathbf{V}_3\)</li>
+        <li>Quality: the <strong>maximum angle of deviation</strong>,</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.95em">
+        \(\mathrm{MAD} = \tan^{-1}\!\left(\sqrt{(\tau_2^2 + \tau_3^2)/\tau_1}\right), \qquad
+        \mathrm{MAD}_{\mathrm{plane}} = \tan^{-1}\!\sqrt{\tau_3/\tau_2 + \tau_3/\tau_1}\)
+      </div>
+      <ul style="font-size:0.85em">
+        <li>Plus <strong>DANG</strong>, the angle between the line and the origin direction</li>
+      </ul>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.8em">
+        <li>Kirschvink (1980) — the universal standard (PmagPy: <code>pmag.domean</code>,
+        Demag GUI, <code>zeq</code>)</li>
+        <li>Rules of thumb: fit ≥ 4 steps; MAD ≲ 5–10° for a line you'd defend;
+        inspect DANG before calling it ChRM</li>
+        <li>Component directions → Fisher site means → poles (tomorrow's statistics)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The Zijderveld explorer widget in Part 7 computes exactly this (free line) —
+    students have already seen MAD respond to overlap. Equation form as in Essentials ch. 9.
+    Anchored vs free fits: anchor only when the segment demonstrably heads to the
+    origin (small DANG); otherwise you bias the direction. Great-circle-plus-
+    line combined site means: McFadden & McElhinny approach, mentioned for the
+    curious.
+  </aside>
+</section>
+
+<section>
+  <h2>The fold test</h2>
+  <div class="cols">
+    <div class="narrow">
+      <figure>
+        <img src="images/foldtesta.png" alt="Folded red sedimentary beds in outcrop" style="max-height:46vh">
+        <figcaption>Folded beds: sample both limbs.</figcaption>
+      </figure>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="images/foldtestb.png" alt="Equal-area plots of directions from two fold limbs before and after tilt correction, grouping together after correction for a pre-fold magnetization" style="max-height:46vh">
+        <figcaption>Directions group <em>after</em> tilt correction → magnetization predates
+        folding; group <em>before</em> → postdates. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.75em">
+        <li>Demagnetization orders components by <em>stability</em> — field tests bound
+        their <strong>age</strong></li>
+        <li>The fold (tilt) test: does untilting the beds improve the grouping?</li>
+        <li>Positive → remanence acquired <strong>before folding</strong></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Statistics of "improves the grouping" (parameter comparisons, bootstrap fold
+    tests) belong to the statistics sessions — here it's the logic that matters.
+    Synfolding magnetizations show best grouping at partial untilting; that
+    result is real and diagnostic, not a failure of the test.
+  </aside>
+</section>
+
+<section>
+  <h2>The conglomerate test</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/congloma.png" alt="Conglomerate outcrop with rounded clasts" style="max-height:34vh">
+        <figcaption>Sample individual clasts…</figcaption>
+      </figure>
+      <figure style="margin-top:0.3em">
+        <img src="images/conglomb.png" alt="Equal-area plots showing random clast directions for a positive conglomerate test and clustered directions for a remagnetized one" style="max-height:26vh">
+        <figcaption>…random directions → the remanence predates the conglomerate.
+        Tauxe &amp; Swanson-Hysell (2026), <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li>Clasts were <strong>reoriented at deposition</strong> — whatever remanence they
+        carried was randomized with them</li>
+        <li><strong>Random</strong> clast directions → the clast lithology's remanence
+        <em>predates</em> deposition, and the region was not remagnetized since</li>
+        <li><strong>Clustered</strong> clast directions → everything was remagnetized
+        <em>after</em> the conglomerate formed — a negative test</li>
+        <li>Note what is being tested: the age of the remanence in the <em>clasts</em>,
+        relative to the conglomerate</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The cleanest logic of all the field tests, and the easiest to state: if the
+    clasts were tumbled into place, their directions must be random unless
+    something reset them afterward. Randomness here is a statistical claim —
+    testing it properly (uniformity tests on a directional distribution) is a
+    statistics-session topic. Watch for the intraformational case, where clasts
+    were reworked from still-soft sediment, and for clasts too big to have been
+    fully rotated.
+  </aside>
+</section>
+
+<section>
+  <h2>The baked-contact test</h2>
+  <div class="cols">
+    <div class="wide">
+      <figure>
+        <img src="images/baked.png" alt="A dike cutting host rock with baked contact zones adjacent to it" style="max-height:50vh">
+        <figcaption>An intrusion thermally resets its host rock, most completely at the
+        contact and less with distance. Tauxe &amp; Swanson-Hysell (2026),
+        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
+      </figure>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.78em">
+        <li>An intrusion <strong>bakes its host</strong>: rock at the contact is heated above
+        its blocking temperatures and acquires the <em>intrusion's</em> direction</li>
+        <li>Walk away from the contact and the direction should <strong>grade back</strong>
+        to the host rock's own, older direction</li>
+        <li>That gradient is the test: it shows the region was <strong>not wholesale
+        remagnetized</strong> after the intrusion cooled</li>
+        <li>An <strong>inverse</strong> baked-contact test — unbaked host retaining a
+        <em>younger</em> direction than the intrusion — flags the intrusion as remagnetized</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    The aristocrat of the tests for Precambrian work, and the Midcontinent Rift
+    literature leans on it heavily. The gradient is what carries the argument —
+    a match at the contact alone proves nothing, since a regional overprint
+    would also produce one. For D-6A: the Archean Giants Range Batholith
+    footwall at the bottom of the hole is a natural baked-contact conversation.
+    Does the granite adjacent to the South Kawishiwi intrusion carry the 1.1 Ga
+    direction, and does it grade back to something Archean away from the
+    contact? A good stretch question for the felsic group.
+  </aside>
+</section>
+
+<section>
+  <h2>Gyroremanent magnetization (GRM)</h2>
+  <div class="cols">
+    <div class="wide">
+      <ul style="font-size:0.82em">
+        <li>Some specimens <strong>acquire</strong> a remanence during AF treatment rather
+        than losing one — a <strong>gyroremanence</strong>, growing
+        <strong>perpendicular to the last AF axis</strong></li>
+        <li>Its signature is unmistakable on the decay curve: intensity that
+        <strong>rises</strong> at high AF steps, with directions swinging toward that
+        perpendicular axis</li>
+        <li>Characteristic of <strong>magnetically anisotropic</strong> specimens —
+        <strong>greigite</strong> above all, and some hematite</li>
+        <li>The fix is the <strong>triple-demagnetization protocol</strong>: demagnetize
+        along x, then y, then z, measuring after each, and average — the GRM contributions
+        cancel</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.9em; margin-top:0.6em">
+        Rising intensity at high AF is a <strong>lab-induced</strong> remanence,
+        not a recovered signal.
+      </div>
+    </div>
+    <div class="narrow">
+      <ul style="font-size:0.76em">
+        <li>Why it matters: mistaken for a "high-coercivity component", GRM invents a
+        direction that never existed in the rock</li>
+        <li>Greigite-bearing sediments are the classic case — worth suspecting whenever
+        AF demagnetization misbehaves above ~60 mT</li>
+        <li>If GRM is present and cannot be cancelled, thermal demagnetization is the
+        alternative — different physics, different artifacts</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    This slide teaches healthy paranoia. Students are trained to read a
+    Zijderveld as a story of removal, so intensity that climbs is genuinely
+    surprising the first time — make them look at the decay panel, not just the
+    vector plot. GRM attribution as carried in this deck: Stephenson (1981) for
+    the gyroremanence itself, Stephenson (1993) for the triple-demag correction;
+    greigite's association with GRM is why it comes up in environmental
+    magnetism. Connect it back to ARM: both are remanences the AF treatment
+    gives you rather than takes away, which is why zero DC field and clean
+    waveforms matter so much.
+  </aside>
+</section>
+
+<section>
+  <h2>Inside a superconducting rock magnetometer</h2>
+  <p class="tagline">the SQUID counts flux quanta</p>
+  <div class="cols" style="align-items:flex-start">
+    <div class="wide">
+      <svg viewBox="0 0 430 250" style="width:84%; display:block; margin:0 auto"
+           role="img" aria-label="Cross-section of a superconducting rock magnetometer: a specimen on a handler rod travels along the bore through three orthogonal superconducting pickup coils, each coupled to a SQUID sensor, inside nested mu-metal and superconducting shields immersed in liquid helium">
+        <!-- dewar / liquid He space -->
+        <rect x="26" y="30" width="400" height="190" rx="10" fill="#eef4f8" stroke="#9bb4c4" stroke-width="2"/>
+        <!-- mu-metal shield -->
+        <rect x="42" y="46" width="368" height="158" rx="8" fill="#fbfaf8" stroke="#8a8a8a" stroke-width="3"/>
+        <!-- superconducting (Nb) shield -->
+        <rect x="58" y="62" width="336" height="126" rx="6" fill="#fff" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <!-- bore, open at both ends -->
+        <rect x="0" y="106" width="426" height="38" fill="#fff" stroke="#d8d2ca" stroke-width="1.5"/>
+        <!-- handler rod + specimen -->
+        <line x1="0" y1="125" x2="95" y2="125" stroke="#a8a29a" stroke-width="5"/>
+        <rect x="95" y="109" width="32" height="32" fill="#f5ead6" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="103" y1="135" x2="119" y2="116" stroke="var(--accent)" stroke-width="2.5"/>
+        <polygon points="123,112 113,116 119,122" fill="var(--accent)"/>
+        <!-- direction of travel -->
+        <line x1="139" y1="125" x2="170" y2="125" stroke="#7a7a7a" stroke-width="2" stroke-dasharray="5 4"/>
+        <polygon points="178,125 166,120 166,130" fill="#7a7a7a"/>
+        <!-- z (axial) sensing coil + SQUID -->
+        <ellipse cx="200" cy="125" rx="12" ry="34" fill="none" stroke="#1f6fb2" stroke-width="2.5"/>
+        <ellipse cx="216" cy="125" rx="12" ry="34" fill="none" stroke="#1f6fb2" stroke-width="2.5"/>
+        <line x1="208" y1="91" x2="208" y2="86" stroke="#1f6fb2" stroke-width="2"/>
+        <rect x="188" y="66" width="40" height="20" rx="3" fill="#fff" stroke="#1f6fb2" stroke-width="2"/>
+        <text x="208" y="80" font-size="11" text-anchor="middle" fill="#1f6fb2">SQUID</text>
+        <text x="208" y="172" font-size="13" text-anchor="middle" fill="#1f6fb2" font-style="italic">z</text>
+        <!-- x sensing coil + SQUID -->
+        <ellipse cx="270" cy="125" rx="12" ry="34" fill="none" stroke="#0a7d44" stroke-width="2.5"/>
+        <ellipse cx="286" cy="125" rx="12" ry="34" fill="none" stroke="#0a7d44" stroke-width="2.5"/>
+        <line x1="278" y1="91" x2="278" y2="86" stroke="#0a7d44" stroke-width="2"/>
+        <rect x="258" y="66" width="40" height="20" rx="3" fill="#fff" stroke="#0a7d44" stroke-width="2"/>
+        <text x="278" y="80" font-size="11" text-anchor="middle" fill="#0a7d44">SQUID</text>
+        <text x="278" y="172" font-size="13" text-anchor="middle" fill="#0a7d44" font-style="italic">x</text>
+        <!-- y sensing coil + SQUID -->
+        <ellipse cx="340" cy="125" rx="12" ry="34" fill="none" stroke="#c25400" stroke-width="2.5"/>
+        <ellipse cx="356" cy="125" rx="12" ry="34" fill="none" stroke="#c25400" stroke-width="2.5"/>
+        <line x1="348" y1="91" x2="348" y2="86" stroke="#c25400" stroke-width="2"/>
+        <rect x="328" y="66" width="40" height="20" rx="3" fill="#fff" stroke="#c25400" stroke-width="2"/>
+        <text x="348" y="80" font-size="11" text-anchor="middle" fill="#c25400">SQUID</text>
+        <text x="348" y="172" font-size="13" text-anchor="middle" fill="#c25400" font-style="italic">y</text>
+        <!-- annotations -->
+        <text x="66" y="80" font-size="11" fill="var(--accent)">superconducting shield</text>
+        <text x="66" y="95" font-size="11" fill="#8a8a8a">μ-metal shield</text>
+        <text x="42" y="214" font-size="11" fill="#5c7d92">liquid He, 4.2 K</text>
+        <text x="120" y="172" font-size="11" text-anchor="middle" fill="#6a6a6a">specimen on handler rod</text>
+        <text x="226" y="200" font-size="11" text-anchor="middle" fill="var(--muted)">superconducting pickup coils</text>
+      </svg>
+      <p class="tiny" style="text-align:center; margin:0.1em 0 0.3em">
+        Schematic cross-section of a 2G-style SRM — the specimen translates along the bore
+        through three orthogonal sensing regions.</p>
+      <svg viewBox="0 0 430 118" style="width:74%; display:block; margin:0 auto"
+           role="img" aria-label="Left: a superconducting ring interrupted by two Josephson junctions with magnetic flux threading it. Right: the SQUID output plotted against enclosed flux, a periodic curve whose period is one flux quantum.">
+        <!-- SQUID ring, viewed obliquely, with flux threading it.
+             Draw order gives the occlusion: arrow behind the plane, then the
+             ring, then the arrow in front of the plane. -->
+        <line x1="59.2" y1="94.3" x2="66" y2="62" stroke="var(--accent)" stroke-width="2.5"/>
+        <ellipse cx="66" cy="62" rx="38" ry="26" fill="none" stroke="#1f6fb2" stroke-width="4"/>
+        <rect x="22" y="55" width="12" height="14" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="98" y="55" width="12" height="14" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="66" y1="62" x2="73" y2="29" stroke="var(--accent)" stroke-width="2.5"/>
+        <polygon points="76,20 67.9,31.6 78.7,33.8" fill="var(--accent)"/>
+        <text x="83" y="24" font-size="13" fill="var(--accent)" font-style="italic">Φ</text>
+        <text x="66" y="112" font-size="11" text-anchor="middle" fill="var(--ink)">ring + 2 Josephson junctions</text>
+        <!-- V versus flux -->
+        <line x1="212" y1="96" x2="424" y2="96" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="212" y1="96" x2="212" y2="22" stroke="var(--ink)" stroke-width="2"/>
+        <polyline fill="none" stroke="#1f6fb2" stroke-width="2.5" points="220,36.0 224,38.0 228,43.6 232,52.1 236,62.0 240,71.9 244,80.4 248,86.0 252,88.0 256,86.0 260,80.4 264,71.9 268,62.0 272,52.1 276,43.6 280,38.0 284,36.0 288,38.0 292,43.6 296,52.1 300,62.0 304,71.9 308,80.4 312,86.0 316,88.0 320,86.0 324,80.4 328,71.9 332,62.0 336,52.1 340,43.6 344,38.0 348,36.0 352,38.0 356,43.6 360,52.1 364,62.0 368,71.9 372,80.4 376,86.0 380,88.0 384,86.0 388,80.4 392,71.9 396,62.0 400,52.1 404,43.6 408,38.0 412,36.0 416,38.0 420,43.6"/>
+        <line x1="284" y1="26" x2="348" y2="26" stroke="var(--accent)" stroke-width="2"/>
+        <polygon points="282,26 292,22 292,30" fill="var(--accent)"/>
+        <polygon points="350,26 340,22 340,30" fill="var(--accent)"/>
+        <text x="316" y="20" font-size="12" text-anchor="middle" fill="var(--accent)" font-style="italic">Φ₀</text>
+        <text x="204" y="30" font-size="12" text-anchor="end" fill="var(--ink)" font-style="italic">V</text>
+        <text x="424" y="112" font-size="12" text-anchor="end" fill="var(--ink)" font-style="italic">Φ</text>
+        <text x="318" y="112" font-size="11" text-anchor="middle" fill="var(--ink)">output is periodic in flux</text>
+      </svg>
+    </div>
+    <div class="narrow" style="flex:0.95">
+      <ul style="font-size:0.63em; margin-top:0">
+        <li>A <strong>superconducting pickup loop</strong> rings the bore. Moving the specimen
+        past it changes the enclosed flux, and because the loop has no resistance the
+        induced <strong>supercurrent persists</strong> rather than decaying</li>
+        <li>That current is coupled into a <strong>SQUID</strong>: a superconducting ring
+        interrupted by two Josephson junctions. It is a <strong>flux-to-voltage
+        transducer</strong> — its voltage is <em>periodic</em> in the enclosed flux, one
+        period per flux quantum</li>
+        <li>A <strong>flux-locked loop</strong> feeds back just enough current to null the
+        flux — the feedback current <em>is</em> the reading, so the response stays linear
+        over many decades</li>
+        <li>Coils are wound as <strong>gradiometers</strong> inside nested μ-metal and
+        superconducting shields: a uniform ambient field cancels, a nearby dipole does not</li>
+        <li>Three coils at slightly offset positions along the bore give the full
+        <strong>vector in one pass</strong> — seconds per specimen, no spinning</li>
+      </ul>
+      <div class="eqbox" style="font-size:0.72em; margin:0.4em 0">
+        \(\Phi_0 = \dfrac{h}{2e} = 2.07\times10^{-15}\ \mathrm{Wb}\)
+      </div>
+      <p class="tiny" style="margin:0.2em 0 0">Noise floor ~10⁻¹² Am² — orders of magnitude
+      below a spinner, which is what puts weak sediments and single crystals in reach.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    The key point: this is not a more sensitive coil, it is a different measurement. A
+    spinner measures an emf, which scales with how fast you spin; a SQUID measures flux
+    directly, so sensitivity does not depend on motion. Flux quantization in the
+    superconducting loop sets the scale — Φ₀ = h/2e ≈ 2.07 × 10⁻¹⁵ Wb — and the SQUID
+    resolves a small fraction of one quantum.
+
+    Practical consequences worth flagging for the summer school: (1) the three sensing
+    coils sit at different positions along the bore, which is why long-core and u-channel
+    data need a sensor-offset correction and why the response function matters for
+    deconvolution; (2) the shields make the bore a near-zero-field space, so specimens can
+    sit inside without picking up a VRM during measurement; (3) a lightning-struck or
+    otherwise very strong specimen can drive a flux jump — the FLL loses lock and the
+    reading is off by an integer number of quanta, which is why you check for
+    unreasonably large moments; (4) the IRM's RAPID system wraps this in an automated
+    handler with in-line AF coils and ARM/IRM capability, so hundreds of demagnetization
+    steps run unattended.
+
+    Ask the group: given the noise floor here, what actually limits us on a weak sediment —
+    the magnetometer, or the sample holder's own moment? (Usually the holder.)
+  </aside>
 </section>
 
 <section>
