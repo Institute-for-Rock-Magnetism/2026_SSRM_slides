@@ -18,7 +18,7 @@ in which we work with drill core D-6A through the week.
 | | 10:15–11:30 | [Project introduction](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S1_Duluth_dia_para_ferro/) | Nick Swanson-Hysell |
 | **Tue July 21** · Rm 401-20 | 8:30–9:30 | [Fine particle magnetism I](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S2_fine_particle_magnetization/) | Nick Swanson-Hysell |
 | | 9:45–10:45 | [Fine particle magnetism II](https://institute-for-rock-magnetism.github.io/2026_SSRM_slides/S2_fine_particle_magnetization/) | Nick Swanson-Hysell |
-| | 11:00–12:00 | Magnetic domain states | Maxwell Brown |
+| | 11:00–12:00 | [Magnetic domain states](https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/Lecture_PDFs/SSRM2026_magnetic_domains.pdf) | Maxwell Brown |
 | **Wed July 22** · Rm 301-20 | 9:00–12:00 | Remanent magnetization: how rocks become and stay magnetized *(breaks interspersed)* | Nick Swanson-Hysell |
 | **Thu July 23** · Rm 301-20 | 9:00–12:00 | Magnetic mineralogy | Josh Feinberg |
 | | | Low-temperature magnetism *(breaks interspersed)* | Josh Feinberg |
