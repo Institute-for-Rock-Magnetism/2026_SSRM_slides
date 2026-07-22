@@ -1103,8 +1103,10 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         <strong>to the origin</strong></li>
         <li><strong>Straight segments</strong> = separable components;
         <strong>curvature</strong> = overlapping stability spectra</li>
-        <li>The <strong>direction of each segment</strong> = the direction of the component
-        being removed over those steps</li>
+        <li>Each segment lies <strong>along</strong> the direction of the component being
+        removed — but read it <strong>from the later step back toward the earlier one</strong>
+        (away from the origin). The endpoint travels the <em>opposite</em> way, because each
+        step <em>subtracts</em> that component</li>
       </ul>
       <p class="small" style="margin-top:0.7em">Equal-area projections complement the
       Zijderveld view: they show the <em>direction</em> of the surviving vector migrating
@@ -1112,6 +1114,16 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     </div>
   </div>
   <aside class="notes">
+    Be explicit about the sign, because it trips people up every year. The
+    plotted point is the tip of what SURVIVES, so the move from step i to step
+    i+1 is M(i+1) − M(i) — minus the component just removed. The path therefore
+    runs toward the origin while the component itself points away from it. The
+    easiest sanity check to give the room: on the final segment the surviving
+    magnetization IS the ChRM, so its direction is simply the direction from the
+    origin out to the plotted point — and the segment is collinear with that.
+    This is also why PCA routines must fix the eigenvector sign by hand: the
+    orientation tensor gives an axis, not a direction, so the code orients it
+    from the late steps back toward the early ones.
     Warn about the classic trap: plotting H = √(x1²+x2²) vs x3 ("component
     plot") looks like a Zijderveld vertical projection but is NOT a linear
     projection — the apparent coordinate system changes at every step. Also
@@ -1394,34 +1406,33 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
 </section>
 
 <section>
-  <h2>Isothermal remanent magnetization</h2>
-  <div class="cols">
-    <div class="wide">
-      <figure>
-        <img src="images/irm.png" alt="IRM acquisition curve to saturation remanence and back-field demagnetization curve defining the coercivity of remanence" style="max-height:52vh">
-        <figcaption>IRM acquisition to \(sIRM\) (\(M_r\)) and back-field demagnetization;
-        \(H_{cr}\) where the back-field curve crosses zero. Tauxe &amp; Swanson-Hysell (2026),
-        <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
-      </figure>
-    </div>
-    <div class="narrow">
-      <ul style="font-size:0.8em">
-        <li>Expose a grain to a field <strong>larger than its coercivity</strong> at constant
-        temperature: its moment flips and stays — an <strong>IRM</strong>, no Boltzmann
-        statistics needed</li>
-        <li>Ramp the field up: grains flip in order of coercivity → the
-        <strong>IRM acquisition curve</strong> maps the coercivity spectrum</li>
-        <li>Saturation IRM (\(sIRM\), \(M_r\)): every grain aligned as far as anisotropy allows</li>
-        <li>Reverse field to walk back through zero: <strong>coercivity of remanence</strong>
-        \(H_{cr}\)</li>
-      </ul>
-    </div>
-  </div>
+  <h2>Isothermal remanent magnetization (IRM)</h2>
+  <p class="tagline">apply a field at a set temperature (usually room temperature)</p>
+  <figure>
+    <img src="images/irm_acquisition.png" alt="Left: a sequence of field pulses increasing from 5 mT to 2 T on a log scale, and the resulting remanence, which rises in steps and levels off at saturation. Right: the IRM acquisition curve, remanence versus pulse field on a log axis to 2 T, rising through the coercivity spectrum and flat from a few hundred mT onward at the saturation IRM" style="width:100%; max-height:56vh">
+  </figure>
+  <ul style="font-size:0.78em; margin-top:0.3em">
+    <li><strong>Pulse</strong> at constant temperature in a field bigger than a grain's
+    coercivity — the moment flips and stays. That's an <strong>IRM</strong></li>
+    <li>Repeat with bigger pulses → the <strong>acquisition curve</strong>, whose rise
+    traces the <strong>coercivity spectrum</strong></li>
+    <li>It flattens at <strong>sIRM</strong> (\(M_r\)) — the most remanence the sample
+    can hold</li>
+  </ul>
   <aside class="notes">
+    Contrast with the last three parts: TRM needed cooling, VRM needed time, CRM
+    needed grain growth. IRM needs none of them — the field simply overwhelms the
+    barrier, which is why "isothermal" is in the name. It is also the least
+    interesting remanence to find in a rock and the easiest to make in a lab.
     IRM is the remanence of the hysteresis loop they measured on the VSM — the
-    zero-field intercept after saturation. In the lab it's a workhorse
-    (coercivity spectra, S-ratios, unmixing — later in the school). In nature
-    it means one thing above all: lightning.
+    zero-field intercept after saturation, so sIRM here and Mr there are the same
+    quantity. In the lab it is a workhorse: coercivity spectra, S-ratios,
+    unmixing — later in the school. In nature it means one thing above all:
+    lightning, next slide.
+    If asked about the reverse experiment: applying a backfield and walking the
+    remanence down through zero defines the coercivity of remanence, Hcr — useful
+    for Day-plot style domain-state diagnostics, but that belongs with hysteresis
+    rather than here.
   </aside>
 </section>
 
@@ -1463,36 +1474,51 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   <div class="cols">
     <div class="wide">
       <figure>
-        <img src="images/ARM.png" alt="Decaying alternating field with a small DC bias field producing an ARM, and a partial ARM from applying the bias over a limited field window" style="max-height:52vh">
+        <img src="images/ARM.png" alt="Decaying alternating field with a small DC bias field producing an ARM, and a partial ARM from applying the bias over a limited field window" style="max-height:42vh">
         <figcaption>ARM: a decaying AF with a small DC bias; pARM: bias applied over a chosen
         coercivity window only. Tauxe &amp; Swanson-Hysell (2026),
         <em>Essentials of Paleomagnetism</em> (CC BY 4.0).</figcaption>
       </figure>
     </div>
     <div class="narrow">
-      <ul style="font-size:0.8em">
+      <ul style="font-size:0.76em">
         <li>Decaying AF <em>plus</em> a small DC bias (≈ 50–100 μT): as each grain's
         coercivity is passed, it freezes <strong>biased by the DC field</strong> instead
         of randomly — an <strong>ARM</strong></li>
         <li>An analog of TRM with the AF playing the role of temperature — without the
         chemistry-altering heat</li>
-        <li>\(\chi_{ARM}\) (ARM per unit bias field) — a fine-grain concentration proxy,
-        assuming linearity</li>
+        <li><strong>ARM acquisition</strong>: hold the AF peak fixed (say 100 mT) and step
+        the <em>bias</em> up, measuring each time — the IRM-acquisition idea with the bias
+        field as the variable. In weak fields it is linear, and its slope is
+        \(\chi_{ARM}\)</li>
         <li><strong>pARM</strong>: bias only over a coercivity window — the AF analog of pTRM</li>
       </ul>
-      <p class="tiny" style="margin-top:0.5em">Also in this family: <strong>GRM</strong> — a
-      gyroscopic remanence picked up during AF treatment of some anisotropic/greigite-bearing
-      specimens, growing perpendicular to the last AF axis. Its signature is intensity
-      <em>rising</em> at high AF steps; the triple-demag protocol cancels it.</p>
     </div>
   </div>
+  <div class="eqbox" style="font-size:0.72em; margin-top:0.5em">
+    ARM is considered a TRM analog that can be imparted without heating
+    can impart <strong>without heating</strong> — no thermochemical alteration, so the same
+    specimen can be given it over and over. It preferentially activates
+    <strong>fine, SD-size grains</strong>, which makes \(\chi_{ARM}\) and ARM/sIRM workhorse
+    grain-size and concentration proxies; and it stands in for TRM where TRM is unavailable —
+    normalizing NRM for <strong>relative paleointensity</strong> in sediments, and in
+    pseudo-Thellier and Shaw-type paleointensity methods.
+  </div>
   <aside class="notes">
-    ARM matters here for two reasons: (1) it is the physics of the AF demag
+    ARM matters here for three reasons: (1) it is the physics of the AF demag
     widget from the previous part — demagnetization is ARM acquisition with zero bias field;
     any stray DC field in the demag coil imparts an unwanted ARM; (2) χARM is a
-    staple of environmental magnetism and relative paleointensity. GRM
-    (Stephenson, 1981): acquired perpendicular to the last AF axis — the triple
-    demag protocol corrects for it.
+    staple of environmental magnetism; (3) it is the practical substitute for TRM.
+    Emphasize why that substitution matters: heating a sediment or a sulfide-bearing
+    rock to give it a TRM often destroys the very mineral you are trying to measure,
+    and you only get one shot. ARM is imparted at room temperature on the same AF
+    equipment used for demagnetization, so it is repeatable and non-destructive —
+    that is the whole reason the pseudo-Thellier and relative-paleointensity
+    literature is built on it. The caveat worth stating: ARM is only a proxy for
+    TRM. The two have different coercivity dependence and the ARM/TRM ratio depends
+    on grain size and domain state, so relative paleointensity is relative, not
+    absolute. GRM, the other remanence AF treatment can impart, has its own slide
+    in the extras.
   </aside>
 </section>
 
@@ -1537,7 +1563,7 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         <li>Quality: the <strong>maximum angle of deviation</strong>,</li>
       </ul>
       <div class="eqbox" style="font-size:0.95em">
-        \(\mathrm{MAD} = \tan^{-1}\!\left(\sqrt{(\tau_2^2 + \tau_3^2)/\tau_1}\right), \qquad
+        \(\mathrm{MAD}_{\mathrm{line}} = \tan^{-1}\!\sqrt{(\tau_2 + \tau_3)/\tau_1}, \qquad
         \mathrm{MAD}_{\mathrm{plane}} = \tan^{-1}\!\sqrt{\tau_3/\tau_2 + \tau_3/\tau_1}\)
       </div>
       <ul style="font-size:0.85em">
@@ -1648,15 +1674,18 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
       </figure>
     </div>
     <div class="narrow">
-      <ul style="font-size:0.78em">
+      <ul style="font-size:0.68em">
         <li>An intrusion <strong>bakes its host</strong>: rock at the contact is heated above
         its blocking temperatures and acquires the <em>intrusion's</em> direction</li>
         <li>Walk away from the contact and the direction should <strong>grade back</strong>
         to the host rock's own, older direction</li>
         <li>That gradient is the test: it shows the region was <strong>not wholesale
         remagnetized</strong> after the intrusion cooled</li>
-        <li>An <strong>inverse</strong> baked-contact test — unbaked host retaining a
-        <em>younger</em> direction than the intrusion — flags the intrusion as remagnetized</li>
+        <li>An <strong>inverse</strong> baked-contact test flips the roles: a <em>younger</em>
+        cross-cutting intrusion tests an <em>older</em> target remanence — reset toward the
+        intrusion at the contact, grading back to the older unit's own direction away from it</li>
+        <li>It shows the older remanence <strong>predates the cross-cutter</strong> — an
+        older-than bound, <em>not</em> proof of acquisition at emplacement</li>
       </ul>
     </div>
   </div>
@@ -1669,6 +1698,15 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     Does the granite adjacent to the South Kawishiwi intrusion carry the 1.1 Ga
     direction, and does it grade back to something Archean away from the
     contact? A good stretch question for the felsic group.
+
+    Keep the two directions of inference straight. The normal test asks whether
+    the region escaped later wholesale remagnetization, using the intrusion's
+    own direction as the known quantity. The inverse test runs the other way: a
+    younger cross-cutting body is the tool, and the older unit's remanence is
+    what's on trial. Passing it brackets the older remanence as pre-dating the
+    cross-cutter — an older-than bound, not a demonstration that the remanence
+    is primary at the emplacement age. The NWD1–NED17 result is described exactly
+    this way in Swanson-Hysell et al. (2021), doi:10.1029/2021TC006751.
   </aside>
 </section>
 
@@ -1685,9 +1723,12 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         perpendicular axis</li>
         <li>Characteristic of <strong>magnetically anisotropic</strong> specimens —
         <strong>greigite</strong> above all, and some hematite</li>
-        <li>The fix is the <strong>triple-demagnetization protocol</strong>: demagnetize
-        along x, then y, then z, measuring after each, and average — the GRM contributions
-        cancel</li>
+        <li>The fix is the <strong>three-axis (triple-demagnetization) protocol</strong>:
+        demagnetize along x, then y, then z, measuring after each, and combine them with the
+        <strong>Dankers–Zijderveld / Stephenson algebra</strong> — <em>not</em> a simple
+        vector average of the three</li>
+        <li>It assumes the induced GRM is <strong>perpendicular to the applied AF axis</strong>,
+        and can fail for strongly GRM-producing specimens</li>
       </ul>
       <div class="eqbox" style="font-size:0.9em; margin-top:0.6em">
         Rising intensity at high AF is a <strong>lab-induced</strong> remanence,
@@ -1699,7 +1740,8 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
         <li>Why it matters: mistaken for a "high-coercivity component", GRM invents a
         direction that never existed in the rock</li>
         <li>Greigite-bearing sediments are the classic case — worth suspecting whenever
-        AF demagnetization misbehaves above ~60 mT</li>
+        AF demagnetization misbehaves above ~60 mT, and greigite can acquire GRM partly
+        <em>parallel</em> to the treatment axis, breaking the correction's assumption</li>
         <li>If GRM is present and cannot be cancelled, thermal demagnetization is the
         alternative — different physics, different artifacts</li>
       </ul>
@@ -1710,8 +1752,15 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     Zijderveld as a story of removal, so intensity that climbs is genuinely
     surprising the first time — make them look at the decay panel, not just the
     vector plot. GRM attribution as carried in this deck: Stephenson (1981) for
-    the gyroremanence itself, Stephenson (1993) for the triple-demag correction;
-    greigite's association with GRM is why it comes up in environmental
+    the gyroremanence itself; Dankers &amp; Zijderveld (1981),
+    doi:10.1016/0012-821X(81)90029-7 and Stephenson (1993), doi:10.1029/92JB01849
+    for the three-axis correction algebra; Hu et al. (1998),
+    doi:10.1046/j.1365-246X.1998.00627.x for the greigite case where GRM is not
+    purely perpendicular to the treatment axis and the correction breaks down.
+    Stress that the three sequential measurements represent three different
+    stages of progressive demagnetization, so averaging the full vectors is not
+    the right operation — the published algebra is.
+    Greigite's association with GRM is why it comes up in environmental
     magnetism. Connect it back to ARM: both are remanences the AF treatment
     gives you rather than takes away, which is why zero DC field and clean
     waveforms matter so much.
@@ -1877,17 +1926,23 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
   <div class="cols">
     <div class="wide">
       <ul style="font-size:0.85em; margin-top:0.5em; list-style-type: square;">
-        <li style="margin-bottom: 1em;">
-          <strong>The Weak-Field Linear Approximation:</strong> 
-          Within Earth's ambient field ranges (measured in microtesla, \(\mu\)T), the argument inside our hyperbolic tangent is close to zero. Because:
-          <div style="text-align: center; margin: 0.5em 0; font-weight: bold; font-size: 1.1em; color: #922222;">
-            \(\tanh x \approx x \quad \rightarrow \quad \mathbf{TRM \propto B}\)
+        <li style="margin-bottom: 0.8em;">
+          <strong>The weak-field linear approximation:</strong>
+          the argument of the hyperbolic tangent is small whenever
+          <div style="text-align: center; margin: 0.5em 0; font-weight: bold; font-size: 1.05em; color: #922222;">
+            \(m(T_b)\,B \ll k_B T_b \quad \rightarrow \quad \tanh x \approx x \quad \rightarrow \quad \mathbf{TRM \propto B}\)
           </div>
-          The complex integral collapses into a direct linear scaling. This clean proportionality is the absolute structural foundation of all <strong>paleointensity</strong> experiments.
+          Most <strong>absolute TRM paleointensity</strong> methods assume or test this
+          low-field proportionality.
         </li>
         <li>
-          <strong>High-Field Saturation:</strong> 
-          As fields increase toward \(\sim0.2\) T and beyond, the \(\tanh\) function flattens out as every available grain aligns. Natural lava flows record weak fields beautifully and linearly, but larger or non-ideal grain sizes will deviate from this linearity even under common laboratory fields.
+          <strong>Where linearity ends is grain-dependent:</strong>
+          the condition involves \(m(T_b) = M_s(T_b)\,v\), so the range of linear behavior
+          depends on grain volume, domain state and blocking temperature — there is
+          <strong>no universal threshold field</strong>. Many suitable recorders are
+          approximately linear across geomagnetic field strengths, but some silicate-hosted
+          magnetite and <strong>vortex-state</strong> grains show appreciable nonlinearity
+          even at tens of \(\mu\)T.
         </li>
       </ul>
     </div>
@@ -1901,7 +1956,17 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     </div>
   </div>
   <aside class="notes">
-    Paleointensity methods lean entirely on this weak-field linearity to extrapolate ancient field metrics. The plots on the right elegantly demonstrate this: Panel (a) shows the ideal single-domain theoretical curves flattening out at high fields, while Panel (b) shows actual experimental sample points matching this behavior perfectly in weak fields before tapering off.
+    Panel (a) shows ideal single-domain theoretical curves flattening at high
+    fields; panel (b) shows experimental points from natural specimens. Resist
+    the temptation to read a single saturation field off these curves — the
+    controlling ratio is m(T_b)B / k_B T_b, and m(T_b) = Ms(T_b)·v spans orders
+    of magnitude across a natural grain population, so the field at which
+    curvature becomes appreciable moves with grain volume, domain state and
+    blocking temperature. Selkin, Gee &amp; Tauxe (2007),
+    doi:10.1016/j.epsl.2007.01.017 documented pronounced nonlinearity near
+    geomagnetic field strengths in some natural materials — silicate-hosted
+    magnetite in particular — which is precisely why good paleointensity practice
+    tests the proportionality rather than assuming it.
   </aside>
 </section>
 
@@ -1915,10 +1980,13 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
       <p style="font-size:0.85em; margin:0.4em 0 0.3em">Integrated over a randomly oriented assemblage:</p>
       <div class="eqbox" style="font-size:0.95em">\(\dfrac{M_{TRM}}{M_s} = \int_0^{90^\circ} \tanh\left(\dfrac{m_o B\cos\theta}{k_B T_b}\right)\cos\theta\,\sin\theta \, d\theta\)</div>
       <ul style="font-size:0.8em; margin-top:0.4em">
-        <li>For small grains in <strong>weak fields</strong> (μT): \(\tanh x \approx x\) →
-        <strong>TRM ∝ B</strong> — the basis of paleointensity</li>
-        <li>Saturation sets in at ~0.2 T and above — lava flows record linearly, but larger
-        grains deviate from linearity even in strong lab fields</li>
+        <li>When \(m(T_b)B \ll k_B T_b\): \(\tanh x \approx x\) →
+        <strong>TRM ∝ B</strong> — assumed or tested by most absolute TRM paleointensity
+        methods</li>
+        <li>Because \(m(T_b) = M_s(T_b)\,v\), the linear range is <strong>grain- and
+        blocking-temperature dependent</strong> — no universal threshold field. Many good
+        recorders stay linear across geomagnetic field strengths; some silicate-hosted
+        magnetite and vortex-state grains do not, even at tens of μT</li>
       </ul>
     </div>
     <div class="narrow">
@@ -1935,7 +2003,12 @@ THIS WIDGET IS A GOOD START BUT NEEDS MORE WORK
     slide — but evaluated at Tb with the full grain moment m = Ms·v, which is
     enormous compared to a single atomic moment: that's why TRM is efficient
     while equilibrium in-field magnetization at room T is feeble. Paleointensity
-    (Maxwell, Wed 7/29) leans entirely on the weak-field linearity.
+    (Maxwell, Wed 7/29) rests on the weak-field proportionality — note that the
+    condition m(T_b)B ≪ k_B T_b is a statement about the <em>grain</em>, not about
+    a particular field value, so where a given specimen departs from linearity
+    depends on its volume, domain state and blocking temperature. Selkin, Gee &amp;
+    Tauxe (2007), doi:10.1016/j.epsl.2007.01.017 found appreciable nonlinearity
+    at geomagnetic field strengths in some natural materials.
   </aside>
 </section>
 
