@@ -23,8 +23,8 @@ in which we work with drill core D-6A through the week.
 | **Thu July 23** · Rm 301-20 | 9:00–12:00 | Magnetic mineralogy | Josh Feinberg |
 | | | Low-temperature magnetism *(breaks interspersed)* | Josh Feinberg |
 | **Fri July 24** · Rm 201-20 | 8:30–9:30 | High-temperature magnetism | Josh Feinberg |
-| | 9:45–10:45 | Magnetic anisotropy of rock samples | Maxwell Brown |
-| | 11:00–12:00 | Magnetic fabrics and petrofabrics | Maxwell Brown |
+| | 9:45–10:45 | [Magnetic anisotropy of rock samples](https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/Lecture_PDFs/SSRM2026_anisotropy.pdf) | Maxwell Brown |
+| | 11:00–12:00 | [Magnetic fabrics and petrofabrics](https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/Lecture_PDFs/SSRM2026_anisotropy.pdf) | Maxwell Brown |
 | **Sat July 25** | 8:00–20:00 | Field trip to the Duluth Complex in Duluth, Minnesota — meet outside Centennial Hall at 8:00 am | |
 | **Sun July 26** | | No summer school | |
 | **Mon July 27** · Rm 401-20 | 9:00–10:15 | Micromagnetic modeling | Yiming Zhang |
