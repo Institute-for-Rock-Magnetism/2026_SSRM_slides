@@ -31,7 +31,7 @@ in which we work with drill core D-6A through the week.
 | | 10:30–11:45 | Magnetic microscopy | Yiming Zhang |
 | **Tue July 28** · Rm 401-20 | 9:00–10:00 | Remanent magnetism of sediments | Josh Feinberg |
 | | 10:15–11:15 | FORCs | Josh Feinberg |
-| **Wed July 29** · Rm 401-20 | 9:00–10:00 | Absolute paleointensity | Maxwell Brown |
+| **Wed July 29** · Rm 401-20 | 9:00–10:00 | [Absolute paleointensity](https://github.com/Institute-for-Rock-Magnetism/2026_SSRM_slides/blob/main/Lecture_PDFs/SSRM2026_paleointensity.pdf) | Maxwell Brown |
 | | 10:15–11:15 | Planetary rock magnetism | Katie Bristol |
 | | 13:00–16:00 | Group presentations | |
 
